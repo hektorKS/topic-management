@@ -1,0 +1,60 @@
+version: '3'
+services:
+#  consul:
+#    image: consul:1.4.2
+#    container_name: consul
+#    restart: always
+#    volumes:
+#      - consul-data:/consul/data
+#    network_mode: "host"
+#    command: "agent -server -ui -bootstrap-expect=1 -client=127.0.0.1 -bind=127.0.0.1 -data-dir /consul/data"
+  mongo:
+    image: mongo:4.2.2
+    container_name: mongo
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
+    network_mode: "host"
+#  frontend:
+#    build: ../frontend
+#    image: frontend
+#    container_name: frontend
+#    restart: always
+#    volumes:
+#      - ./../frontend/dist:/dist
+#    depends_on:
+#      - consul
+#    network_mode: "host"
+  zookeeper:
+    image: zookeeper:3.5.6
+    container_name: zookeeper
+    restart: always
+    volumes:
+      - zookeeper-data:/data
+      - zookeeper-data-log:/datalog
+      - zookeeper-log:/logs
+    environment:
+      zk_id: "1"
+    network_mode: "host"
+  kafka:
+    image: wurstmeister/kafka:2.12-2.4.0
+    container_name: kafka
+    restart: always
+    volumes:
+      - kafka-data:/kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: "127.0.0.1:2181"
+    network_mode: "host"
+volumes:
+#  consul-data:
+  mongo-data:
+  mongo-config:
+  zookeeper-data:
+  zookeeper-data-log:
+  zookeeper-log:
+  kafka-data:
