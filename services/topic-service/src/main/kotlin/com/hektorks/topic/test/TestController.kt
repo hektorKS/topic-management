@@ -21,5 +21,4 @@ class TestController {
     return ResponseEntity.ok().body("Hello world")
   }
 
-
 }
