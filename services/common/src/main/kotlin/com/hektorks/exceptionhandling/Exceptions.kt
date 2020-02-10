@@ -12,11 +12,11 @@ class BadRequestException private constructor(internal val errors: List<FieldVal
   companion object {
     fun fromContextErrors(errors: Errors): BadRequestException {
       return BadRequestException(
-        errors
-          .fieldErrors
-          .stream()
-          .map { fieldError -> FieldValidationError(fieldError.field, fieldError.defaultMessage) }
-          .collect(Collectors.toList())
+              errors
+                      .fieldErrors
+                      .stream()
+                      .map { fieldError -> FieldValidationError(fieldError.field, fieldError.defaultMessage) }
+                      .collect(Collectors.toList())
       )
     }
   }
