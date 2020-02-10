@@ -9,17 +9,17 @@ class FieldValidationError(internal val field: String, internal val message: Str
 
 // Status code 400
 class BadRequestException private constructor(internal val errors: List<FieldValidationError>): RuntimeException() {
-  companion object {
-    fun fromContextErrors(errors: Errors): BadRequestException {
-      return BadRequestException(
-              errors
-                      .fieldErrors
-                      .stream()
-                      .map { fieldError -> FieldValidationError(fieldError.field, fieldError.defaultMessage) }
-                      .collect(Collectors.toList())
-      )
-    }
-  }
+	companion object {
+		fun fromContextErrors(errors: Errors): BadRequestException {
+			return BadRequestException(
+					errors
+							.fieldErrors
+							.stream()
+							.map { fieldError -> FieldValidationError(fieldError.field, fieldError.defaultMessage) }
+							.collect(Collectors.toList())
+			)
+		}
+	}
 }
 
 // Status code 404
