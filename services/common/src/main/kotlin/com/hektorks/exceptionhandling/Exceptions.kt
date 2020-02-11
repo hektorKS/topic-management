@@ -1,18 +1,18 @@
 package com.hektorks.exceptionhandling
 
-import org.springframework.validation.Errors
+import org.springframework.validation.BindingResult
 import java.util.stream.Collectors
 
 class RepositoryException(cause: Throwable): RuntimeException(cause)
 
-class FieldValidationError(internal val field: String, internal val message: String?)
+data class FieldValidationError(internal val field: String, internal val message: String?)
 
 // Status code 400
 class BadRequestException private constructor(internal val errors: List<FieldValidationError>): RuntimeException() {
 	companion object {
-		fun fromContextErrors(errors: Errors): BadRequestException {
+		fun fromBindingResult(bindingResult: BindingResult): BadRequestException {
 			return BadRequestException(
-					errors
+					bindingResult
 							.fieldErrors
 							.stream()
 							.map { fieldError -> FieldValidationError(fieldError.field, fieldError.defaultMessage) }
@@ -26,8 +26,8 @@ class BadRequestException private constructor(internal val errors: List<FieldVal
 class ResourceNotFoundException: RuntimeException()
 
 // Status code 422
-class BusinessValidationException(message: String?, internal val field: String): RuntimeException(message)
+class BusinessValidationException(internal val errors: List<FieldValidationError>): RuntimeException()
 
 // Status code 500
 // We do not want to expose internal exception from API
-class ControllerException(override val message: String, cause: Throwable): RuntimeException(message, cause)
+class CommandException(override val message: String, cause: Throwable): RuntimeException(message, cause)
