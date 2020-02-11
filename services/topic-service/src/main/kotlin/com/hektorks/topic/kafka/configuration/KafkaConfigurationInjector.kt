@@ -26,7 +26,7 @@ class KafkaConfigurationInjector {
 	fun kafkaAdmin(kafkaConfig: KafkaConfig): KafkaAdmin {
 		return KafkaAdmin(mapOf(
 				AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaConfig.bootstrapAddress
-		));
+		))
 	}
 
 	@Bean

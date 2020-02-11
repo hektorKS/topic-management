@@ -42,7 +42,7 @@ class ExceptionHandler {
 
   @ExceptionHandler(value = [Exception::class, RuntimeException::class])
   fun handleException(exception: Exception): Nothing {
-    throw CommandException("Operation failed!", exception);
+    throw CommandException("Operation failed!", exception)
   }
 
   @ExceptionHandler(value = [MethodArgumentNotValidException::class])
