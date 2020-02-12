@@ -1,4 +1,4 @@
-package com.hektorks.topic.kafka
+package com.hektorks.topic.kafka.topic
 
 import com.hektorks.kafka.TopicMessageType
 import com.hektorks.kafka.topics.SystemTopics
@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.kafka.core.KafkaTemplate
 
 
-class TopicKafkaServiceImpl(private val kafkaTemplate: KafkaTemplate<String, Any>): TopicKafkaService {
+class KafkaTopicServiceImpl(private val kafkaTemplate: KafkaTemplate<String, Any>): KafkaTopicService {
   private val log = LoggerFactory.getLogger(javaClass)
 
   companion object {

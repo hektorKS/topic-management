@@ -30,8 +30,13 @@ class KafkaConfigurationInjector {
   }
 
   @Bean
-  fun topicTopic(): NewTopic {
-    return NewTopic("topic", 5, 1)
+  fun createTopics(kafkaConfig: KafkaConfig): List<NewTopic> {
+    // TODO Check if this always creates new topic - fine for now(if yes)
+    return kafkaConfig.topics.asSequence()
+        .map {
+          NewTopic(it.name, it.partitionsNumber, it.replicationFactor)
+        }
+        .toList()
   }
 
   @Bean
@@ -47,10 +52,10 @@ class KafkaConfigurationInjector {
   fun consumerFactory(kafkaConfig: KafkaConfig): ConsumerFactory<String, Any> {
     return DefaultKafkaConsumerFactory(mapOf(
         ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaConfig.bootstrapAddress,
-        ConsumerConfig.GROUP_ID_CONFIG to kafkaConfig.groupId,
-        ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG to kafkaConfig.enableAutoCommit,
-        ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG to kafkaConfig.autoCommitIntervalMs,
-        ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG to kafkaConfig.sessionTimeoutMs,
+        ConsumerConfig.GROUP_ID_CONFIG to kafkaConfig.consumer.groupId,
+        ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG to kafkaConfig.consumer.enableAutoCommit,
+        ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG to kafkaConfig.consumer.autoCommitIntervalMs,
+        ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG to kafkaConfig.consumer.sessionTimeoutMs,
         ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
         ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java
     ))

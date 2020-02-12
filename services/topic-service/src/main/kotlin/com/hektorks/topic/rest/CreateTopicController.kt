@@ -1,5 +1,6 @@
-package com.hektorks.topic.actions.create
+package com.hektorks.topic.rest
 
+import com.hektorks.topic.businesslogic.commands.CreateTopicCommand
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -8,21 +9,16 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 import javax.validation.Valid
-import javax.validation.constraints.NotEmpty
 
 data class CreateTopicRequest(
-    @NotEmpty(message = "Not empty field 'bucketId' is required")
     val bucketId: UUID,
-    @NotEmpty(message = "Not empty field 'title' is required")
     val title: String,
-    @NotEmpty(message = "Not empty field 'description' is required")
     val description: String,
     val students: List<UUID>?,
-    @NotEmpty(message = "Not empty field 'supervisor' is required")
     val supervisor: UUID
 )
 
-data class CreateTopicResponse(private val id: UUID)
+data class CreateTopicResponse(val id: UUID)
 
 @ResponseBody
 @RestController

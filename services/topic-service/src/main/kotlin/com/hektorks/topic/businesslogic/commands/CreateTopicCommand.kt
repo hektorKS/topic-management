@@ -1,20 +1,23 @@
-package com.hektorks.topic.actions.create
+package com.hektorks.topic.businesslogic.commands
 
 import com.hektorks.model.topic.Topic
-import com.hektorks.topic.kafka.TopicKafkaService
-import com.hektorks.topic.repository.TopicService
-import com.hektorks.topic.validation.TopicValidator
+import com.hektorks.topic.businesslogic.validation.TopicValidator
+import com.hektorks.topic.kafka.topic.KafkaTopicService
+import com.hektorks.topic.repository.topic.TopicRepository
+import com.hektorks.topic.rest.CreateTopicRequest
 import org.slf4j.LoggerFactory
+import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 
-class CreateTopicCommand(private val topicValidator: TopicValidator,
-                         private val topicService: TopicService,
-                         private val topicKafkaService: TopicKafkaService
-) {
+open class CreateTopicCommand(private val topicValidator: TopicValidator,
+                              private val topicRepository: TopicRepository,
+                              private val kafkaTopicService: KafkaTopicService) {
   private val log = LoggerFactory.getLogger(javaClass)
 
-  fun execute(createTopicRequest: CreateTopicRequest): UUID {
+  // TODO configure properly transactions for MongoDB
+  @Transactional
+  open fun execute(createTopicRequest: CreateTopicRequest): UUID {
     try {
       return executeCommand(createTopicRequest)
     } catch(exception: Exception) {
@@ -37,10 +40,10 @@ class CreateTopicCommand(private val topicValidator: TopicValidator,
     topicValidator.validate(topic)
 
     log.debug("Creating topic [$topic] in database")
-    topicService.createTopic(topic)
+    topicRepository.createTopic(topic)
 
     log.debug("Sending notification about topic [$topic] to kafka")
-    topicKafkaService.topicCreated(topic)
+    kafkaTopicService.topicCreated(topic)
 
     return topic.id
   }

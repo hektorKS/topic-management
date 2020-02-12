@@ -51,3 +51,15 @@ internal object BadRequestExceptionMapper {
         .toList()
   }
 }
+
+internal object SimpleMessageMapper {
+  private const val STATUS = "status"
+  private const val MESSAGE = "message"
+
+  fun toMap(message: String, status: HttpStatus): Map<String, Any> {
+    return mapOf(
+        STATUS to status.value(),
+        MESSAGE to message
+    )
+  }
+}

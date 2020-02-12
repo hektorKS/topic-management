@@ -1,4 +1,4 @@
-package com.hektorks.topic.validation
+package com.hektorks.topic.businesslogic.validation
 
 import com.hektorks.model.topic.Topic
 

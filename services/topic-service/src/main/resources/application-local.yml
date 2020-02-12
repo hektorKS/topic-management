@@ -1,3 +1,13 @@
+server:
+  port : 9700
+mongodb:
+  address: "mongodb://localhost:27017"
+  databaseName: "topic"
 kafka:
   bootstrapAddress: "localhost:9092"
-  groupId: "test-group"
+  consumer:
+    groupId: "test-group"
+  topics:
+    - name: "topic"
+      partitionsNumber: 5
+      replicationFactor: 1

@@ -8,7 +8,7 @@ class RepositoryException(cause: Throwable): RuntimeException(cause)
 data class FieldValidationError(internal val field: String, internal val message: String?)
 
 // Status code 400
-class BadRequestException private constructor(internal val errors: List<FieldValidationError>): RuntimeException() {
+class BadRequestException constructor(internal val errors: List<FieldValidationError>): RuntimeException() {
   companion object {
     fun fromBindingResult(bindingResult: BindingResult): BadRequestException {
       return BadRequestException(

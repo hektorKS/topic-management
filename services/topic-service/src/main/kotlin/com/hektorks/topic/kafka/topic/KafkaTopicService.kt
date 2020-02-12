@@ -1,7 +1,7 @@
-package com.hektorks.topic.kafka
+package com.hektorks.topic.kafka.topic
 
 import com.hektorks.model.topic.Topic
 
-interface TopicKafkaService {
+interface KafkaTopicService {
   fun topicCreated(topic: Topic)
 }
