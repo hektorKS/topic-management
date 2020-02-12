@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class MongoRepositoriesInjector {
 
-	@Bean
-	fun topicService(): TopicService {
-		return TopicMongoService()
-	}
+  @Bean
+  fun topicService(): TopicService {
+    return TopicMongoService()
+  }
 }

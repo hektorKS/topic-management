@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class ValidatorsInjector {
 
-	@Bean
-	fun topicValidator(): TopicValidator {
-		return TopicValidator()
-	}
+  @Bean
+  fun topicValidator(): TopicValidator {
+    return TopicValidator()
+  }
 }

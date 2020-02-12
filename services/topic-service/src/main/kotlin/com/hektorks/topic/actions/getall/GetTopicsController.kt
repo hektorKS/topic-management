@@ -14,10 +14,10 @@ data class GetTopicsResponse(private val topics: List<Topic>)
 @RequestMapping("/v1")
 class GetTopicsController {
 
-	@GetMapping("/topics")
-	fun getTopics(): ResponseEntity<GetTopicsResponse> {
-		// TODO Finish endpoint
-		return ResponseEntity.ok().body(GetTopicsResponse(emptyList()))
-	}
+  @GetMapping("/topics")
+  fun getTopics(): ResponseEntity<GetTopicsResponse> {
+    // TODO Finish endpoint
+    return ResponseEntity.ok().body(GetTopicsResponse(emptyList()))
+  }
 
 }

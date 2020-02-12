@@ -9,5 +9,5 @@ import org.springframework.boot.runApplication
 class TopicServiceApplication
 
 fun main(args: Array<String>) {
-	runApplication<TopicServiceApplication>(*args)
+  runApplication<TopicServiceApplication>(*args)
 }

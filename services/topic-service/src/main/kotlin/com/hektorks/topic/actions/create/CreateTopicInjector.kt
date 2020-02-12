@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class CreateTopicInjector {
 
-	@Bean
-	fun createTopicCommand(
-			topicValidator: TopicValidator,
-			topicService: TopicService,
-			topicKafkaService: TopicKafkaService
-	): CreateTopicCommand {
-		return CreateTopicCommand(topicValidator, topicService, topicKafkaService)
-	}
+  @Bean
+  fun createTopicCommand(
+      topicValidator: TopicValidator,
+      topicService: TopicService,
+      topicKafkaService: TopicKafkaService
+  ): CreateTopicCommand {
+    return CreateTopicCommand(topicValidator, topicService, topicKafkaService)
+  }
 
 }

@@ -11,15 +11,15 @@ import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 
 data class CreateTopicRequest(
-		@NotEmpty(message = "Not empty field 'bucketId' is required")
-		val bucketId: UUID,
-		@NotEmpty(message = "Not empty field 'title' is required")
-		val title: String,
-		@NotEmpty(message = "Not empty field 'description' is required")
-		val description: String,
-		val students: List<UUID>?,
-		@NotEmpty(message = "Not empty field 'supervisor' is required")
-		val supervisor: UUID
+    @NotEmpty(message = "Not empty field 'bucketId' is required")
+    val bucketId: UUID,
+    @NotEmpty(message = "Not empty field 'title' is required")
+    val title: String,
+    @NotEmpty(message = "Not empty field 'description' is required")
+    val description: String,
+    val students: List<UUID>?,
+    @NotEmpty(message = "Not empty field 'supervisor' is required")
+    val supervisor: UUID
 )
 
 data class CreateTopicResponse(private val id: UUID)
@@ -29,10 +29,10 @@ data class CreateTopicResponse(private val id: UUID)
 @RequestMapping("/v1")
 class CreateTopicController(private val crateTopicCommand: CreateTopicCommand) {
 
-	@PostMapping("/topic")
-	fun postTopic(@Valid @RequestBody createTopicRequest: CreateTopicRequest): ResponseEntity<CreateTopicResponse> {
-		val topicId = crateTopicCommand.execute(createTopicRequest)
-		return ResponseEntity.ok().body(CreateTopicResponse(topicId))
-	}
+  @PostMapping("/topic")
+  fun postTopic(@Valid @RequestBody createTopicRequest: CreateTopicRequest): ResponseEntity<CreateTopicResponse> {
+    val topicId = crateTopicCommand.execute(createTopicRequest)
+    return ResponseEntity.ok().body(CreateTopicResponse(topicId))
+  }
 
 }

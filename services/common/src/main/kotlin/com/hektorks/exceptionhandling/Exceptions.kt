@@ -9,17 +9,17 @@ data class FieldValidationError(internal val field: String, internal val message
 
 // Status code 400
 class BadRequestException private constructor(internal val errors: List<FieldValidationError>): RuntimeException() {
-	companion object {
-		fun fromBindingResult(bindingResult: BindingResult): BadRequestException {
-			return BadRequestException(
-					bindingResult
-							.fieldErrors
-							.stream()
-							.map { fieldError -> FieldValidationError(fieldError.field, fieldError.defaultMessage) }
-							.collect(Collectors.toList())
-			)
-		}
-	}
+  companion object {
+    fun fromBindingResult(bindingResult: BindingResult): BadRequestException {
+      return BadRequestException(
+          bindingResult
+              .fieldErrors
+              .stream()
+              .map { fieldError -> FieldValidationError(fieldError.field, fieldError.defaultMessage) }
+              .collect(Collectors.toList())
+      )
+    }
+  }
 }
 
 // Status code 404
