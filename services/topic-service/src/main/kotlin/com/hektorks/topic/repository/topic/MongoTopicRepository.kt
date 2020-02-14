@@ -4,6 +4,7 @@ import com.hektorks.exceptionhandling.RepositoryException
 import com.hektorks.model.topic.Topic
 import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.core.MongoTemplate
+import java.util.UUID
 
 class MongoTopicRepository(private val mongoTemplate: MongoTemplate): TopicRepository {
   private val log = LoggerFactory.getLogger(javaClass)
@@ -12,7 +13,16 @@ class MongoTopicRepository(private val mongoTemplate: MongoTemplate): TopicRepos
     private const val COLLECTION_NAME = "topics"
   }
 
-  override fun getAllTopics(): List<Topic> {
+  override fun create(topic: Topic) {
+    try {
+      mongoTemplate.save(topic, COLLECTION_NAME)
+    } catch(exception: Exception) {
+      log.error("Saving topic $topic in mongo failed with exception: $exception!")
+      throw RepositoryException(exception)
+    }
+  }
+
+  override fun getAll(): List<Topic> {
     try {
       return mongoTemplate.findAll(Topic::class.java, COLLECTION_NAME)
     } catch(exception: Exception) {
@@ -21,13 +31,14 @@ class MongoTopicRepository(private val mongoTemplate: MongoTemplate): TopicRepos
     }
   }
 
-  override fun createTopic(topic: Topic) {
+  override fun getById(topicId: UUID): Topic? {
     try {
-      mongoTemplate.save(topic, COLLECTION_NAME)
+      return mongoTemplate.findById(topicId, Topic::class.java, COLLECTION_NAME)
     } catch(exception: Exception) {
-      log.error("Saving topic $topic in mongo failed with exception: $exception!")
+      log.error("Getting topic with id $topicId from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }
+
 
 }

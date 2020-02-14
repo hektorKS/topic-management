@@ -23,4 +23,9 @@ class CommandsInjector {
     return GetTopicsCommand(topicRepository)
   }
 
+  @Bean
+  fun getTopicCommand(topicRepository: TopicRepository): GetTopicCommand {
+    return GetTopicCommand(topicRepository);
+  }
+
 }

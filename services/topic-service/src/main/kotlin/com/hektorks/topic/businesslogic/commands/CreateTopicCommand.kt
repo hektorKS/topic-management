@@ -40,7 +40,7 @@ open class CreateTopicCommand(private val topicValidator: TopicValidator,
     topicValidator.validate(topic)
 
     log.debug("Creating topic [$topic] in database")
-    topicRepository.createTopic(topic)
+    topicRepository.create(topic)
 
     log.debug("Sending notification about topic [$topic] to kafka")
     kafkaTopicService.topicCreated(topic)

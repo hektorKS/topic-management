@@ -11,13 +11,13 @@ class GetTopicsCommand(private val topicRepository: TopicRepository) {
     try {
       return executeCommand()
     } catch(exception: Exception) {
-      log.error("Getting topics failed.")
+      log.error("Getting topics failed")
       throw exception
     }
   }
 
   private fun executeCommand(): List<Topic> {
-    return topicRepository.getAllTopics()
+    return topicRepository.getAll()
   }
 
 }
