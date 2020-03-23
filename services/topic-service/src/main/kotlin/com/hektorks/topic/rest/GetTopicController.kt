@@ -20,7 +20,7 @@ class GetTopicController(private val getTopicCommand: GetTopicCommand) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @GetMapping("/topic/{id}")
-  fun getTopics(@PathVariable("id") topicId: UUID): ResponseEntity<GetTopicResponse> {
+  fun getTopicById(@PathVariable("id") topicId: UUID): ResponseEntity<GetTopicResponse> {
     val topic = getTopicCommand.execute(topicId)
     log.debug("Topic found: $topic")
     return ResponseEntity.ok().body(GetTopicResponse(topic))

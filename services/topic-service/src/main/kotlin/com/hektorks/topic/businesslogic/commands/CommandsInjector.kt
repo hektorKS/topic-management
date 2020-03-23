@@ -28,4 +28,9 @@ class CommandsInjector {
     return GetTopicCommand(topicRepository);
   }
 
+  @Bean
+  fun deleteTopicCommand(topicRepository: TopicRepository, kafkaTopicService: KafkaTopicService): DeleteTopicCommand {
+    return DeleteTopicCommand(topicRepository, kafkaTopicService);
+  }
+
 }

@@ -1,10 +1,30 @@
 package com.hektorks.topic.businesslogic.validation
 
+import com.hektorks.exceptionhandling.BusinessValidationException
+import com.hektorks.exceptionhandling.FieldValidationError
 import com.hektorks.model.topic.Topic
+import com.hektorks.validation.StringValidator
 
 class TopicValidator {
 
+  companion object {
+    private const val TITLE: String = "title"
+    private const val TITLE_MIN_LENGTH = 5
+    private const val TITLE_MAX_LENGTH = 100
+
+    private const val DESCRIPTION: String = "description"
+    private const val DESCRIPTION_MAX_LENGTH = 2000
+  }
+
   fun validate(topic: Topic) {
+    val errors: MutableList<FieldValidationError> = mutableListOf()
+    StringValidator.minLength(TITLE, topic.title, TITLE_MIN_LENGTH)?.let { errors.add(it) }
+    StringValidator.maxLength(TITLE, topic.title, TITLE_MAX_LENGTH)?.let { errors.add(it) }
+    StringValidator.maxLength(DESCRIPTION, topic.description, DESCRIPTION_MAX_LENGTH)?.let { errors.add(it) }
+    if(errors.isNotEmpty()) {
+      throw BusinessValidationException(errors)
+    }
+
     print(topic)
     // TODO VALIDATIONS Check if bucket exists
     // TODO VALIDATIONS Check if supervisor exists

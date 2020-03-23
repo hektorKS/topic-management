@@ -35,16 +35,9 @@ open class CreateTopicCommand(private val topicValidator: TopicValidator,
         createTopicRequest.supervisor,
         createTopicRequest.students ?: emptyList()
     )
-
-    log.debug("Validating topic [$topic]")
     topicValidator.validate(topic)
-
-    log.debug("Creating topic [$topic] in database")
     topicRepository.create(topic)
-
-    log.debug("Sending notification about topic [$topic] to kafka")
     kafkaTopicService.topicCreated(topic)
-
     return topic.id
   }
 
