@@ -1,7 +1,7 @@
 package com.hektorks.topic.kafka.topic
 
-import com.hektorks.kafka.TopicMessageType
-import com.hektorks.kafka.topics.SystemTopics
+import com.hektorks.kafka.topic.TopicMessageType
+import com.hektorks.kafka.SystemTopics
 import com.hektorks.model.topic.Topic
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.core.KafkaTemplate

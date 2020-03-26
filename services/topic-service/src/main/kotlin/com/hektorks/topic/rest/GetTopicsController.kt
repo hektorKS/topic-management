@@ -1,7 +1,7 @@
 package com.hektorks.topic.rest
 
 import com.hektorks.model.topic.Topic
-import com.hektorks.topic.businesslogic.commands.GetTopicsCommand
+import com.hektorks.topic.businesslogic.command.GetTopicsCommand
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

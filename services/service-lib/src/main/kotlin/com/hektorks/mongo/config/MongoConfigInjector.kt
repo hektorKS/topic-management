@@ -1,6 +1,7 @@
-package com.hektorks.topic.repository.configuration
+package com.hektorks.mongo.config
 
 import com.mongodb.ConnectionString
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.mongodb.MongoDbFactory
@@ -10,10 +11,11 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory
 
 
 @Configuration
-class MongoConfigurationInjector(private val mongoConfig: MongoConfig) {
+@EnableConfigurationProperties(MongoConfig::class)
+class MongoConfigInjector {
 
   @Bean
-  fun mongoDbFactory(): MongoDbFactory {
+  fun mongoDbFactory(mongoConfig: MongoConfig): MongoDbFactory {
     return SimpleMongoClientDbFactory(ConnectionString("${mongoConfig.address}/${mongoConfig.databaseName}"))
   }
 

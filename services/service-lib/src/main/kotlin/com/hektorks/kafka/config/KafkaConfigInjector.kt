@@ -1,4 +1,4 @@
-package com.hektorks.topic.kafka.configuration
+package com.hektorks.kafka.config
 
 import org.apache.kafka.clients.admin.AdminClient
 import org.apache.kafka.clients.admin.AdminClientConfig
@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory
@@ -21,7 +22,8 @@ import org.springframework.kafka.support.serializer.JsonSerializer
 
 
 @Configuration
-class KafkaConfigurationInjector {
+@EnableConfigurationProperties(KafkaConfig::class)
+class KafkaConfigInjector {
 
   @Bean
   fun kafkaAdmin(kafkaConfig: KafkaConfig): KafkaAdmin {

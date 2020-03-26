@@ -1,4 +1,4 @@
-package com.hektorks.topic.businesslogic.commands
+package com.hektorks.topic.businesslogic.command
 
 import com.hektorks.model.topic.Topic
 import com.hektorks.topic.repository.topic.TopicRepository

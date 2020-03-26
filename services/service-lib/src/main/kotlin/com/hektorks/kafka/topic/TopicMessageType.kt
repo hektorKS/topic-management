@@ -1,4 +1,4 @@
-package com.hektorks.kafka
+package com.hektorks.kafka.topic
 
 enum class TopicMessageType {
   TOPIC_CREATED,

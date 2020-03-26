@@ -1,4 +1,4 @@
-package com.hektorks.topic.repository.configuration
+package com.hektorks.mongo.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

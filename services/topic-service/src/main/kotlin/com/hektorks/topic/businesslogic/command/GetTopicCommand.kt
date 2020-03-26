@@ -1,4 +1,4 @@
-package com.hektorks.topic.businesslogic.commands
+package com.hektorks.topic.businesslogic.command
 
 import com.hektorks.exceptionhandling.ResourceNotFoundException
 import com.hektorks.model.topic.Topic

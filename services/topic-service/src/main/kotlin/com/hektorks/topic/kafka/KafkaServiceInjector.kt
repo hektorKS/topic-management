@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.core.KafkaTemplate
 
 @Configuration
-class KafkaServicesInjector {
+class KafkaServiceInjector {
 
   @Bean
   fun topicKafkaService(kafkaTemplate: KafkaTemplate<String, Any>): KafkaTopicService {

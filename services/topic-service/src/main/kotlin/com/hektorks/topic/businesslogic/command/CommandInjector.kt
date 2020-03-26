@@ -1,4 +1,4 @@
-package com.hektorks.topic.businesslogic.commands
+package com.hektorks.topic.businesslogic.command
 
 import com.hektorks.topic.businesslogic.validation.TopicValidator
 import com.hektorks.topic.kafka.topic.KafkaTopicService
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class CommandsInjector {
+class CommandInjector {
 
   @Bean
   fun createTopicCommand(

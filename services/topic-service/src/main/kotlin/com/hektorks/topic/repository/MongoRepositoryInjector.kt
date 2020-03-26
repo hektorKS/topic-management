@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.mongodb.core.MongoTemplate
 
 @Configuration
-class MongoRepositoriesInjector {
+class MongoRepositoryInjector {
 
   @Bean
   fun topicService(mongoTemplate: MongoTemplate): TopicRepository {

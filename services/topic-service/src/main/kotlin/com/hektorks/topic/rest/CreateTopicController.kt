@@ -1,6 +1,6 @@
 package com.hektorks.topic.rest
 
-import com.hektorks.topic.businesslogic.commands.CreateTopicCommand
+import com.hektorks.topic.businesslogic.command.CreateTopicCommand
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
