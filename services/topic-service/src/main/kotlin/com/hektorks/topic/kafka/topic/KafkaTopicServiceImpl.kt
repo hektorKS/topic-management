@@ -40,7 +40,7 @@ class KafkaTopicServiceImpl(private val kafkaTemplate: KafkaTemplate<String, Any
     kafkaTemplate.send(topic, message).addCallback({
       log.info("Sent message [$message] with offset [${it?.recordMetadata?.offset()}] to topic [$topic]]")
     }, {
-      log.error("Unable to send message [$message] due to error [${it.message}]")
+      log.error("Unable to send message [$message] due to error [$it]")
       throw it
     }
     )

@@ -1,13 +1,29 @@
 version: '3'
 services:
-  mongo:
+  mongo-node1:
     image: mongo:4.2.2
-    container_name: mongo
+    container_name: mongo-node1
+    command: mongod --replSet replicaSet1
     restart: always
     volumes:
-      - mongo-data:/data/db
-      - mongo-config:/data/configdb
-    network_mode: "host"
+      - mongo-data-node1:/data/db
+      - mongo-config-node1:/data/configdb
+    networks:
+      - mongo-cluster
+    ports:
+      - 27017:27017
+  mongo-node2:
+    image: mongo:4.2.2
+    container_name: mongo-node2
+    command: mongod --replSet replicaSet1
+    restart: always
+    volumes:
+      - mongo-data-node2:/data/db
+      - mongo-config-node2:/data/configdb
+    networks:
+      - mongo-cluster
+    ports:
+      - 27018:27017
   zookeeper:
     image: zookeeper:3.5.6
     container_name: zookeeper
@@ -33,9 +49,13 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "127.0.0.1:2181"
     network_mode: "host"
 volumes:
-  mongo-data:
-  mongo-config:
+  mongo-data-node1:
+  mongo-config-node1:
+  mongo-data-node2:
+  mongo-config-node2:
   zookeeper-data:
   zookeeper-data-log:
   zookeeper-log:
   kafka-data:
+networks:
+  mongo-cluster:

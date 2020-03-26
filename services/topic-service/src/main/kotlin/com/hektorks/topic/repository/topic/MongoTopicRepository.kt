@@ -14,6 +14,7 @@ class MongoTopicRepository(private val mongoTemplate: MongoTemplate): TopicRepos
   private val log = LoggerFactory.getLogger(javaClass)
 
   private companion object {
+    private const val ID = "_id"
     private const val COLLECTION_NAME = "topics"
   }
 
@@ -47,7 +48,7 @@ class MongoTopicRepository(private val mongoTemplate: MongoTemplate): TopicRepos
   override fun delete(topicId: UUID): DeleteResult {
     try {
       val query = Query()
-      query.addCriteria(Criteria.where("id").isEqualTo(topicId))
+      query.addCriteria(Criteria.where(ID).isEqualTo(topicId))
       return mongoTemplate.remove(query, COLLECTION_NAME)
     } catch(exception: Exception) {
       log.error("Getting topic with id $topicId from mongo failed with exception: $exception!")

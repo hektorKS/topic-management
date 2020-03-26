@@ -11,7 +11,7 @@ class GetTopicsCommand(private val topicRepository: TopicRepository) {
     try {
       return executeCommand()
     } catch(exception: Exception) {
-      log.error("Getting topics failed")
+      log.error("Getting topics failed! Exception: $exception")
       throw exception
     }
   }

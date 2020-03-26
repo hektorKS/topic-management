@@ -15,8 +15,10 @@ open class DeleteTopicCommand(private val topicRepository: TopicRepository,
   open fun execute(topicId: UUID) {
     try {
       return executeCommand(topicId)
+    } catch(exception: ResourceNotFoundException) {
+      throw exception
     } catch(exception: Exception) {
-      log.error("Deleting topic with id [$topicId] failed!")
+      log.error("Deleting topic with id [$topicId] failed! Exception: $exception")
       throw exception
     }
   }

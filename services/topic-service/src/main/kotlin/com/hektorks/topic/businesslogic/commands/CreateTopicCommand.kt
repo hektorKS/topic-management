@@ -15,13 +15,12 @@ open class CreateTopicCommand(private val topicValidator: TopicValidator,
                               private val kafkaTopicService: KafkaTopicService) {
   private val log = LoggerFactory.getLogger(javaClass)
 
-  // TODO configure properly transactions for MongoDB
   @Transactional
   open fun execute(createTopicRequest: CreateTopicRequest): UUID {
     try {
       return executeCommand(createTopicRequest)
     } catch(exception: Exception) {
-      log.error("Creating topic [$createTopicRequest] failed!")
+      log.error("Creating topic [$createTopicRequest] failed! Exception: $exception")
       throw exception
     }
   }

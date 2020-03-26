@@ -1,8 +1,8 @@
 mongodb:
-  address: "mongodb://localhost:27017"
+  address: "mongodb://mongo-node1:27017,mongo-node2:27017"
   databaseName: "topic"
 kafka:
-  bootstrapAddress: "localhost:9092"
+  bootstrapAddress: "kafka:9092"
   consumer:
     groupId: "test-group"
   topics:

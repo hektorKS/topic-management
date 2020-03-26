@@ -1,5 +1,6 @@
 package com.hektorks.topic.kafka.configuration
 
+import org.apache.kafka.clients.admin.AdminClient
 import org.apache.kafka.clients.admin.AdminClientConfig
 import org.apache.kafka.clients.admin.NewTopic
 import org.apache.kafka.clients.consumer.ConsumerConfig
@@ -30,13 +31,23 @@ class KafkaConfigurationInjector {
   }
 
   @Bean
-  fun createTopics(kafkaConfig: KafkaConfig): List<NewTopic> {
-    // TODO Check if this always creates new topic - fine for now(if yes)
-    return kafkaConfig.topics.asSequence()
-        .map {
-          NewTopic(it.name, it.partitionsNumber, it.replicationFactor)
-        }
-        .toList()
+  fun adminClient(kafkaAdmin: KafkaAdmin): AdminClient {
+    return AdminClient.create(kafkaAdmin.config)
+  }
+
+  @Bean
+  fun createTopics(kafkaConfig: KafkaConfig, kafkaAdmin: KafkaAdmin): List<NewTopic> {
+    AdminClient.create(kafkaAdmin.config).use { adminClient ->
+      val currentTopicsSet = adminClient.listTopics().names().get()
+      return kafkaConfig.topics.asSequence()
+          .filterNot {
+            return@filterNot currentTopicsSet.contains(it.name)
+          }
+          .map {
+            NewTopic(it.name, it.partitionsNumber, it.replicationFactor)
+          }
+          .toList()
+    }
   }
 
   @Bean
