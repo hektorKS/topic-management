@@ -21,7 +21,7 @@ class GetTopicController(private val getTopicCommand: GetTopicCommand) {
   @GetMapping("/topics/{id}")
   fun getTopicById(@PathVariable("id") topicId: UUID): ResponseEntity<GetTopicResponse> {
     val topic = getTopicCommand.execute(topicId)
-    log.debug("Topic found: $topic")
+    log.info("Topic found: $topic")
     return ResponseEntity.ok().body(GetTopicResponse(topic))
   }
 

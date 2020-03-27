@@ -19,7 +19,7 @@ class GetTopicsController(private val getTopicsCommand: GetTopicsCommand) {
   @GetMapping("/topics")
   fun getTopics(): ResponseEntity<GetTopicsResponse> {
     val topics = getTopicsCommand.execute()
-    log.debug("Topics found: $topics")
+    log.info("Topics found: $topics")
     return ResponseEntity.ok().body(GetTopicsResponse(topics))
   }
 

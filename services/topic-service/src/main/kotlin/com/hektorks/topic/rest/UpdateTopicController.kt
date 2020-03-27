@@ -26,7 +26,7 @@ class UpdateTopicController(private val updateTopicCommand: UpdateTopicCommand) 
   @PatchMapping("/topics/{id}")
   fun updateTopic(@RequestBody updateTopicRequest: UpdateTopicRequest, @PathVariable("id") topicId: UUID): ResponseEntity<Unit> {
     updateTopicCommand.execute(topicId, updateTopicRequest)
-    log.debug("Updated topic with id=${topicId}")
+    log.info("Updated topic with id=${topicId}")
     return ResponseEntity.noContent().build()
   }
 

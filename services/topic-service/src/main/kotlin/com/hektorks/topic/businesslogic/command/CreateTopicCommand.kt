@@ -14,8 +14,8 @@ import java.util.UUID
 @Lazy
 @Service
 class CreateTopicCommand(private val topicValidator: TopicValidator,
-                              private val topicRepository: TopicRepository,
-                              private val kafkaTopicService: KafkaTopicService) {
+                         private val topicRepository: TopicRepository,
+                         private val kafkaTopicService: KafkaTopicService) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @Transactional

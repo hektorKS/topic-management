@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.query.Update
 import org.springframework.data.mongodb.core.query.isEqualTo
 import java.util.UUID
 
-class MongoTopicRepository(private val mongoTemplate: MongoTemplate): TopicRepository {
+class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepository {
   private val log = LoggerFactory.getLogger(javaClass)
 
   private companion object {

@@ -28,7 +28,7 @@ class CreateTopicController(private val crateTopicCommand: CreateTopicCommand) {
   @PostMapping("/topics")
   fun createTopic(@RequestBody createTopicRequest: CreateTopicRequest): ResponseEntity<CreateTopicResponse> {
     val topicId = crateTopicCommand.execute(createTopicRequest)
-    log.debug("Created topic with id=$topicId")
+    log.info("Created topic with id=$topicId")
     return ResponseEntity.ok().body(CreateTopicResponse(topicId))
   }
 

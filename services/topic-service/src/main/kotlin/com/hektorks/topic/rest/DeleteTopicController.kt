@@ -20,7 +20,7 @@ class DeleteTopicController(private val deleteTopicCommand: DeleteTopicCommand) 
   @DeleteMapping("/topics/{id}")
   fun deleteTopicById(@PathVariable("id") topicId: UUID): ResponseEntity<GetTopicResponse> {
     val topic = deleteTopicCommand.execute(topicId)
-    log.debug("Topic deleted: $topic")
+    log.info("Topic deleted: $topic")
     return ResponseEntity.noContent().build()
   }
 
