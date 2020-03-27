@@ -7,5 +7,7 @@ interface KafkaTopicService {
 
   fun topicCreated(topic: Topic)
 
+  fun topicUpdated(topic: Topic)
+
   fun topicDeleted(topicId: UUID)
 }

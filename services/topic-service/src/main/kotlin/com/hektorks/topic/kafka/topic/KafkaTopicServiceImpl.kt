@@ -25,6 +25,14 @@ class KafkaTopicServiceImpl(private val kafkaTemplate: KafkaTemplate<String, Any
     ))
   }
 
+  override fun topicUpdated(topic: Topic) {
+    log.info("Topic with id [${topic.id}] updated. Sending ${TopicMessageType.TOPIC_UPDATED} message.")
+    sendMessage(mapOf(
+        MESSAGE_TYPE to TopicMessageType.TOPIC_UPDATED,
+        PAYLOAD to topic
+    ))
+  }
+
   override fun topicDeleted(topicId: UUID) {
     log.info("Topic with id [$topicId] deleted. Sending ${TopicMessageType.TOPIC_DELETED} message.")
     sendMessage(mapOf(

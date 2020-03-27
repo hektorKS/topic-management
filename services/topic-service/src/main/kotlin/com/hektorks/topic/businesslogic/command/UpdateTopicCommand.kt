@@ -1,43 +1,49 @@
 package com.hektorks.topic.businesslogic.command
 
+import com.hektorks.exceptionhandling.ResourceNotFoundException
 import com.hektorks.model.topic.Topic
 import com.hektorks.topic.businesslogic.validation.TopicValidator
 import com.hektorks.topic.kafka.topic.KafkaTopicService
 import com.hektorks.topic.repository.topic.TopicRepository
-import com.hektorks.topic.rest.CreateTopicRequest
+import com.hektorks.topic.rest.UpdateTopicRequest
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Lazy
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
-
-open class CreateTopicCommand(private val topicValidator: TopicValidator,
-                              private val topicRepository: TopicRepository,
-                              private val kafkaTopicService: KafkaTopicService) {
+@Lazy
+@Service
+class UpdateTopicCommand(private val topicValidator: TopicValidator,
+                         private val topicRepository: TopicRepository,
+                         private val kafkaTopicService: KafkaTopicService) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @Transactional
-  open fun execute(createTopicRequest: CreateTopicRequest): UUID {
+  fun execute(topicId: UUID, updateTopicRequest: UpdateTopicRequest) {
     try {
-      return executeCommand(createTopicRequest)
+      executeCommand(topicId, updateTopicRequest)
+    } catch(exception: ResourceNotFoundException) {
+      throw exception
     } catch(exception: Exception) {
-      log.error("Creating topic [$createTopicRequest] failed! Exception: $exception")
+      log.error("Updating topic [$updateTopicRequest] failed! Exception: $exception")
       throw exception
     }
   }
 
-  private fun executeCommand(createTopicRequest: CreateTopicRequest): UUID {
-    val topic = Topic(
-        UUID.randomUUID(),
-        createTopicRequest.bucketId,
-        createTopicRequest.title,
-        createTopicRequest.description,
-        createTopicRequest.supervisor,
-        createTopicRequest.students ?: emptyList()
+  private fun executeCommand(topicId: UUID, updateTopicRequest: UpdateTopicRequest) {
+    val topic = topicRepository.getById(topicId) ?: throw ResourceNotFoundException()
+    val newTopic = Topic(
+        topicId,
+        updateTopicRequest.bucketId ?: topic.bucketId,
+        updateTopicRequest.title ?: topic.title,
+        updateTopicRequest.description ?: topic.description,
+        updateTopicRequest.supervisor ?: topic.supervisor,
+        updateTopicRequest.students ?: topic.students
     )
-    topicValidator.validate(topic)
-    topicRepository.create(topic)
-    kafkaTopicService.topicCreated(topic)
-    return topic.id
+    topicValidator.validate(newTopic)
+    topicRepository.create(newTopic)
+    kafkaTopicService.topicUpdated(newTopic)
   }
 
 }

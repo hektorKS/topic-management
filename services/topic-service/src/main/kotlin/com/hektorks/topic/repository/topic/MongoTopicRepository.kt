@@ -3,10 +3,12 @@ package com.hektorks.topic.repository.topic
 import com.hektorks.exceptionhandling.RepositoryException
 import com.hektorks.model.topic.Topic
 import com.mongodb.client.result.DeleteResult
+import org.bson.Document
 import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
+import org.springframework.data.mongodb.core.query.Update
 import org.springframework.data.mongodb.core.query.isEqualTo
 import java.util.UUID
 
@@ -23,6 +25,19 @@ class MongoTopicRepository(private val mongoTemplate: MongoTemplate): TopicRepos
       mongoTemplate.save(topic, COLLECTION_NAME)
     } catch(exception: Exception) {
       log.error("Saving topic $topic in mongo failed with exception: $exception!")
+      throw RepositoryException(exception)
+    }
+  }
+
+  override fun upsert(topic: Topic) {
+    try {
+      val query = Query()
+      query.addCriteria(Criteria.where(ID).isEqualTo(topic.id))
+      val document = Document()
+      mongoTemplate.converter.write(topic, document)
+      mongoTemplate.upsert(query, Update.fromDocument(document), COLLECTION_NAME)
+    } catch(exception: Exception) {
+      log.error("Upserting topic $topic in mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }

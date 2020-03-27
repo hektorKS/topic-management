@@ -6,17 +6,20 @@ import com.hektorks.topic.kafka.topic.KafkaTopicService
 import com.hektorks.topic.repository.topic.TopicRepository
 import com.hektorks.topic.rest.CreateTopicRequest
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Lazy
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
-
-open class CreateTopicCommand(private val topicValidator: TopicValidator,
+@Lazy
+@Service
+class CreateTopicCommand(private val topicValidator: TopicValidator,
                               private val topicRepository: TopicRepository,
                               private val kafkaTopicService: KafkaTopicService) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @Transactional
-  open fun execute(createTopicRequest: CreateTopicRequest): UUID {
+  fun execute(createTopicRequest: CreateTopicRequest): UUID {
     try {
       return executeCommand(createTopicRequest)
     } catch(exception: Exception) {

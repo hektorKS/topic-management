@@ -20,13 +20,12 @@ data class CreateTopicRequest(
 
 data class CreateTopicResponse(val id: UUID)
 
-@ResponseBody
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 class CreateTopicController(private val crateTopicCommand: CreateTopicCommand) {
   private val log = LoggerFactory.getLogger(javaClass)
 
-  @PostMapping("/topic")
+  @PostMapping("/topics")
   fun createTopic(@RequestBody createTopicRequest: CreateTopicRequest): ResponseEntity<CreateTopicResponse> {
     val topicId = crateTopicCommand.execute(createTopicRequest)
     log.debug("Created topic with id=$topicId")

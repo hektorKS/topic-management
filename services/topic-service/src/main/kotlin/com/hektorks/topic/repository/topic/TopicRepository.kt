@@ -8,6 +8,8 @@ interface TopicRepository {
 
   fun create(topic: Topic)
 
+  fun upsert(topic: Topic)
+
   fun getAll(): List<Topic>
 
   fun getById(topicId: UUID): Topic?

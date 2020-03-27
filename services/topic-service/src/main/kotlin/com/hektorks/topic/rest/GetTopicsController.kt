@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController
 
 data class GetTopicsResponse(val topics: List<Topic>)
 
-@ResponseBody
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 class GetTopicsController(private val getTopicsCommand: GetTopicsCommand) {
   private val log = LoggerFactory.getLogger(javaClass)
 

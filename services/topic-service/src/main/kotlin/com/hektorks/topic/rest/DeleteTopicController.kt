@@ -12,13 +12,12 @@ import java.util.UUID
 
 
 
-@ResponseBody
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 class DeleteTopicController(private val deleteTopicCommand: DeleteTopicCommand) {
   private val log = LoggerFactory.getLogger(javaClass)
 
-  @DeleteMapping("/topic/{id}")
+  @DeleteMapping("/topics/{id}")
   fun deleteTopicById(@PathVariable("id") topicId: UUID): ResponseEntity<GetTopicResponse> {
     val topic = deleteTopicCommand.execute(topicId)
     log.debug("Topic deleted: $topic")

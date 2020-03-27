@@ -13,13 +13,12 @@ import java.util.UUID
 
 data class GetTopicResponse(val topic: Topic)
 
-@ResponseBody
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 class GetTopicController(private val getTopicCommand: GetTopicCommand) {
   private val log = LoggerFactory.getLogger(javaClass)
 
-  @GetMapping("/topic/{id}")
+  @GetMapping("/topics/{id}")
   fun getTopicById(@PathVariable("id") topicId: UUID): ResponseEntity<GetTopicResponse> {
     val topic = getTopicCommand.execute(topicId)
     log.debug("Topic found: $topic")

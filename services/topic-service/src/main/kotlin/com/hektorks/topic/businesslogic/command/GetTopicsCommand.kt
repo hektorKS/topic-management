@@ -3,7 +3,11 @@ package com.hektorks.topic.businesslogic.command
 import com.hektorks.model.topic.Topic
 import com.hektorks.topic.repository.topic.TopicRepository
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Lazy
+import org.springframework.stereotype.Service
 
+@Lazy
+@Service
 class GetTopicsCommand(private val topicRepository: TopicRepository) {
   private val log = LoggerFactory.getLogger(javaClass)
 
