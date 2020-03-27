@@ -14,6 +14,8 @@ interface TopicRepository {
 
   fun getById(topicId: UUID): Topic?
 
+  fun getByBucketId(bucketId: UUID): List<Topic>
+
   fun delete(topicId: UUID): DeleteResult
 
 }

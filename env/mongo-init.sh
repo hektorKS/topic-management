@@ -5,7 +5,8 @@ docker exec mongo-node1 mongo --eval 'rs.initiate({"_id":"replicaSet1","members"
 
 # Collections - TOPIC SERVICE
 docker exec mongo-node1 mongo topic --eval 'db.createCollection("topics")'
+docker exec mongo-node1 mongo topic --eval 'db.topics.createIndex( { "bucketId": 1 } )'
 
 # Collections - BUCKET SERVICE
 docker exec mongo-node1 mongo bucket --eval 'db.createCollection("buckets")'
-
+docker exec mongo-node1 mongo bucket --eval 'db.buckets.createIndex( { "schoolId": 1 } )'

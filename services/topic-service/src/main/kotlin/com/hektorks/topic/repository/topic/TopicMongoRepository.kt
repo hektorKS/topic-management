@@ -17,6 +17,7 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
 
   private companion object {
     private const val ID = "_id"
+    private const val BUCKET_ID = "bucketId"
     private const val COLLECTION_NAME = "topics"
   }
 
@@ -46,7 +47,7 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
     try {
       return mongoTemplate.findAll(Topic::class.java, COLLECTION_NAME)
     } catch(exception: Exception) {
-      log.error("Getting topics from mongo failed with exception: $exception!")
+      log.error("Getting all topics from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }
@@ -60,13 +61,24 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
     }
   }
 
+  override fun getByBucketId(bucketId: UUID): List<Topic> {
+    try {
+      val query = Query()
+      query.addCriteria(Criteria.where(BUCKET_ID).isEqualTo(bucketId))
+      return mongoTemplate.find(query, Topic::class.java, COLLECTION_NAME)
+    } catch(exception: Exception) {
+      log.error("Getting topics by bucketId $bucketId from mongo failed with exception: $exception!")
+      throw RepositoryException(exception)
+    }
+  }
+
   override fun delete(topicId: UUID): DeleteResult {
     try {
       val query = Query()
       query.addCriteria(Criteria.where(ID).isEqualTo(topicId))
       return mongoTemplate.remove(query, COLLECTION_NAME)
     } catch(exception: Exception) {
-      log.error("Getting topic with id $topicId from mongo failed with exception: $exception!")
+      log.error("Deleting topic with id $topicId from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }
