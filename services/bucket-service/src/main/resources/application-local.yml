@@ -1,6 +1,6 @@
 mongodb:
   address: "mongodb://localhost:27017"
-  databaseName: "topic"
+  databaseName: "bucket"
 kafka:
   bootstrapAddress: "localhost:9092"
   consumer:

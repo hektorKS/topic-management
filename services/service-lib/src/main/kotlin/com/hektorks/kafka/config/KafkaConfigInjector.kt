@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
+import org.slf4j.LoggerFactory
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -24,6 +25,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer
 @Configuration
 @EnableConfigurationProperties(KafkaConfig::class)
 class KafkaConfigInjector {
+  private val log = LoggerFactory.getLogger(javaClass)
 
   @Bean
   fun kafkaAdmin(kafkaConfig: KafkaConfig): KafkaAdmin {
@@ -47,6 +49,9 @@ class KafkaConfigInjector {
           }
           .map {
             NewTopic(it.name, it.partitionsNumber, it.replicationFactor)
+          }
+          .onEach {
+            log.info("Defined not existing topic: $it")
           }
           .toList()
     }

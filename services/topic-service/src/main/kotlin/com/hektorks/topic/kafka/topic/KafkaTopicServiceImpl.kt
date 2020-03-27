@@ -44,7 +44,7 @@ class KafkaTopicServiceImpl(private val kafkaTemplate: KafkaTemplate<String, Any
   }
 
 
-  private fun sendMessage(message: Map<String, Any>, topic: String = SystemTopics.TOPIC.topicName) {
+  private fun sendMessage(message: Map<String, Any>, topic: String = SystemTopics.TOPICS.topicName) {
     kafkaTemplate.send(topic, message).addCallback({
       log.info("Sent message [$message] with offset [${it?.recordMetadata?.offset()}] to topic [$topic]]")
     }, {
