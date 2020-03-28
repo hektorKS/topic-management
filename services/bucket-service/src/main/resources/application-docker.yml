@@ -1,14 +1,4 @@
 mongodb:
   address: "mongodb://mongo-node1:27017,mongo-node2:27017"
-  databaseName: "bucket"
 kafka:
   bootstrapAddress: "kafka:9092"
-  consumer:
-    groupId: "test-group"
-  topics:
-    - name: "topics"
-      partitionsNumber: 5
-      replicationFactor: 1
-    - name: "buckets"
-      partitionsNumber: 5
-      replicationFactor: 1

@@ -1,5 +1,7 @@
 package com.hektorks.kafka.config
 
+import com.hektorks.kafka.message.KafkaMessage
+import com.hektorks.kafka.message.KafkaMessageDeserializer
 import org.apache.kafka.clients.admin.AdminClient
 import org.apache.kafka.clients.admin.AdminClientConfig
 import org.apache.kafka.clients.admin.NewTopic
@@ -18,7 +20,6 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory
 import org.springframework.kafka.core.KafkaAdmin
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
-import org.springframework.kafka.support.serializer.JsonDeserializer
 import org.springframework.kafka.support.serializer.JsonSerializer
 
 
@@ -58,7 +59,7 @@ class KafkaConfigInjector {
   }
 
   @Bean
-  fun producerFactory(kafkaConfig: KafkaConfig): ProducerFactory<String, Any> {
+  fun producerFactory(kafkaConfig: KafkaConfig): ProducerFactory<String, KafkaMessage> {
     return DefaultKafkaProducerFactory(mapOf(
         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaConfig.bootstrapAddress,
         ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
@@ -67,7 +68,7 @@ class KafkaConfigInjector {
   }
 
   @Bean
-  fun consumerFactory(kafkaConfig: KafkaConfig): ConsumerFactory<String, Any> {
+  fun consumerFactory(kafkaConfig: KafkaConfig): ConsumerFactory<String, KafkaMessage> {
     return DefaultKafkaConsumerFactory(mapOf(
         ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaConfig.bootstrapAddress,
         ConsumerConfig.GROUP_ID_CONFIG to kafkaConfig.consumer.groupId,
@@ -75,19 +76,21 @@ class KafkaConfigInjector {
         ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG to kafkaConfig.consumer.autoCommitIntervalMs,
         ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG to kafkaConfig.consumer.sessionTimeoutMs,
         ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
-        ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to JsonDeserializer::class.java
+        ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to KafkaMessageDeserializer::class.java
     ))
   }
 
   @Bean
-  fun kafkaListenerContainerFactory(consumerFactory: ConsumerFactory<String, Any>): ConcurrentKafkaListenerContainerFactory<String, Any> {
-    val factory = ConcurrentKafkaListenerContainerFactory<String, Any>()
+  fun kafkaListenerContainerFactory(
+      consumerFactory: ConsumerFactory<String, KafkaMessage>
+  ): ConcurrentKafkaListenerContainerFactory<String, KafkaMessage> {
+    val factory = ConcurrentKafkaListenerContainerFactory<String, KafkaMessage>()
     factory.consumerFactory = consumerFactory
     return factory
   }
 
   @Bean
-  fun kafkaTemplate(producerFactory: ProducerFactory<String, Any>): KafkaTemplate<String, Any> {
+  fun kafkaTemplate(producerFactory: ProducerFactory<String, KafkaMessage>): KafkaTemplate<String, KafkaMessage> {
     return KafkaTemplate(producerFactory)
   }
 

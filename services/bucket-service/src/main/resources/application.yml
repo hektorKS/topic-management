@@ -1,2 +1,14 @@
 server:
   port : 9701
+mongodb:
+  databaseName: "bucket"
+kafka:
+  consumer:
+    groupId: "test-group"
+  topics:
+    - name: "topics"
+      partitionsNumber: 5
+      replicationFactor: 1
+    - name: "buckets"
+      partitionsNumber: 5
+      replicationFactor: 1

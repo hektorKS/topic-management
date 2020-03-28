@@ -1,2 +1,14 @@
 server:
   port : 9700
+mongodb:
+  databaseName: "topic"
+kafka:
+  consumer:
+    groupId: "topic-services-cluster"
+  topics:
+    - name: "topics"
+      partitionsNumber: 4
+      replicationFactor: 1
+    - name: "buckets"
+      partitionsNumber: 4
+      replicationFactor: 1
