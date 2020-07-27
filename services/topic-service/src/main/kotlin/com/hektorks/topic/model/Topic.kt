@@ -1,4 +1,4 @@
-package com.hektorks.model.topic
+package com.hektorks.topic.model
 
 import java.util.UUID
 

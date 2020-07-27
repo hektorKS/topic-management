@@ -1,6 +1,6 @@
 package com.hektorks.topic.rest
 
-import com.hektorks.model.topic.Topic
+import com.hektorks.topic.model.Topic
 import com.hektorks.topic.businesslogic.command.GetTopicCommand
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity

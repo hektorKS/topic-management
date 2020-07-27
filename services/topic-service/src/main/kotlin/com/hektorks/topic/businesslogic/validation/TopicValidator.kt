@@ -2,7 +2,7 @@ package com.hektorks.topic.businesslogic.validation
 
 import com.hektorks.exceptionhandling.BusinessValidationException
 import com.hektorks.exceptionhandling.FieldValidationError
-import com.hektorks.model.topic.Topic
+import com.hektorks.topic.model.Topic
 import com.hektorks.validation.StringValidator
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service

@@ -1,6 +1,6 @@
 package com.hektorks.topic.kafka.topic
 
-import com.hektorks.model.topic.Topic
+import com.hektorks.topic.model.Topic
 import java.util.UUID
 
 interface KafkaTopicService {

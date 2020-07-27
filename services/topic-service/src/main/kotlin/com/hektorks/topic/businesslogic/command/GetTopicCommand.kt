@@ -1,7 +1,7 @@
 package com.hektorks.topic.businesslogic.command
 
 import com.hektorks.exceptionhandling.ResourceNotFoundException
-import com.hektorks.model.topic.Topic
+import com.hektorks.topic.model.Topic
 import com.hektorks.topic.repository.topic.TopicRepository
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Lazy
@@ -16,9 +16,9 @@ class GetTopicCommand(private val topicRepository: TopicRepository) {
   fun execute(topicId: UUID): Topic {
     try {
       return executeCommand(topicId)
-    } catch(exception: ResourceNotFoundException) {
+    } catch (exception: ResourceNotFoundException) {
       throw exception
-    } catch(exception: Exception) {
+    } catch (exception: Exception) {
       log.error("Getting topics failed! Exception: $exception")
       throw exception
     }

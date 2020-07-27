@@ -4,7 +4,7 @@ import com.hektorks.kafka.KafkaBaseService
 import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.SystemTopics
 import com.hektorks.kafka.messagetype.TopicMessageType
-import com.hektorks.model.topic.Topic
+import com.hektorks.topic.model.Topic
 import org.slf4j.LoggerFactory
 import java.util.UUID
 

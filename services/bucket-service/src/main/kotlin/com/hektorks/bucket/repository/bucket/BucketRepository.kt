@@ -1,6 +1,6 @@
 package com.hektorks.bucket.repository.bucket
 
-import com.hektorks.model.bucket.Bucket
+import com.hektorks.bucket.model.Bucket
 
 interface BucketRepository {
 

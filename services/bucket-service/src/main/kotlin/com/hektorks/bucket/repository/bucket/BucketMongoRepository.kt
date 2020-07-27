@@ -1,7 +1,7 @@
 package com.hektorks.bucket.repository.bucket
 
+import com.hektorks.bucket.model.Bucket
 import com.hektorks.exceptionhandling.RepositoryException
-import com.hektorks.model.bucket.Bucket
 import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.core.MongoTemplate
 

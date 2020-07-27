@@ -11,17 +11,17 @@ import java.util.UUID
 
 @Lazy
 @Service
-class DeleteTopicCommand(private val topicRepository: TopicRepository,
-                         private val kafkaTopicService: KafkaTopicService) {
+open class DeleteTopicCommand(private val topicRepository: TopicRepository,
+                                       private val kafkaTopicService: KafkaTopicService) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @Transactional
-  fun execute(topicId: UUID) {
+  open fun execute(topicId: UUID) {
     try {
       return executeCommand(topicId)
-    } catch(exception: ResourceNotFoundException) {
+    } catch (exception: ResourceNotFoundException) {
       throw exception
-    } catch(exception: Exception) {
+    } catch (exception: Exception) {
       log.error("Deleting topic with id [$topicId] failed! Exception: $exception")
       throw exception
     }

@@ -1,6 +1,6 @@
 package com.hektorks.bucket.kafka.bucket
 
-import com.hektorks.model.bucket.Bucket
+import com.hektorks.bucket.model.Bucket
 
 interface KafkaBucketService {
 

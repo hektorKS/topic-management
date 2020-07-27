@@ -3,8 +3,8 @@ package com.hektorks.topic.kafka.bucket
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.hektorks.kafka.messagetype.BucketMessageType
-import com.hektorks.model.bucket.Bucket
 import com.hektorks.topic.businesslogic.handlers.BucketCreatedHandler
+import com.hektorks.topic.model.Bucket
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 

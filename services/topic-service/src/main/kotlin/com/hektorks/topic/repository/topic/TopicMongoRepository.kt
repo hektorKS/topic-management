@@ -1,7 +1,7 @@
 package com.hektorks.topic.repository.topic
 
 import com.hektorks.exceptionhandling.RepositoryException
-import com.hektorks.model.topic.Topic
+import com.hektorks.topic.model.Topic
 import com.mongodb.client.result.DeleteResult
 import org.bson.Document
 import org.slf4j.LoggerFactory

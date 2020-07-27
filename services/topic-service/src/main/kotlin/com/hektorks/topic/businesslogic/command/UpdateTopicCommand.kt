@@ -1,7 +1,7 @@
 package com.hektorks.topic.businesslogic.command
 
 import com.hektorks.exceptionhandling.ResourceNotFoundException
-import com.hektorks.model.topic.Topic
+import com.hektorks.topic.model.Topic
 import com.hektorks.topic.businesslogic.validation.TopicValidator
 import com.hektorks.topic.kafka.topic.KafkaTopicService
 import com.hektorks.topic.repository.topic.TopicRepository
@@ -14,18 +14,18 @@ import java.util.UUID
 
 @Lazy
 @Service
-class UpdateTopicCommand(private val topicValidator: TopicValidator,
-                         private val topicRepository: TopicRepository,
-                         private val kafkaTopicService: KafkaTopicService) {
+open class UpdateTopicCommand(private val topicValidator: TopicValidator,
+                                       private val topicRepository: TopicRepository,
+                                       private val kafkaTopicService: KafkaTopicService) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @Transactional
-  fun execute(topicId: UUID, updateTopicRequest: UpdateTopicRequest) {
+  open fun execute(topicId: UUID, updateTopicRequest: UpdateTopicRequest) {
     try {
       executeCommand(topicId, updateTopicRequest)
-    } catch(exception: ResourceNotFoundException) {
+    } catch (exception: ResourceNotFoundException) {
       throw exception
-    } catch(exception: Exception) {
+    } catch (exception: Exception) {
       log.error("Updating topic [$updateTopicRequest] failed! Exception: $exception")
       throw exception
     }

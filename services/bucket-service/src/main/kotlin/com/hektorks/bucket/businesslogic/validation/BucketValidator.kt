@@ -1,8 +1,8 @@
 package com.hektorks.bucket.businesslogic.validation
 
+import com.hektorks.bucket.model.Bucket
 import com.hektorks.exceptionhandling.BusinessValidationException
 import com.hektorks.exceptionhandling.FieldValidationError
-import com.hektorks.model.bucket.Bucket
 import com.hektorks.validation.StringValidator
 import org.springframework.stereotype.Service
 

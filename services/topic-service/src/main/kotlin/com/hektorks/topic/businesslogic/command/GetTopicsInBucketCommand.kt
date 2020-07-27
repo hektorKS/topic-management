@@ -1,6 +1,6 @@
 package com.hektorks.topic.businesslogic.command
 
-import com.hektorks.model.topic.Topic
+import com.hektorks.topic.model.Topic
 import com.hektorks.topic.repository.topic.TopicRepository
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Lazy
@@ -15,7 +15,7 @@ class GetTopicsInBucketCommand(private val topicRepository: TopicRepository) {
   fun execute(bucketId: UUID): List<Topic> {
     try {
       return executeCommand(bucketId)
-    } catch(exception: Exception) {
+    } catch (exception: Exception) {
       log.error("Getting topics failed! Exception: $exception")
       throw exception
     }

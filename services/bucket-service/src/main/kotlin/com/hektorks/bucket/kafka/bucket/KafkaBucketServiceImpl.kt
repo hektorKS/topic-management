@@ -1,10 +1,10 @@
 package com.hektorks.bucket.kafka.bucket
 
+import com.hektorks.bucket.model.Bucket
 import com.hektorks.kafka.KafkaBaseService
-import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.SystemTopics
+import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.messagetype.BucketMessageType
-import com.hektorks.model.bucket.Bucket
 import org.slf4j.LoggerFactory
 import java.util.UUID
 
