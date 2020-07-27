@@ -18,8 +18,6 @@ class KafkaBucketListener(private val bucketHandlerDispatcher: BucketHandlerDisp
     val value: KafkaMessage = consumerRecord.value()
     if(BucketMessageType.values().map(BucketMessageType::toString).contains(value.messageType)) {
       dispatch(value)
-//      TODO disable auto commit
-//       acknowledgment.acknowledge()
       log.info("Successfully handled bucket event with offset ${consumerRecord.offset()}")
     } else {
       log.error("Invalid message type received. messageType: ${value.messageType}, version: ${value.version}")

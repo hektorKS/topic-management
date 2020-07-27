@@ -6,7 +6,7 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication(scanBasePackages = ["com.hektorks"])
 @ConfigurationPropertiesScan
-class TopicServiceApplication
+open class TopicServiceApplication
 
 fun main(args: Array<String>) {
   runApplication<TopicServiceApplication>(*args)

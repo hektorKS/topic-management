@@ -25,23 +25,23 @@ import org.springframework.kafka.support.serializer.JsonSerializer
 
 @Configuration
 @EnableConfigurationProperties(KafkaConfig::class)
-class KafkaConfigInjector {
+open class KafkaConfigInjector {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @Bean
-  fun kafkaAdmin(kafkaConfig: KafkaConfig): KafkaAdmin {
+  open fun kafkaAdmin(kafkaConfig: KafkaConfig): KafkaAdmin {
     return KafkaAdmin(mapOf(
         AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaConfig.bootstrapAddress
     ))
   }
 
   @Bean
-  fun adminClient(kafkaAdmin: KafkaAdmin): AdminClient {
+  open fun adminClient(kafkaAdmin: KafkaAdmin): AdminClient {
     return AdminClient.create(kafkaAdmin.config)
   }
 
   @Bean
-  fun createTopics(kafkaConfig: KafkaConfig, kafkaAdmin: KafkaAdmin): List<NewTopic> {
+  open fun createTopics(kafkaConfig: KafkaConfig, kafkaAdmin: KafkaAdmin): List<NewTopic> {
     AdminClient.create(kafkaAdmin.config).use { adminClient ->
       val currentTopicsSet = adminClient.listTopics().names().get()
       return kafkaConfig.topics.asSequence()
@@ -59,7 +59,7 @@ class KafkaConfigInjector {
   }
 
   @Bean
-  fun producerFactory(kafkaConfig: KafkaConfig): ProducerFactory<String, KafkaMessage> {
+  open fun producerFactory(kafkaConfig: KafkaConfig): ProducerFactory<String, KafkaMessage> {
     return DefaultKafkaProducerFactory(mapOf(
         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaConfig.bootstrapAddress,
         ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
@@ -68,7 +68,7 @@ class KafkaConfigInjector {
   }
 
   @Bean
-  fun consumerFactory(kafkaConfig: KafkaConfig): ConsumerFactory<String, KafkaMessage> {
+  open fun consumerFactory(kafkaConfig: KafkaConfig): ConsumerFactory<String, KafkaMessage> {
     return DefaultKafkaConsumerFactory(mapOf(
         ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaConfig.bootstrapAddress,
         ConsumerConfig.GROUP_ID_CONFIG to kafkaConfig.consumer.groupId,
@@ -81,7 +81,7 @@ class KafkaConfigInjector {
   }
 
   @Bean
-  fun kafkaListenerContainerFactory(
+  open fun kafkaListenerContainerFactory(
       consumerFactory: ConsumerFactory<String, KafkaMessage>
   ): ConcurrentKafkaListenerContainerFactory<String, KafkaMessage> {
     val factory = ConcurrentKafkaListenerContainerFactory<String, KafkaMessage>()
@@ -90,7 +90,7 @@ class KafkaConfigInjector {
   }
 
   @Bean
-  fun kafkaTemplate(producerFactory: ProducerFactory<String, KafkaMessage>): KafkaTemplate<String, KafkaMessage> {
+  open fun kafkaTemplate(producerFactory: ProducerFactory<String, KafkaMessage>): KafkaTemplate<String, KafkaMessage> {
     return KafkaTemplate(producerFactory)
   }
 

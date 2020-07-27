@@ -25,7 +25,7 @@ class BucketValidator {
 
     // TODO check school exists
     // TODO check user exists
-    // TODO check user has school access (?)
+    // TODO check bucket name unique + mongo
 
   }
 

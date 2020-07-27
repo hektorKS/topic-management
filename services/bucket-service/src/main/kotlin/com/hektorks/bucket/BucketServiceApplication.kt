@@ -6,7 +6,7 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication(scanBasePackages = ["com.hektorks"])
 @ConfigurationPropertiesScan
-class BucketServiceApplication
+open class BucketServiceApplication
 
 fun main(args: Array<String>) {
   runApplication<BucketServiceApplication>(*args)

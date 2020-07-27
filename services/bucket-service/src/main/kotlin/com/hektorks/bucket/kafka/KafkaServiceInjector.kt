@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class KafkaServiceInjector {
+open class KafkaServiceInjector {
 
   @Bean
-  fun kafkaBucketService(kafkaBaseService: KafkaBaseService): KafkaBucketService {
+  open fun kafkaBucketService(kafkaBaseService: KafkaBaseService): KafkaBucketService {
     return KafkaBucketServiceImpl(kafkaBaseService)
   }
 }

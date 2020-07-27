@@ -12,20 +12,20 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory
 
 @Configuration
 @EnableConfigurationProperties(MongoConfig::class)
-class MongoConfigInjector {
+open class MongoConfigInjector {
 
   @Bean
-  fun mongoDbFactory(mongoConfig: MongoConfig): MongoDbFactory {
+  open fun mongoDbFactory(mongoConfig: MongoConfig): MongoDbFactory {
     return SimpleMongoClientDbFactory(ConnectionString("${mongoConfig.address}/${mongoConfig.databaseName}"))
   }
 
   @Bean
-  fun mongoTemplate(mongoDbFactory: MongoDbFactory): MongoTemplate {
+  open fun mongoTemplate(mongoDbFactory: MongoDbFactory): MongoTemplate {
     return MongoTemplate(mongoDbFactory)
   }
 
   @Bean
-  fun mongoTransactionManager(mongoDbFactory: MongoDbFactory): MongoTransactionManager {
+  open fun mongoTransactionManager(mongoDbFactory: MongoDbFactory): MongoTransactionManager {
     return MongoTransactionManager(mongoDbFactory)
   }
 }

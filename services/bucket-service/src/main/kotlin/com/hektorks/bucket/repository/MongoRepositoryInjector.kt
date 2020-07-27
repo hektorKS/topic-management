@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.mongodb.core.MongoTemplate
 
 @Configuration
-class MongoRepositoryInjector {
+open class MongoRepositoryInjector {
 
   @Bean
-  fun bucketRepository(mongoTemplate: MongoTemplate): BucketRepository {
+  open fun bucketRepository(mongoTemplate: MongoTemplate): BucketRepository {
     return BucketMongoRepository(mongoTemplate)
   }
 
