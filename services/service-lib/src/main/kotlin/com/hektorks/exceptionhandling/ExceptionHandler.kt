@@ -16,35 +16,35 @@ class ExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = [BadRequestException::class])
   fun handleException(exception: BadRequestException): Map<String, Any?> {
-    log.warn("[400] Bad request. Errors: [${exception.errors}].")
+    log.info("[400] Bad request. Errors: [${exception.errors}].")
     return BadRequestExceptionMapper.toMap(exception)
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = [MethodArgumentNotValidException::class])
   fun handleException(exception: MethodArgumentNotValidException): Map<String, Any?> {
-    log.warn("[400] Bad request. Result: [${exception.bindingResult}].")
+    log.info("[400] Bad request. Result: [${exception.bindingResult}].")
     return BadRequestExceptionMapper.toMap(BadRequestException.fromBindingResult(exception.bindingResult))
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(value = [HttpMessageNotReadableException::class])
   fun handleException(exception: HttpMessageNotReadableException): Map<String, Any> {
-    log.warn("[400] Bad request. Error: [${exception.localizedMessage}].")
+    log.info("[400] Bad request. Error: [${exception.localizedMessage}].")
     return SimpleMessageMapper.toMap("Could not parse message body.", HttpStatus.BAD_REQUEST)
   }
 
   @ResponseStatus(HttpStatus.NOT_FOUND)
   @ExceptionHandler(value = [ResourceNotFoundException::class])
   fun handleException(): Unit? {
-    log.warn("[404] Resource not found.")
+    log.info("[404] Resource not found.")
     return null
   }
 
   @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
   @ExceptionHandler(value = [BusinessValidationException::class])
   fun handleException(exception: BusinessValidationException): Map<String, Any?> {
-    log.warn("[422] Business validations failed. Errors: [${exception.errors}].")
+    log.info("[422] Business validations failed. Errors: [${exception.errors}].")
     return BusinessValidationExceptionMapper.toMap(exception)
   }
 
