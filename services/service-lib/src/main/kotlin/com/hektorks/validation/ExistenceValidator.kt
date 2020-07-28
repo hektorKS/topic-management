@@ -5,8 +5,8 @@ import java.util.UUID
 
 object ExistenceValidator {
 
-  fun exists(field: String, objectId: UUID, existenceVerifier: (UUID) -> Boolean): FieldValidationError? {
-    if (!existenceVerifier.invoke(objectId)) {
+  fun shouldExist(field: String, objectId: UUID, existenceProvider: (UUID) -> Boolean): FieldValidationError? {
+    if (!existenceProvider.invoke(objectId)) {
       return FieldValidationError(field, "Object not exists for $field=$objectId")
     }
     return null
