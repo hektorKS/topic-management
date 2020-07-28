@@ -23,7 +23,7 @@ class KafkaTopicServiceImpl(private val kafkaBaseService: KafkaBaseService): Kaf
         key = topic.id,
         message = KafkaMessage(
             messageType = TopicMessageType.TOPIC_CREATED.name,
-            version = TopicMessageType.TOPIC_CREATED.version,
+            version = TopicMessageType.TOPIC_CREATED.version.getAsString(),
             payload = mapOf(
                 TOPIC to topic
             )
@@ -37,7 +37,7 @@ class KafkaTopicServiceImpl(private val kafkaBaseService: KafkaBaseService): Kaf
         key = topic.id,
         message = KafkaMessage(
             messageType = TopicMessageType.TOPIC_UPDATED.name,
-            version = TopicMessageType.TOPIC_UPDATED.version,
+            version = TopicMessageType.TOPIC_UPDATED.version.getAsString(),
             payload = mapOf(
                 TOPIC to topic
             )
@@ -51,7 +51,7 @@ class KafkaTopicServiceImpl(private val kafkaBaseService: KafkaBaseService): Kaf
         key = topicId,
         message = KafkaMessage(
             messageType = TopicMessageType.TOPIC_UPDATED.name,
-            version = TopicMessageType.TOPIC_UPDATED.version,
+            version = TopicMessageType.TOPIC_UPDATED.version.getAsString(),
             payload = mapOf(
                 ID to topicId
             )

@@ -16,6 +16,7 @@ open class MongoConfigInjector {
 
   @Bean
   open fun mongoDbFactory(mongoConfig: MongoConfig): MongoDbFactory {
+    // To use actual UUID in mongo: UuidCodecProvider(UuidRepresentation.STANDARD) should be used
     return SimpleMongoClientDbFactory(ConnectionString("${mongoConfig.address}/${mongoConfig.databaseName}"))
   }
 

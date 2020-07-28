@@ -25,7 +25,7 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
     try {
       mongoTemplate.save(topic, COLLECTION_NAME)
     } catch(exception: Exception) {
-      log.error("Saving topic $topic in mongo failed with exception: $exception!")
+      log.error("Saving topic=$topic in mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }
@@ -56,7 +56,7 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
     try {
       return mongoTemplate.findById(topicId, Topic::class.java, COLLECTION_NAME)
     } catch(exception: Exception) {
-      log.error("Getting topic with id $topicId from mongo failed with exception: $exception!")
+      log.error("Getting topic with id=$topicId from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }
@@ -67,7 +67,7 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
       query.addCriteria(Criteria.where(BUCKET_ID).isEqualTo(bucketId))
       return mongoTemplate.find(query, Topic::class.java, COLLECTION_NAME)
     } catch(exception: Exception) {
-      log.error("Getting topics by bucketId $bucketId from mongo failed with exception: $exception!")
+      log.error("Getting topics by bucketId=$bucketId from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }

@@ -1,5 +1,6 @@
 package com.hektorks.topic.kafka.bucket
 
+import com.hektorks.kafka.Version
 import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.messagetype.BucketMessageType
 import org.apache.kafka.clients.consumer.ConsumerRecord
@@ -27,7 +28,7 @@ class KafkaBucketListener(private val bucketHandlerDispatcher: BucketHandlerDisp
 
   private fun dispatch(value: KafkaMessage) {
     val bucketMessageType = BucketMessageType.valueOf(value.messageType)
-    if(bucketMessageType.version != value.version) {
+    if (!bucketMessageType.version.isCompatible(Version(value.version))) {
       log.error("Listener received invalid version of record: ${value.version}, required: ${bucketMessageType.version}")
       throw IllegalStateException("Listener received invalid version of record: ${value.version}, required: ${bucketMessageType.version}")
     }

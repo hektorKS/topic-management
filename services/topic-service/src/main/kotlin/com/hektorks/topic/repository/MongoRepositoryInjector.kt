@@ -13,4 +13,5 @@ open class MongoRepositoryInjector {
   open fun topicRepository(mongoTemplate: MongoTemplate): TopicRepository {
     return TopicMongoRepository(mongoTemplate)
   }
+
 }

@@ -5,7 +5,6 @@ import com.hektorks.bucket.kafka.bucket.KafkaBucketService
 import com.hektorks.bucket.model.Bucket
 import com.hektorks.bucket.repository.bucket.BucketRepository
 import com.hektorks.bucket.rest.CreateBucketRequest
-import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,24 +15,14 @@ import java.util.UUID
 open class CrateBucketCommand(private val bucketValidator: BucketValidator,
                               private val bucketRepository: BucketRepository,
                               private val kafkaBucketService: KafkaBucketService) {
-  private val log = LoggerFactory.getLogger(javaClass)
 
   @Transactional
   open fun execute(createBucketRequest: CreateBucketRequest): UUID {
-    try {
-      return executeCommand(createBucketRequest)
-    } catch (exception: Exception) {
-      log.error("Creating bucket [$createBucketRequest] failed! Exception: $exception")
-      throw exception
-    }
-  }
-
-  private fun executeCommand(createBucketRequest: CreateBucketRequest): UUID {
     val bucket = Bucket(
-        UUID.randomUUID(),
-        createBucketRequest.schoolId,
-        createBucketRequest.ownerId,
-        createBucketRequest.name
+      UUID.randomUUID(),
+      createBucketRequest.schoolId,
+      createBucketRequest.ownerId,
+      createBucketRequest.name
     )
     bucketValidator.validate(bucket)
     bucketRepository.create(bucket)

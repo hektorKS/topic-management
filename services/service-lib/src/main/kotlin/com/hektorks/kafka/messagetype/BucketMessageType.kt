@@ -1,6 +1,8 @@
 package com.hektorks.kafka.messagetype
 
-enum class BucketMessageType(val version: String) {
-  BUCKET_CREATED( "1.0"),
-  BUCKET_DELETED( "1.0")
+import com.hektorks.kafka.Version
+
+enum class BucketMessageType(val version: Version) {
+  BUCKET_CREATED(Version("1.0")),
+  BUCKET_DELETED(Version("1.0"))
 }

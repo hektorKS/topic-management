@@ -3,7 +3,6 @@ package com.hektorks.topic.businesslogic.command
 import com.hektorks.exceptionhandling.ResourceNotFoundException
 import com.hektorks.topic.kafka.topic.KafkaTopicService
 import com.hektorks.topic.repository.topic.TopicRepository
-import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,29 +11,15 @@ import java.util.UUID
 @Lazy
 @Service
 open class DeleteTopicCommand(private val topicRepository: TopicRepository,
-                                       private val kafkaTopicService: KafkaTopicService) {
-  private val log = LoggerFactory.getLogger(javaClass)
+                              private val kafkaTopicService: KafkaTopicService) {
 
   @Transactional
   open fun execute(topicId: UUID) {
-    try {
-      return executeCommand(topicId)
-    } catch (exception: ResourceNotFoundException) {
-      throw exception
-    } catch (exception: Exception) {
-      log.error("Deleting topic with id [$topicId] failed! Exception: $exception")
-      throw exception
-    }
-  }
-
-  private fun executeCommand(topicId: UUID) {
     val deleteResult = topicRepository.delete(topicId)
-    log.info("Deleted [${deleteResult.deletedCount}] topics")
-    if(deleteResult.deletedCount == 0L) {
+    if (deleteResult.deletedCount == 0L) {
       throw ResourceNotFoundException()
     }
     kafkaTopicService.topicDeleted(topicId)
   }
-
 
 }

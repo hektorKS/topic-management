@@ -1,7 +1,9 @@
 package com.hektorks.kafka.messagetype
 
-enum class TopicMessageType(val version: String) {
-  TOPIC_CREATED("1.0"),
-  TOPIC_UPDATED( "1.0"),
-  TOPIC_DELETED( "1.0")
+import com.hektorks.kafka.Version
+
+enum class TopicMessageType(val version: Version) {
+  TOPIC_CREATED(Version("1.0")),
+  TOPIC_UPDATED(Version("1.0")),
+  TOPIC_DELETED(Version("1.0"))
 }
