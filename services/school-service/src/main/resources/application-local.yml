@@ -1,0 +1,4 @@
+mongodb:
+  address: "mongodb://localhost:27017"
+kafka:
+  bootstrapAddress: "localhost:9092"

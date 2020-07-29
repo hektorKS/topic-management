@@ -1,7 +1,9 @@
 package com.hektorks.topic.model
 
+import org.springframework.data.mongodb.core.mapping.Document
 import java.util.UUID
 
+@Document(collection = "topics")
 data class Topic(
     val id: UUID,
     val bucketId: UUID,

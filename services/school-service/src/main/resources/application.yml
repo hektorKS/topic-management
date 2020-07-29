@@ -1,0 +1,11 @@
+server:
+  port : 9702
+mongodb:
+  databaseName: "school"
+kafka:
+  consumer:
+    groupId: "school-services-cluster"
+  topics:
+    - name: "schools"
+      partitionsNumber: 4
+      replicationFactor: 1

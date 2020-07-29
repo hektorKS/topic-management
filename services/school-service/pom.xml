@@ -10,26 +10,17 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <!-- In the future this could be broken into separate libs for kafka/mongo/rest -->
-  <!-- Auto configuration for each would be also good idea -->
-  <artifactId>service-lib</artifactId>
+  <artifactId>school-service</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>service-lib</name>
+  <name>school-service</name>
 
   <dependencies>
     <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-reflect</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-kotlin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <groupId>com.hektorks</groupId>
+      <artifactId>service-lib</artifactId>
+      <version>${version}</version>
     </dependency>
   </dependencies>
 
@@ -38,6 +29,10 @@
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
