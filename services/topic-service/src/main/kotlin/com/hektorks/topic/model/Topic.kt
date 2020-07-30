@@ -9,6 +9,6 @@ data class Topic(
     val bucketId: UUID,
     val title: String,
     val description: String,
-    val supervisor: UUID,
-    val students: List<UUID>
+    val supervisorId: UUID,
+    val studentsIds: List<UUID>
 )
