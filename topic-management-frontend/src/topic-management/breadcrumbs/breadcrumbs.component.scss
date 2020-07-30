@@ -1,10 +1,13 @@
-mat-toolbar {
-  height: 45px;
-  color: #E6E8EA;
-  font-size: 16px;
-  font-weight: bold;
+:host {
+  mat-toolbar {
+    height: 45px;
+    color: #E6E8EA;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .breadcrumb {
+    text-transform: capitalize;
+  }
 }
 
-.breadcrumb {
-  text-transform: capitalize;
-}
