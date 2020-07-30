@@ -25,8 +25,8 @@ open class UpdateTopicCommand(private val topicValidator: TopicValidator,
       updateTopicRequest.bucketId ?: topic.bucketId,
       updateTopicRequest.title ?: topic.title,
       updateTopicRequest.description ?: topic.description,
-      updateTopicRequest.supervisor ?: topic.supervisorId,
-      updateTopicRequest.students ?: topic.studentsIds
+      updateTopicRequest.supervisorId ?: topic.supervisorId,
+      updateTopicRequest.studentsIds ?: topic.studentsIds
     )
     topicValidator.validate(newTopic)
     topicRepository.create(newTopic)

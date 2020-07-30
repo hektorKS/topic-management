@@ -4,5 +4,5 @@ export interface Topic {
   title: string,
   description: string,
   supervisorId: string,
-  students: string[]
+  studentsIds: string[]
 }

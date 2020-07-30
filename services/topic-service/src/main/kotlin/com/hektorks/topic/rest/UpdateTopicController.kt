@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
 data class UpdateTopicRequest(
-    val bucketId: UUID?,
-    val title: String?,
-    val description: String?,
-    val students: List<UUID>?,
-    val supervisor: UUID?
+  val bucketId: UUID?,
+  val title: String?,
+  val description: String?,
+  val supervisorId: UUID?,
+  val studentsIds: List<UUID>?
 )
 
 @RestController
