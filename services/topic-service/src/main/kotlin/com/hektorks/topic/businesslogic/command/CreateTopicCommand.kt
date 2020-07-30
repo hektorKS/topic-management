@@ -23,8 +23,8 @@ open class CreateTopicCommand(private val topicValidator: TopicValidator,
       createTopicRequest.bucketId,
       createTopicRequest.title,
       createTopicRequest.description,
-      createTopicRequest.supervisor,
-      createTopicRequest.students ?: emptyList()
+      createTopicRequest.supervisorId,
+      createTopicRequest.studentsIds ?: emptyList()
     )
     topicValidator.validate(topic)
     topicRepository.create(topic)
