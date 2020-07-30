@@ -4,8 +4,9 @@ import {TopicManagementMainComponent} from "./topic-management-main.component";
 
 
 const routes: Routes = [
+  {path: '', redirectTo: '/topics', pathMatch: 'full'},
   {
-    path: '',
+    path: 'topics',
     component: TopicManagementMainComponent
   }
 ];

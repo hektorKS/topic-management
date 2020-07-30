@@ -5,6 +5,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {TopicsService} from "./topics.service";
 import {topicsLoaded, topicsViewOpened} from "./topics-actions";
 import {exhaustMap, map} from "rxjs/operators";
+import {changeBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
 
 @Injectable()
 export class TopicsEffects {
@@ -19,6 +20,13 @@ export class TopicsEffects {
       .pipe(
         exhaustMap(_ => this.topicsService.getTopics()),
         map(topics => topicsLoaded({topics: topics}))
+      );
+  });
+
+  changeBreadcrumbOnTopicsViewOpened$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(ofType(topicsViewOpened))
+      .pipe(
+        map(_ => changeBreadcrumb({name: 'topics', active: true}))
       );
   });
 

@@ -10,7 +10,3 @@
 4. School Service - Handles schools management
 
 5. Message Service - Handel communication between users
-
-#### SchoolService
-#### LoginService - logowanie mock, użytownicy utworzeni
-#### 

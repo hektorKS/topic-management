@@ -11,12 +11,21 @@ import {EffectsModule} from "@ngrx/effects";
 import {HttpClientModule} from "@angular/common/http";
 import {TopicManagementMainComponent} from "./topic-management-main.component";
 import {TopicManagementRoutingModule} from "./topic-management-routing.module";
+import {BreadcrumbsComponent} from "./breadcrumbs/breadcrumbs.component";
+import {topicManagementFeatureKey, TopicManagementState} from "./topic-management-state";
+import {topicManagementReducer} from "./topics/topics-reducers";
+import {breadcrumbsFeatureKey, BreadcrumbsState} from "./breadcrumbs/breadcrumbs-state";
+import {breadcrumbsReducer} from "./breadcrumbs/breadcrumbs-reducers";
+import {MatIconModule} from "@angular/material/icon";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
     TopicManagementComponent,
     TopicManagementMainComponent,
-    TopicsComponent
+    TopicsComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +37,13 @@ import {TopicManagementRoutingModule} from "./topic-management-routing.module";
         strictActionImmutability: true,
       }
     }),
+    StoreModule.forFeature<BreadcrumbsState>(breadcrumbsFeatureKey, breadcrumbsReducer),
     EffectsModule.forRoot([]),
     TopicManagementRoutingModule,
-    TopicsModule
+    TopicsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [TopicManagementComponent]
