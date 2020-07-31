@@ -3,8 +3,8 @@
 :host {
   mat-list-option {
     display: inline-block;
-    width: 90%;
-    margin-top: 10px;
+    width: 80%;
+    margin: 10px 10% 0;
     background-color: $color-primary-dark;
     border: 2px solid $color-primary-light;
     color: $color-primary-light;
@@ -16,9 +16,11 @@
     }
 
     .school-element {
+      display: flex;
+
       span:first-of-type {
         display: inline-block;
-        min-width: 25%;
+        flex-grow: 2;
         margin-right: 5px;
         text-transform: uppercase;
         font-size: 120%;

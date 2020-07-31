@@ -16,7 +16,8 @@ export class SchoolsService {
   getSchools(): Observable<School[]> {
     return this.httpClient.get<{ schools: School[] }>(`${TopicManagementServices.SCHOOL_SERVICE}/api/v1/schools`)
       .pipe(
-        map(response => response.schools)
+        map(response => response.schools),
+        map(schools => schools.sort((left, right) => left.name.localeCompare(right.name)))
       )
   }
 

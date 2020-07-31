@@ -14,10 +14,10 @@ import {schoolsSelector} from "../topic-management-state";
           <span> {{ school.name }} </span>
           <span>
           {{
-            school.address.zipCode + ' ' +
-            school.address.city + ', ' +
             school.address.street + ' ' +
-            school.address.buildingNumber
+            school.address.buildingNumber + ', ' +
+            school.address.zipCode + ' ' +
+            school.address.city
             }}
           </span>
         </div>
