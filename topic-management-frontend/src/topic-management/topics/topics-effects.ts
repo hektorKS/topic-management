@@ -26,7 +26,7 @@ export class TopicsEffects {
   changeBreadcrumbOnTopicsViewOpened$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(ofType(topicsViewOpened))
       .pipe(
-        map(_ => changeBreadcrumb({name: 'topics', active: true}))
+        map(_ => changeBreadcrumb({name: 'topics'}))
       );
   });
 
