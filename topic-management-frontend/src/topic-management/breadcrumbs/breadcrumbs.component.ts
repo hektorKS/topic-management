@@ -9,16 +9,16 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'breadcrumbs',
   template: `
-    <mat-toolbar color="primary">
+    <div class="breadcrumbs">
       <span *ngFor="let breadcrumb of breadcrumbs$ | async; last as isLast" class="breadcrumb">
-        <a mat-button class="breadcrumb-button"
-           [ngClass]="{'breadcrumb-button-active': breadcrumb.active}"
-           (click)="breadcrumbClicked(breadcrumb)">
-          {{breadcrumb.name}}
-        </a>
-        <mat-icon *ngIf="!isLast">{{ 'keyboard_arrow_right' }}</mat-icon>
-      </span>
-    </mat-toolbar>
+      <a mat-button class="breadcrumb-button"
+         [ngClass]="{'breadcrumb-button-active': breadcrumb.active}"
+         (click)="breadcrumbClicked(breadcrumb)">
+        {{breadcrumb.name}}
+      </a>
+      <mat-icon *ngIf="!isLast">{{ 'keyboard_arrow_right' }}</mat-icon>
+     </span>
+    </div>
   `,
   styleUrls: ['./breadcrumbs.component.scss']
 })

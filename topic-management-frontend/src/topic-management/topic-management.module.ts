@@ -22,6 +22,7 @@ import {MatListModule} from "@angular/material/list";
 import {SchoolComponent} from "./schools/school/school.component";
 import {topicManagementFeatureKey, TopicManagementState} from "./topic-management-state";
 import {topicManagementReducer} from "./topic-management-reducers";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {topicManagementReducer} from "./topic-management-reducers";
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [TopicManagementComponent]
