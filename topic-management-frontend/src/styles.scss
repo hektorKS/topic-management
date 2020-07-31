@@ -1,11 +1,12 @@
+$color-primary-dark: #3F51B5;
+$color-primary-light: #E6E8EA;
+
 html, body {
   height: 100%;
 }
 
 body {
   margin: 0;
+  background-color: $color-primary-light;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-$color-primary-dark: #3F51B5;
-$color-primary-light: #E6E8EA;

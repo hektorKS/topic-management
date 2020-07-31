@@ -12,18 +12,23 @@ import {HttpClientModule} from "@angular/common/http";
 import {TopicManagementMainComponent} from "./topic-management-main.component";
 import {TopicManagementRoutingModule} from "./topic-management-routing.module";
 import {BreadcrumbsComponent} from "./breadcrumbs/breadcrumbs.component";
-import {topicManagementFeatureKey, TopicManagementState} from "./topic-management-state";
-import {topicManagementReducer} from "./topics/topics-reducers";
 import {breadcrumbsFeatureKey, BreadcrumbsState} from "./breadcrumbs/breadcrumbs-state";
 import {breadcrumbsReducer} from "./breadcrumbs/breadcrumbs-reducers";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
+import {SchoolsComponent} from "./schools/schools.component";
+import {MatListModule} from "@angular/material/list";
+import {SchoolComponent} from "./schools/school/school.component";
+import {topicManagementFeatureKey, TopicManagementState} from "./topic-management-state";
+import {topicManagementReducer} from "./topic-management-reducers";
 
 @NgModule({
   declarations: [
     TopicManagementComponent,
     TopicManagementMainComponent,
+    SchoolsComponent,
+    SchoolComponent,
     TopicsComponent,
     BreadcrumbsComponent
   ],
@@ -37,13 +42,15 @@ import {MatButtonModule} from "@angular/material/button";
         strictActionImmutability: true,
       }
     }),
+    StoreModule.forFeature<TopicManagementState>(topicManagementFeatureKey, topicManagementReducer),
     StoreModule.forFeature<BreadcrumbsState>(breadcrumbsFeatureKey, breadcrumbsReducer),
     EffectsModule.forRoot([]),
     TopicManagementRoutingModule,
     TopicsModule,
     MatIconModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [TopicManagementComponent]

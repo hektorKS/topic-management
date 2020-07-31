@@ -17,13 +17,14 @@ import {topicsSelector} from "../topic-management-state";
 })
 export class TopicsComponent implements OnInit {
 
-  topics$: Observable<Topic[]> = this.store.select(topicsSelector);
+  topics$: Observable<Topic[]>;
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
     this.store.dispatch(topicsViewOpened())
+    this.topics$ = this.store.select(topicsSelector)
   }
 
 }

@@ -7,6 +7,5 @@ export enum BreadcrumbsActions {
   BREADCRUMBS_SELECTED = '[Breadcrumb] Breadcrumbs selected',
 }
 
-export const changeBreadcrumb = createAction(BreadcrumbsActions.CHANGE_BREADCRUMB, props<{ name: string }>());
+export const changeBreadcrumb = createAction(BreadcrumbsActions.CHANGE_BREADCRUMB, props<{ name: string, url: string }>());
 export const breadcrumbsChanged = createAction(BreadcrumbsActions.BREADCRUMBS_CHANGED, props<{ breadcrumbs: Breadcrumb[] }>());
-export const breadcrumbSelected = createAction(BreadcrumbsActions.BREADCRUMBS_SELECTED, props<Breadcrumb>());

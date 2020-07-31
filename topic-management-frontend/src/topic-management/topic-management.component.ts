@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'topic-management',
   template: `
-    <router-outlet></router-outlet>
+    <breadcrumbs></breadcrumbs>
+    <topic-management-main></topic-management-main>
   `
 })
 export class TopicManagementComponent {

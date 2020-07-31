@@ -17,22 +17,28 @@ export class BreadcrumbsEffects {
     return this.actions$.pipe(ofType(changeBreadcrumb))
       .pipe(
         withLatestFrom(this.store.select(breadcrumbsSelector)),
-        map(([newBreadcrumb, breadcrumbs]) => {
-          breadcrumbs.map(breadcrumb => breadcrumb.active = false);
-          const breadcrumb = breadcrumbs.find(breadcrumb => breadcrumb.name == newBreadcrumb.name);
-          if (breadcrumb !== undefined) {
-            breadcrumb.active = true;
-            return breadcrumbs;
-          } else {
-            const newBreadcrumbs = [
-              ...breadcrumbs,
-            ]
+        map(([newBreadcrumb, oldBreadcrumbs]) => {
+          const newBreadcrumbs = []
+          let found = false;
+          for (const breadcrumb of oldBreadcrumbs) {
+            if (breadcrumb.name == newBreadcrumb.name) {
+              found = true;
+              newBreadcrumbs.push({
+                name: newBreadcrumb.name,
+                active: true
+              });
+              break;
+            } else {
+              newBreadcrumbs.push({...breadcrumb, active: false});
+            }
+          }
+          if (!found) {
             newBreadcrumbs.push({
               name: newBreadcrumb.name,
               active: true
-            })
-            return newBreadcrumbs
+            });
           }
+          return newBreadcrumbs;
         }),
         map(breadcrumbs => breadcrumbsChanged({breadcrumbs: breadcrumbs}))
       );

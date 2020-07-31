@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'topic-management-main',
   template: `
-    <breadcrumbs></breadcrumbs>
-    <topics></topics>
+    <router-outlet></router-outlet>
   `,
   styleUrls: ['./topic-management-main.component.scss']
 })

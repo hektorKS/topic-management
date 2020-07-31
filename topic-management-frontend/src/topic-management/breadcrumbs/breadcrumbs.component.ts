@@ -1,8 +1,10 @@
-import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {breadcrumbsSelector} from "./breadcrumbs-state";
 import {Breadcrumb} from "./breadcrumb.model";
-import {breadcrumbSelected} from "./breadcrumbs-actions";
+import {changeBreadcrumb} from "./breadcrumbs-actions";
+import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'breadcrumbs',
@@ -18,18 +20,24 @@ import {breadcrumbSelected} from "./breadcrumbs-actions";
       </span>
     </mat-toolbar>
   `,
-  styleUrls: ['./breadcrumbs.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./breadcrumbs.component.scss']
 })
-export class BreadcrumbsComponent {
+export class BreadcrumbsComponent implements OnInit {
 
-  breadcrumbs$ = this.store.select(breadcrumbsSelector);
+  breadcrumbs$: Observable<Breadcrumb[]>;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.breadcrumbs$ = this.store.select(breadcrumbsSelector)
   }
 
   breadcrumbClicked(breadcrumb: Breadcrumb) {
-    this.store.dispatch(breadcrumbSelected(breadcrumb));
+    if (!breadcrumb.active) {
+      this.store.dispatch(changeBreadcrumb(breadcrumb));
+      this.router.navigateByUrl(breadcrumb.url).then()
+    }
   }
 
 }

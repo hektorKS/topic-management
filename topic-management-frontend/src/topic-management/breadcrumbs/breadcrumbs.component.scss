@@ -3,6 +3,7 @@
 :host {
   mat-toolbar {
     height: 45px;
+    margin-bottom: 10px;
     color: $color-primary-light;
     font-size: 16px;
     font-weight: bold;
@@ -18,8 +19,8 @@
     text-transform: capitalize;
 
     &-active {
-      color: $color-primary-dark;
       background-color: $color-primary-light;
+      color: $color-primary-dark;
     }
   }
 }

@@ -5,4 +5,6 @@ import com.hektorks.school.model.School
 interface SchoolRepository {
 
   fun save(school: School)
+
+  fun findAll(): List<School>
 }

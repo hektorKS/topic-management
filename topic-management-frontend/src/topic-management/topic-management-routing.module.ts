@@ -1,13 +1,23 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {TopicManagementMainComponent} from "./topic-management-main.component";
+import {TopicsComponent} from "./topics/topics.component";
+import {SchoolsComponent} from "./schools/schools.component";
+import {SchoolComponent} from "./schools/school/school.component";
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/topics', pathMatch: 'full'},
+  {path: '', redirectTo: 'schools', pathMatch: 'full'},
+  {
+    path: 'schools',
+    component: SchoolsComponent
+  },
+  {
+    path: 'schools/:id',
+    component: SchoolComponent
+  },
   {
     path: 'topics',
-    component: TopicManagementMainComponent
+    component: TopicsComponent
   }
 ];
 
