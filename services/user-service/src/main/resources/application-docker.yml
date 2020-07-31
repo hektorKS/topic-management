@@ -1,0 +1,4 @@
+mongodb:
+  address: "mongodb://mongo-node1:27017,mongo-node2:27017"
+kafka:
+  bootstrapAddress: "kafka:9092"

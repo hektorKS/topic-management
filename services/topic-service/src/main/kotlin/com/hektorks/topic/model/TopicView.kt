@@ -7,6 +7,6 @@ data class TopicView(
     val title: String,
     val description: String,
     val bucket: Bucket
-//    val supervisor: Lecturer,
-//    val students: List<Student>
+//    val supervisor: DetailedUser,
+//    val students: List<User>
 )

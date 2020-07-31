@@ -1,0 +1,11 @@
+server:
+  port : 9703
+mongodb:
+  databaseName: "user"
+kafka:
+  consumer:
+    groupId: "test-group"
+  topics:
+    - name: "users"
+      partitionsNumber: 5
+      replicationFactor: 1

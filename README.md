@@ -5,7 +5,7 @@
 
 2. Bucket Service - Aggregates topics into a kind of folders
 
-3. Login Service - Handles users and logging process
+3. User Service - Handles users and logging process
 
 4. School Service - Handles schools management
 

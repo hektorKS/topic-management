@@ -18,3 +18,7 @@ docker exec mongo-node1 mongo bucket --eval 'db.buckets.createIndex( { "schoolId
 # Collections - SCHOOL SERVICE
 docker exec mongo-node1 mongo school --eval 'db.createCollection("schools")'
 docker exec mongo-node1 mongo school --eval 'db.schools.createIndex( { "name": 1 } )'
+
+# Collections - USER SERVICE
+docker exec mongo-node1 mongo user --eval 'db.createCollection("users")'
+docker exec mongo-node1 mongo user --eval 'db.users.createIndex( { "identifier": 1 } )'
