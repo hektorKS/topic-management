@@ -2,6 +2,7 @@ package com.hektorks.topic.repository.topic
 
 import com.hektorks.exceptionhandling.RepositoryException
 import com.hektorks.topic.model.Topic
+import com.hektorks.topic.repository.MongoCollections.TOPICS_COLLECTION_NAME
 import com.mongodb.client.result.DeleteResult
 import org.bson.Document
 import org.slf4j.LoggerFactory
@@ -17,13 +18,11 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
 
   private companion object {
     private const val ID = "_id"
-    private const val BUCKET_ID = "bucketId"
-    private const val COLLECTION_NAME = "topics"
   }
 
   override fun create(topic: Topic) {
     try {
-      mongoTemplate.save(topic, COLLECTION_NAME)
+      mongoTemplate.save(topic, TOPICS_COLLECTION_NAME)
     } catch(exception: Exception) {
       log.error("Saving topic=$topic in mongo failed with exception: $exception!")
       throw RepositoryException(exception)
@@ -36,7 +35,7 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
       query.addCriteria(Criteria.where(ID).isEqualTo(topic.id))
       val document = Document()
       mongoTemplate.converter.write(topic, document)
-      mongoTemplate.upsert(query, Update.fromDocument(document), COLLECTION_NAME)
+      mongoTemplate.upsert(query, Update.fromDocument(document), TOPICS_COLLECTION_NAME)
     } catch(exception: Exception) {
       log.error("Upserting topic $topic in mongo failed with exception: $exception!")
       throw RepositoryException(exception)
@@ -45,7 +44,7 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
 
   override fun getAll(): List<Topic> {
     try {
-      return mongoTemplate.findAll(Topic::class.java, COLLECTION_NAME)
+      return mongoTemplate.findAll(Topic::class.java, TOPICS_COLLECTION_NAME)
     } catch(exception: Exception) {
       log.error("Getting all topics from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
@@ -54,20 +53,9 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
 
   override fun getById(topicId: UUID): Topic? {
     try {
-      return mongoTemplate.findById(topicId, Topic::class.java, COLLECTION_NAME)
+      return mongoTemplate.findById(topicId, Topic::class.java, TOPICS_COLLECTION_NAME)
     } catch(exception: Exception) {
       log.error("Getting topic with id=$topicId from mongo failed with exception: $exception!")
-      throw RepositoryException(exception)
-    }
-  }
-
-  override fun getByBucketId(bucketId: UUID): List<Topic> {
-    try {
-      val query = Query()
-      query.addCriteria(Criteria.where(BUCKET_ID).isEqualTo(bucketId))
-      return mongoTemplate.find(query, Topic::class.java, COLLECTION_NAME)
-    } catch(exception: Exception) {
-      log.error("Getting topics by bucketId=$bucketId from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }
@@ -76,7 +64,7 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
     try {
       val query = Query()
       query.addCriteria(Criteria.where(ID).isEqualTo(topicId))
-      return mongoTemplate.remove(query, COLLECTION_NAME)
+      return mongoTemplate.remove(query, TOPICS_COLLECTION_NAME)
     } catch(exception: Exception) {
       log.error("Deleting topic with id $topicId from mongo failed with exception: $exception!")
       throw RepositoryException(exception)

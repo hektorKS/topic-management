@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {ChangeDetectionStrategy, Component} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {breadcrumbsSelector} from "./breadcrumbs-state";
 import {Breadcrumb} from "./breadcrumb.model";
@@ -18,7 +18,8 @@ import {breadcrumbSelected} from "./breadcrumbs-actions";
       </span>
     </mat-toolbar>
   `,
-  styleUrls: ['./breadcrumbs.component.scss']
+  styleUrls: ['./breadcrumbs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsComponent {
 
