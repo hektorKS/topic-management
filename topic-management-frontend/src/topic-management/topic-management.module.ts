@@ -23,6 +23,8 @@ import {SchoolComponent} from "./schools/school/school.component";
 import {topicManagementFeatureKey, TopicManagementState} from "./topic-management-state";
 import {topicManagementReducer} from "./topic-management-reducers";
 import {MatMenuModule} from "@angular/material/menu";
+import {BucketsComponent} from "./buckets/buckets.component";
+import {StoreRouterConnectingModule} from "@ngrx/router-store";
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import {MatMenuModule} from "@angular/material/menu";
     TopicManagementMainComponent,
     SchoolsComponent,
     SchoolComponent,
+    BucketsComponent,
     TopicsComponent,
     BreadcrumbsComponent
   ],
@@ -37,6 +40,7 @@ import {MatMenuModule} from "@angular/material/menu";
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot<TopicManagementRootState>({
       runtimeChecks: {
         strictStateImmutability: true,

@@ -50,10 +50,10 @@ export class BreadcrumbsEffects {
           const newBreadcrumbs = []
           let found = false;
           for (const breadcrumb of oldBreadcrumbs) {
-            if (breadcrumb.name == newBreadcrumb.name) {
+            if (breadcrumb.name === newBreadcrumb.name) {
               found = true;
               newBreadcrumbs.push({
-                name: newBreadcrumb.name,
+                ...newBreadcrumb,
                 active: true
               });
               break;
@@ -63,7 +63,7 @@ export class BreadcrumbsEffects {
           }
           if (!found) {
             newBreadcrumbs.push({
-              name: newBreadcrumb.name,
+              ...newBreadcrumb,
               active: true
             });
           }

@@ -2,7 +2,7 @@ import {createAction, props} from "@ngrx/store";
 import {School} from "./school/school.model";
 
 export enum SchoolsActions {
-  SCHOOLS_VIEW_OPENED = '[School] School view opened',
+  SCHOOLS_VIEW_OPENED = '[School] Schools view opened',
   SCHOOLS_LOADED = '[School] Schools loaded',
   SCHOOL_SELECTED = '[School] Schools selected',
 }

@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {exhaustMap, map, tap} from "rxjs/operators";
+import {exhaustMap, flatMap, map} from "rxjs/operators";
 import {changeBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
 import {SchoolsService} from "./schools.service";
 import {schoolSelected, schoolsLoaded, schoolsViewOpened} from "./schools-actions";
@@ -28,10 +28,13 @@ export class SchoolsEffects {
   openSchoolView$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(ofType(schoolSelected))
       .pipe(
-        tap(school => {
-          return this.router.navigate(['schools', school.id]);
-        }),
-        map(school => changeBreadcrumb({name: school.name, url: this.router.url}))
+        flatMap(school => {
+          return this.router.navigate(['schools', school.id]).then(_ => changeBreadcrumb({
+              name: school.name,
+              url: this.router.url
+            })
+          );
+        })
       )
   })
 

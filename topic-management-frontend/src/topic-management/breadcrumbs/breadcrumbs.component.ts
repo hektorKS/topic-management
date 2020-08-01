@@ -39,14 +39,13 @@ export class BreadcrumbsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.breadcrumbs$ = this.store.select(breadcrumbsSelector);
     this.store.dispatch(breadcrumbsInitialized());
+    this.breadcrumbs$ = this.store.select(breadcrumbsSelector);
   }
 
   breadcrumbClicked(breadcrumb: Breadcrumb) {
     if (!breadcrumb.active) {
-      this.store.dispatch(changeBreadcrumb(breadcrumb));
-      this.router.navigateByUrl(breadcrumb.url).then()
+      this.router.navigateByUrl(breadcrumb.url).then();
     }
   }
 

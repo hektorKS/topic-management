@@ -3,28 +3,34 @@ import {RouterModule, Routes} from "@angular/router";
 import {TopicsComponent} from "./topics/topics.component";
 import {SchoolsComponent} from "./schools/schools.component";
 import {SchoolComponent} from "./schools/school/school.component";
+import {StoreModule} from "@ngrx/store";
+import {routerFeatureName} from "./topic-management-router-state";
+import {routerReducer} from "@ngrx/router-store";
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'schools', pathMatch: 'full'},
   {
-    path: 'schools',
-    component: SchoolsComponent
+    path: 'schools/:schoolId',
+    component: SchoolComponent,
+    pathMatch: 'full'
   },
   {
-    path: 'schools/:id',
-    component: SchoolComponent
+    path: 'schools',
+    component: SchoolsComponent,
+    pathMatch: 'full'
   },
   {
     path: 'topics',
     component: TopicsComponent
-  }
+  },
+  {path: '', redirectTo: 'schools', pathMatch: 'full'}
 ];
 
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    StoreModule.forFeature(routerFeatureName, routerReducer)
   ],
   exports: [RouterModule],
   providers: []
