@@ -4,5 +4,7 @@ import com.hektorks.user.model.User
 
 interface UserRepository {
 
-  fun save(school: User)
+  fun save(user: User)
+
+  fun existsByUsername(username: String): Boolean
 }

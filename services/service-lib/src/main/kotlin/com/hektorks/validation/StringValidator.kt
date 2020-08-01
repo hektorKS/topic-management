@@ -25,4 +25,15 @@ object StringValidator {
     return null
   }
 
+  fun minMaxLength(field: String, value: String, minLength: Int, maxLength: Int): FieldValidationError? {
+    return this.minLength(field, value, minLength) ?: this.maxLength(field, value, maxLength)
+  }
+
+  fun regex(field: String, value: String, regex: Regex): FieldValidationError? {
+    if(!regex.matches(value)) {
+      return FieldValidationError(field, "Field has to match regex [$regex]")
+    }
+    return null
+  }
+
 }

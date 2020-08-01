@@ -4,7 +4,7 @@ import com.hektorks.kafka.KafkaBaseService
 import com.hektorks.kafka.SystemTopics
 import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.messagetype.UserMessageType
-import com.hektorks.user.model.User
+import com.hektorks.user.model.UserView
 import org.slf4j.LoggerFactory
 import java.util.UUID
 
@@ -15,16 +15,15 @@ class KafkaUserServiceImpl(private val kafkaBaseService: KafkaBaseService) : Kaf
     private const val USER: String = "user"
   }
 
-  // TODO password should not be sent
-  override fun userCreated(user: User) {
-    log.info("User with id [${user.id}] created. Sending ${UserMessageType.USER_CREATED} message.")
+  override fun userCreated(userView: UserView) {
+    log.info("User with id [${userView.id}] created. Sending ${UserMessageType.USER_CREATED} message.")
     sendMessage(
-      key = user.id,
+      key = userView.id,
       message = KafkaMessage(
         messageType = UserMessageType.USER_CREATED.name,
         version = UserMessageType.USER_CREATED.version.getAsString(),
         payload = mapOf(
-          USER to user
+          USER to userView
         )
       )
     )

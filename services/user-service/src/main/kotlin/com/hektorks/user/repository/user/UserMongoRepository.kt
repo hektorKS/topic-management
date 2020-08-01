@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface SchoolMongoRepository : UserRepository, MongoRepository<User, UUID>
+interface UserMongoRepository : UserRepository, MongoRepository<User, UUID>
