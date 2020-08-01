@@ -21,7 +21,6 @@ import {schoolsSelector} from "../topic-management-state";
             }}
           </span>
         </div>
-        <router-outlet></router-outlet>
       </mat-list-option>
     </mat-selection-list>
   `,

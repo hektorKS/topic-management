@@ -1,10 +1,11 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, HostListener, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {breadcrumbsSelector} from "./breadcrumbs-state";
 import {Breadcrumb} from "./breadcrumb.model";
-import {changeBreadcrumb} from "./breadcrumbs-actions";
+import {breadcrumbsDestroyed, breadcrumbsInitialized, changeBreadcrumb} from "./breadcrumbs-actions";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
+import {take, tap} from "rxjs/operators";
 
 @Component({
   selector: 'breadcrumbs',
@@ -24,13 +25,22 @@ import {Router} from "@angular/router";
 })
 export class BreadcrumbsComponent implements OnInit {
 
+  @HostListener('window:beforeunload')
+  beforeUnloadHandler() {
+    this.breadcrumbs$.pipe(
+      take(1),
+      tap(breadcrumbs => this.store.dispatch(breadcrumbsDestroyed({breadcrumbs: breadcrumbs})))
+    ).subscribe()
+  }
+
   breadcrumbs$: Observable<Breadcrumb[]>;
 
   constructor(private store: Store, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.breadcrumbs$ = this.store.select(breadcrumbsSelector)
+    this.breadcrumbs$ = this.store.select(breadcrumbsSelector);
+    this.store.dispatch(breadcrumbsInitialized());
   }
 
   breadcrumbClicked(breadcrumb: Breadcrumb) {

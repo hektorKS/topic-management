@@ -2,8 +2,13 @@ import {Injectable} from "@angular/core";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Observable} from "rxjs";
-import {map, withLatestFrom} from "rxjs/operators";
-import {breadcrumbsChanged, changeBreadcrumb} from "./breadcrumbs-actions";
+import {map, tap, withLatestFrom} from "rxjs/operators";
+import {
+  breadcrumbsChanged,
+  breadcrumbsDestroyed,
+  breadcrumbsInitialized,
+  changeBreadcrumb
+} from "./breadcrumbs-actions";
 import {breadcrumbsSelector} from "./breadcrumbs-state";
 
 @Injectable()
@@ -12,6 +17,30 @@ export class BreadcrumbsEffects {
   constructor(private store: Store,
               private actions$: Actions) {
   }
+
+  breadcrumbsInitialized$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(ofType(breadcrumbsInitialized))
+      .pipe(
+        map(_ => {
+          const breadcrumbsString = localStorage.getItem('breadcrumbs');
+          if (breadcrumbsString !== null) {
+            return JSON.parse(breadcrumbsString);
+          } else {
+            return [];
+          }
+        }),
+        map(breadcrumbs => breadcrumbsChanged({breadcrumbs: breadcrumbs}))
+      )
+  });
+
+  breadcrumbsDestroyed$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(breadcrumbsDestroyed),
+      tap(item => {
+        localStorage.setItem('breadcrumbs', JSON.stringify(item.breadcrumbs))
+      })
+    )
+  }, {dispatch: false});
 
   changeBreadcrumb$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(ofType(changeBreadcrumb))
