@@ -4,9 +4,9 @@
 USER_KONRAD_RESPONSE=$(curl -X POST  http://localhost:9703/api/v1/users -H 'Content-Type: application/json' \
   -d '{
 	"firstName": "Konrad",
-	"lastName": "Szymański",
+	"lastName": "Szyszka",
 	"username": "hektorKS",
-	"email": "konszym.1996@wp.pl",
+	"email": "kszyszka.1995@wp.pl",
 	"password": "super#tajne443$"
 }')
 USER_KONRAD_UUID=$(echo "$USER_KONRAD_RESPONSE" | sed -nE 's/.*"id":"(.*)".*/\1/p')
