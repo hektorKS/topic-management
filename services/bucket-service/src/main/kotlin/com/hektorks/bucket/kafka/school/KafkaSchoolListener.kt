@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class KafkaSchoolListener(private val schoolHandlerDispatcher: SchoolHandlerDispatcher): KafkaBaseListener<SchoolMessageType>() {
 
-  @KafkaListener(topics = ["users"], groupId = "bucket-cluster")
+  @KafkaListener(topics = ["schools"], groupId = "bucket-cluster")
   override fun listen(consumerRecord: ConsumerRecord<String, KafkaMessage>) {
     super.listen(consumerRecord)
   }

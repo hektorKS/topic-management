@@ -1,6 +1,17 @@
 #!/bin/bash
 
 # Initialize test users
+USER_KONRAD_RESPONSE=$(curl -X POST  http://localhost:9703/api/v1/users -H 'Content-Type: application/json' \
+  -d '{
+	"firstName": "Konrad",
+	"lastName": "Szymański",
+	"username": "hektorKS",
+	"email": "konszym.1996@wp.pl",
+	"password": "super#tajne443$"
+}')
+USER_KONRAD_UUID=$(echo "$USER_KONRAD_RESPONSE" | sed -nE 's/.*"id":"(.*)".*/\1/p')
+echo "USER_KONRAD_UUID=$USER_KONRAD_UUID"
+sleep 1
 
 # Initialize test schools
 SCHOOL_PW_RESPONSE=$(curl -X POST http://localhost:9702/api/v1/schools -H 'Content-Type: application/json' \

@@ -29,9 +29,9 @@ class BucketValidator(
   fun validate(bucket: Bucket) {
     val errors: MutableList<FieldValidationError> = mutableListOf()
     minMaxLength(NAME, bucket.name, NAME_MIN_LENGTH, NAME_MAX_LENGTH)?.let { errors.add(it) }
-    shouldNotExist(NAME, bucket.name, bucketRepository::existsByName)
-    shouldExist(OWNER_ID, bucket.ownerId, userRepository::existsById)
-    shouldExist(SCHOOL_ID, bucket.schoolId, schoolRepository::existsById)
+    shouldNotExist(NAME, bucket.name, bucketRepository::existsByName)?.let { errors.add(it) }
+    shouldExist(OWNER_ID, bucket.ownerId, userRepository::existsById)?.let { errors.add(it) }
+    shouldExist(SCHOOL_ID, bucket.schoolId, schoolRepository::existsById)?.let { errors.add(it) }
     if (errors.isNotEmpty()) {
       throw BusinessValidationException(errors)
     }

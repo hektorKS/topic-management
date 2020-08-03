@@ -2,7 +2,6 @@ package com.hektorks.bucket.businesslogic.command
 
 import com.hektorks.bucket.kafka.bucket.KafkaBucketService
 import com.hektorks.bucket.repository.bucket.BucketRepository
-import com.hektorks.exceptionhandling.ResourceNotFoundException
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

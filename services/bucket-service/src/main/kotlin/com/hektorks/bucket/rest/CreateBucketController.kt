@@ -25,7 +25,7 @@ class CreateBucketController(private val crateBucketCommand: CrateBucketCommand)
   @PostMapping("/buckets")
   fun createTopic(@RequestBody createBucketRequest: CreateBucketRequest): ResponseEntity<CreateBucketResponse> {
     val bucketId = crateBucketCommand.execute(createBucketRequest)
-    log.info("Created topic with id=$bucketId")
+    log.info("Created bucket with id=$bucketId")
     return ResponseEntity.ok().body(CreateBucketResponse(bucketId))
   }
 

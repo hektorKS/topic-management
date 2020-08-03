@@ -1,6 +1,13 @@
 package com.hektorks.mongo.config
 
 import com.mongodb.ConnectionString
+import com.mongodb.MongoClientSettings
+import com.mongodb.client.MongoClient
+import com.mongodb.client.MongoClients
+import org.bson.UuidRepresentation
+import org.bson.codecs.UuidCodecProvider
+import org.bson.codecs.configuration.CodecRegistries
+import org.bson.codecs.configuration.CodecRegistry
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -15,9 +22,24 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory
 open class MongoConfigInjector {
 
   @Bean
-  open fun mongoDbFactory(mongoConfig: MongoConfig): MongoDbFactory {
-    // To use actual UUID in mongo: UuidCodecProvider(UuidRepresentation.STANDARD) should be used
-    return SimpleMongoClientDbFactory(ConnectionString("${mongoConfig.address}/${mongoConfig.databaseName}"))
+  open fun mongoClient(mongoConfig: MongoConfig): MongoClient {
+    val mongoClientSettings = MongoClientSettings.builder()
+      .applyConnectionString(ConnectionString(mongoConfig.address))
+      .codecRegistry(codecRegistries())
+      .build()
+    return MongoClients.create(mongoClientSettings)
+  }
+
+  private fun codecRegistries(): CodecRegistry {
+    return CodecRegistries.fromRegistries(
+      CodecRegistries.fromProviders(UuidCodecProvider(UuidRepresentation.STANDARD)),
+      MongoClientSettings.getDefaultCodecRegistry()
+    )
+  }
+
+  @Bean
+  open fun mongoDbFactory(mongoClient: MongoClient, mongoConfig: MongoConfig): MongoDbFactory {
+    return SimpleMongoClientDbFactory(mongoClient, mongoConfig.databaseName)
   }
 
   @Bean

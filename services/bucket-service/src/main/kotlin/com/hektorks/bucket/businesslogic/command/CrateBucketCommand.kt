@@ -21,8 +21,8 @@ open class CrateBucketCommand(private val bucketValidator: BucketValidator,
     val bucket = Bucket(
       UUID.randomUUID(),
       createBucketRequest.name,
-      createBucketRequest.schoolId,
-      createBucketRequest.ownerId
+      createBucketRequest.ownerId,
+      createBucketRequest.schoolId
     )
     bucketValidator.validate(bucket)
     bucketRepository.save(bucket)

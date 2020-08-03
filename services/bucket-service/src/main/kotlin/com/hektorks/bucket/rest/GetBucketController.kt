@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
-data class GetBucketsResponse(val buckets: List<Bucket>)
+data class GetBucketResponse(val bucket: Bucket)
 
 @RestController
 @RequestMapping("/api/v1")
-class GetBucketsController(private val bucketRepository: BucketRepository) {
+class GetBucketController(private val bucketRepository: BucketRepository) {
   private val log = LoggerFactory.getLogger(javaClass)
 
-  @GetMapping("/buckets/school/{schoolId}")
-  fun getBucketsBySchoolId(@PathVariable schoolId: UUID): ResponseEntity<GetBucketsResponse> {
-    val buckets = bucketRepository.findBySchoolId(schoolId)
-    log.info("Fetched ${buckets.size} buckets for schoolId=$schoolId")
-    return ResponseEntity.ok().body(GetBucketsResponse(buckets))
+  @GetMapping("/buckets/{bucketId}")
+  fun getBucketsBySchoolId(@PathVariable bucketId: UUID): ResponseEntity<GetBucketResponse> {
+    val bucket = bucketRepository.findById(bucketId)
+    return bucket.map {
+      log.info("Found bucket for bucketId=$bucketId")
+      ResponseEntity.ok().body(GetBucketResponse(it))
+    }.orElse( ResponseEntity.notFound().build())
   }
 
 }
