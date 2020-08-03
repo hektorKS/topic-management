@@ -1,15 +1,16 @@
 package com.hektorks.bucket.repository.bucket
 
 import com.hektorks.bucket.model.Bucket
-import com.mongodb.client.result.DeleteResult
 import java.util.UUID
 
 interface BucketRepository {
 
-  fun create(bucket: Bucket)
+  fun save(bucket: Bucket)
 
-  fun delete(bucketId: UUID): DeleteResult
+  fun deleteById(bucketId: UUID)
 
-  fun getBySchoolId(schoolId: UUID): List<Bucket>
+  fun findBySchoolId(schoolId: UUID): List<Bucket>
+
+  fun existsByName(name: String): Boolean
 
 }

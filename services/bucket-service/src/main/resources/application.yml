@@ -4,8 +4,8 @@ mongodb:
   databaseName: "bucket"
 kafka:
   consumer:
-    groupId: "school-services-cluster"
+    groupId: "bucket-cluster"
   topics:
-    - name: "schools"
+    - name: "buckets"
       partitionsNumber: 5
       replicationFactor: 1

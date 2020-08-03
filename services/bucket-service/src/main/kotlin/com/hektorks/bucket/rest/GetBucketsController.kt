@@ -19,7 +19,7 @@ class GetBucketsController(private val bucketRepository: BucketRepository) {
 
   @GetMapping("/buckets/school/{schoolId}")
   fun createTopic(@PathVariable schoolId: UUID): ResponseEntity<GetBucketsResponse> {
-    val buckets = bucketRepository.getBySchoolId(schoolId)
+    val buckets = bucketRepository.findBySchoolId(schoolId)
     log.info("Fetched ${buckets.size} buckets for schoolId=$schoolId")
     return ResponseEntity.ok().body(GetBucketsResponse(buckets))
   }

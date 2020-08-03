@@ -15,8 +15,8 @@ import java.util.UUID
 class DeleteBucketController(private val bucketCommand: DeleteBucketCommand) {
   private val log = LoggerFactory.getLogger(javaClass)
 
-  @GetMapping("/buckets/{id}")
-  fun createTopic(@PathVariable("id") bucketId: UUID): ResponseEntity<Unit> {
+  @GetMapping("/buckets/{bucketId}")
+  fun createTopic(@PathVariable("bucketId") bucketId: UUID): ResponseEntity<Unit> {
     bucketCommand.execute(bucketId)
     log.info("Bucket deleted, bucketId=$bucketId")
     return ResponseEntity.noContent().build()

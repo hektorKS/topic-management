@@ -15,10 +15,7 @@ open class DeleteBucketCommand(private val bucketRepository: BucketRepository,
 
   @Transactional
   open fun execute(bucketId: UUID) {
-    val deleteResult = bucketRepository.delete(bucketId)
-    if (deleteResult.deletedCount == 0L) {
-      throw ResourceNotFoundException()
-    }
+    bucketRepository.deleteById(bucketId)
     kafkaBucketService.bucketDeleted(bucketId)
   }
 

@@ -4,7 +4,7 @@ mongodb:
   databaseName: "user"
 kafka:
   consumer:
-    groupId: "test-group"
+    groupId: "user-cluster"
   topics:
     - name: "users"
       partitionsNumber: 5

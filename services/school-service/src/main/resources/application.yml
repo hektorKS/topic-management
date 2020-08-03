@@ -4,7 +4,7 @@ mongodb:
   databaseName: "school"
 kafka:
   consumer:
-    groupId: "school-services-cluster"
+    groupId: "school-cluster"
   topics:
     - name: "schools"
       partitionsNumber: 4

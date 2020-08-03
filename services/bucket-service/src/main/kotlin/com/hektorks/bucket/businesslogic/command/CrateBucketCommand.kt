@@ -20,12 +20,12 @@ open class CrateBucketCommand(private val bucketValidator: BucketValidator,
   open fun execute(createBucketRequest: CreateBucketRequest): UUID {
     val bucket = Bucket(
       UUID.randomUUID(),
+      createBucketRequest.name,
       createBucketRequest.schoolId,
-      createBucketRequest.ownerId,
-      createBucketRequest.name
+      createBucketRequest.ownerId
     )
     bucketValidator.validate(bucket)
-    bucketRepository.create(bucket)
+    bucketRepository.save(bucket)
     kafkaBucketService.bucketCreated(bucket)
     return bucket.id
   }

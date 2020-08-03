@@ -6,7 +6,7 @@ import java.util.UUID
 @Document(collection = "buckets")
 data class Bucket(
     val id: UUID,
-    val schoolId: UUID,
+    val name: String,
     val ownerId: UUID,
-    val name: String
+    val schoolId: UUID
 )

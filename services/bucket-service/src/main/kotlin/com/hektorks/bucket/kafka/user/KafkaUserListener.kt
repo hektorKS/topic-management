@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class KafkaUserListener(private val schoolHandlerDispatcher: UserHandlerDispatcher): KafkaBaseListener<UserMessageType>() {
+class KafkaUserListener(private val userHandlerDispatcher: UserHandlerDispatcher): KafkaBaseListener<UserMessageType>() {
 
-  @KafkaListener(topics = ["users"], groupId = "school-services-cluster")
+  @KafkaListener(topics = ["users"], groupId = "bucket-cluster")
   override fun listen(consumerRecord: ConsumerRecord<String, KafkaMessage>) {
     super.listen(consumerRecord)
   }
 
   override fun getHandlerDispatcher(): HandlerDispatcher {
-    return this.schoolHandlerDispatcher
+    return this.userHandlerDispatcher
   }
 
   override fun availableMessageTypes(): Set<UserMessageType> {
