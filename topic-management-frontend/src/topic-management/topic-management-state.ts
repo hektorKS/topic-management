@@ -8,6 +8,9 @@ export const topicManagementFeatureKey = 'topicManagementKey';
 export const topicManagementFeatureSelector = createFeatureSelector<TopicManagementState>(topicManagementFeatureKey);
 export const topicsSelector = createSelector(topicManagementFeatureSelector, state => state.topics ?? []);
 export const schoolsSelector = createSelector(topicManagementFeatureSelector, state => state.schools ?? []);
+export const schoolSelector = createSelector(topicManagementFeatureSelector,
+  (state, properties) => state.schools.find(school => school.id == properties.schoolId)
+);
 export const bucketsInSchoolSelector = createSelector(
   topicManagementFeatureSelector,
   (state, properties) => state.schoolBuckets.get(properties.schoolId) ?? []

@@ -1,0 +1,22 @@
+@import 'src/styles';
+
+@mixin default-mat-list-option {
+  mat-list-option {
+    @include centered-with-margins;
+    display: inline-block;
+    background-color: $color-primary-dark;
+    border: 2px solid $color-primary-light;
+    color: $color-primary-light;
+
+    &:hover {
+      background-color: $color-primary-light;
+      border: 2px solid $color-primary-dark;
+      color: $color-primary-dark;
+    }
+  }
+}
+
+@mixin centered-with-margins {
+  width: 80vw;
+  margin: 10px 10vw 0;
+}

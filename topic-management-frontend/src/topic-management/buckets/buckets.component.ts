@@ -3,7 +3,8 @@ import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {bucketsInSchoolSelector,} from "../topic-management-state";
 import {Bucket} from "./bucket/bucket.model";
-import {bucketsViewOpened} from "./buckets-actions";
+import {bucketSelected, bucketsViewOpened} from "./buckets-actions";
+import {schoolSelected} from "../schools/schools-actions";
 
 @Component({
   selector: 'buckets',
@@ -34,7 +35,7 @@ export class BucketsComponent implements OnInit {
   }
 
   bucketOptionClicked(bucket: Bucket) {
-
+    this.store.dispatch(bucketSelected(bucket));
   }
 
 }

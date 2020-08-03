@@ -6,10 +6,15 @@ import {SchoolComponent} from "./schools/school/school.component";
 import {StoreModule} from "@ngrx/store";
 import {routerFeatureName} from "./topic-management-router-state";
 import {routerReducer} from "@ngrx/router-store";
+import {BucketComponent} from "./buckets/bucket/bucket.component";
 
 
 const routes: Routes = [
   {
+    path: 'schools/:schoolId/buckets/:bucketId',
+    component: BucketComponent,
+    pathMatch: 'full'
+  },{
     path: 'schools/:schoolId',
     component: SchoolComponent,
     pathMatch: 'full'

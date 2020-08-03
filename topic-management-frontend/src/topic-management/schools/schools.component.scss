@@ -1,31 +1,19 @@
 @import 'src/styles';
+@import "src/topic-management/topic-management-styles";
 
 :host {
-  mat-list-option {
-    display: inline-block;
-    width: 80%;
-    margin: 10px 10% 0;
-    background-color: $color-primary-dark;
-    border: 2px solid $color-primary-light;
-    color: $color-primary-light;
+  @include default-mat-list-option;
 
-    &:hover {
-      background-color: $color-primary-light;
-      border: 2px solid $color-primary-dark;
-      color: $color-primary-dark;
-    }
+  .school-element {
+    display: flex;
 
-    .school-element {
-      display: flex;
-
-      span:first-of-type {
-        display: inline-block;
-        flex-grow: 2;
-        margin-right: 5px;
-        text-transform: uppercase;
-        font-size: 120%;
-        font-weight: bold;
-      }
+    span:first-of-type {
+      display: inline-block;
+      flex-grow: 2;
+      margin-right: 5px;
+      text-transform: uppercase;
+      font-size: 120%;
+      font-weight: bold;
     }
   }
 }

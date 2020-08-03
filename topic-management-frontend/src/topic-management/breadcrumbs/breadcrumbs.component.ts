@@ -45,7 +45,9 @@ export class BreadcrumbsComponent implements OnInit {
 
   breadcrumbClicked(breadcrumb: Breadcrumb) {
     if (!breadcrumb.active) {
-      this.router.navigateByUrl(breadcrumb.url).then();
+      this.router.navigateByUrl(breadcrumb.url).then(() =>
+        this.store.dispatch(changeBreadcrumb(breadcrumb))
+      );
     }
   }
 

@@ -25,6 +25,9 @@ import {topicManagementReducer} from "./topic-management-reducers";
 import {MatMenuModule} from "@angular/material/menu";
 import {BucketsComponent} from "./buckets/buckets.component";
 import {StoreRouterConnectingModule} from "@ngrx/router-store";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {BucketComponent} from "./buckets/bucket/bucket.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import {StoreRouterConnectingModule} from "@ngrx/router-store";
     SchoolsComponent,
     SchoolComponent,
     BucketsComponent,
+    BucketComponent,
     TopicsComponent,
     BreadcrumbsComponent
   ],
@@ -56,7 +60,9 @@ import {StoreRouterConnectingModule} from "@ngrx/router-store";
     MatToolbarModule,
     MatButtonModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [TopicManagementComponent]

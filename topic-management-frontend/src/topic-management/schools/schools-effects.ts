@@ -5,7 +5,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {exhaustMap, flatMap, map} from "rxjs/operators";
 import {changeBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
 import {SchoolsService} from "./schools.service";
-import {schoolSelected, schoolsLoaded, schoolsViewOpened} from "./schools-actions";
+import {schoolSelected, schoolsLoaded, schoolsViewOpened, schoolViewOpened} from "./schools-actions";
 import {Router} from "@angular/router";
 
 @Injectable()
@@ -18,7 +18,7 @@ export class SchoolsEffects {
   }
 
   reloadSchools$: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(ofType(schoolsViewOpened))
+    return this.actions$.pipe(ofType(schoolViewOpened, schoolsViewOpened))
       .pipe(
         exhaustMap(_ => this.schoolsService.getSchools()),
         map(schools => schoolsLoaded({schools: schools}))
