@@ -7,4 +7,6 @@ interface SchoolRepository {
   fun save(school: School)
 
   fun findAll(): List<School>
+
+  fun existsByName(name: String): Boolean
 }

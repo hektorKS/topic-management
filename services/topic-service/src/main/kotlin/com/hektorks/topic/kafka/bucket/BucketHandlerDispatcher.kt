@@ -3,6 +3,7 @@ package com.hektorks.topic.kafka.bucket
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.hektorks.kafka.listen.HandlerDispatcher
 import com.hektorks.kafka.messagetype.BucketMessageType
 import com.hektorks.topic.businesslogic.handlers.BucketCreatedHandler
 import com.hektorks.topic.businesslogic.handlers.BucketDeletedHandler
@@ -13,7 +14,7 @@ import java.util.UUID
 
 @Service
 class BucketHandlerDispatcher(private val bucketCreatedHandler: BucketCreatedHandler,
-                              private val bucketDeletedHandler: BucketDeletedHandler) {
+                              private val bucketDeletedHandler: BucketDeletedHandler) : HandlerDispatcher {
   private val log = LoggerFactory.getLogger(javaClass)
   private val objectMapper: ObjectMapper = jacksonObjectMapper()
 
@@ -26,10 +27,8 @@ class BucketHandlerDispatcher(private val bucketCreatedHandler: BucketCreatedHan
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
   }
 
-  fun dispatch(bucketMessageType: BucketMessageType, payload: Map<String, Any>) {
-    log.info("$payload")
-    log.info("${payload[BUCKET]}")
-    when (bucketMessageType) {
+  override fun dispatch(messageType: String, payload: Map<String, Any>) {
+    when (val bucketMessageType = BucketMessageType.valueOf(messageType)) {
       BucketMessageType.BUCKET_CREATED -> {
         log.info("Dispatching event ${bucketMessageType.name} to bucket created handler")
         bucketCreatedHandler.handle(objectMapper.convertValue(payload[BUCKET], Bucket::class.java))
