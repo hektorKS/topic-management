@@ -8,20 +8,19 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
 
-@Service
 abstract class KafkaBaseListener<E> where E : Enum<E>, E : VersionedMessageType {
   private val log = LoggerFactory.getLogger(javaClass)
 
   open fun listen(consumerRecord: ConsumerRecord<String, KafkaMessage>) {
-    log.info("> Handling bucket event with offset: ${consumerRecord.offset()}, partition: ${consumerRecord.partition()}")
+    log.info("> Handling event with offset: ${consumerRecord.offset()}, partition: ${consumerRecord.partition()}")
     val value: KafkaMessage = consumerRecord.value()
     val messageType = availableMessageTypes().find { value.messageType == it.name }
     if (messageType != null) {
       this.dispatch(value, messageType)
-      log.info("Successfully handled bucket event with offset ${consumerRecord.offset()}")
+      log.info("Successfully handled event with offset ${consumerRecord.offset()}")
     } else {
       log.error("Invalid message type received. messageType: ${value.messageType}, version: ${value.version}")
-      throw IllegalStateException("Invalid message type received . messageType: ${value.messageType}, version: ${value.version}")
+      throw IllegalStateException("Invalid message type received. messageType: ${value.messageType}, version: ${value.version}")
     }
   }
 
