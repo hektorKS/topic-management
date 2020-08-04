@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
-import {topicsViewOpened} from "./topics-actions";
 import {Observable} from "rxjs";
 import {Topic} from "./topic/topic.model";
 import {topicsSelector} from "../topic-management-state";
@@ -8,9 +7,13 @@ import {topicsSelector} from "../topic-management-state";
 @Component({
   selector: 'topics',
   template: `
-    <div *ngFor="let topic of topics$ | async">
-      {{ topic | json }}
-    </div>
+    <mat-selection-list #topics [multiple]="false">
+      <mat-list-option *ngFor="let topic of topics$ | async" [value]="topic" (click)="topicOptionClicked(topic)">
+        <div class="topic-element">
+          <span> {{ topic.title }} </span>
+        </div>
+      </mat-list-option>
+    </mat-selection-list>
   `,
   styleUrls: ['topics.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,8 +26,11 @@ export class TopicsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(topicsViewOpened())
     this.topics$ = this.store.select(topicsSelector)
+  }
+
+  topicOptionClicked(topic: Topic): void {
+
   }
 
 }

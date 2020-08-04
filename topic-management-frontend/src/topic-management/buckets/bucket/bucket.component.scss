@@ -2,5 +2,8 @@
 @import "src/topic-management/topic-management-styles";
 
 :host {
-  @include default-mat-list-option;
+  .school-view-wrapper {
+    @include centered-with-margins;
+    display: flex;
+  }
 }

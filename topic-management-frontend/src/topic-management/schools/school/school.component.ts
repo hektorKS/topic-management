@@ -3,7 +3,7 @@ import {select, Store} from "@ngrx/store";
 import {selectSchoolId} from "../../topic-management-router-state";
 import {Observable, Subject} from "rxjs";
 import {School} from "./school.model";
-import {schoolSelector} from "../../topic-management-state";
+import {schoolSelector, schoolsSelector} from "../../topic-management-state";
 import {tap} from "rxjs/operators";
 import {schoolViewOpened} from "../schools-actions";
 
@@ -40,12 +40,21 @@ export class SchoolComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(schoolViewOpened());
+    this.reloadSchoolsIfNotLoaded();
     this.routeSchoolId$ = this.store.select(selectSchoolId).pipe(
       tap(schoolId => this.store.pipe(select(schoolSelector, {schoolId: schoolId}))
         .pipe(tap(school => this.school$.next(school)))
         .subscribe())
     );
+  }
+
+  private reloadSchoolsIfNotLoaded(): void {
+    this.store.select(schoolsSelector).subscribe(schools => {
+        if (schools.length == 0) {
+          this.store.dispatch(schoolViewOpened());
+        }
+      }
+    )
   }
 
   ngOnDestroy(): void {

@@ -4,7 +4,6 @@ import {Observable} from "rxjs";
 import {bucketsInSchoolSelector,} from "../topic-management-state";
 import {Bucket} from "./bucket/bucket.model";
 import {bucketSelected, bucketsViewOpened} from "./buckets-actions";
-import {schoolSelected} from "../schools/schools-actions";
 
 @Component({
   selector: 'buckets',

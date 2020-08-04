@@ -12,4 +12,5 @@ export const {
 } = getSelectors(selectRouter);
 export const selectSchoolId = selectRouteParam('schoolId');
 export const selectBucketId = selectRouteParam('bucketId');
+export const selectTopicId = selectRouteParam('topicId');
 

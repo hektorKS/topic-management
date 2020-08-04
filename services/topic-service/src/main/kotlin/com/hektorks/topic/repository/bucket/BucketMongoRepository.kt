@@ -4,4 +4,4 @@ import com.hektorks.topic.model.Bucket
 import org.springframework.data.mongodb.repository.MongoRepository
 import java.util.UUID
 
-interface BucketMongoRepository: MongoRepository<Bucket, UUID>
+interface BucketMongoRepository: BucketRepository, MongoRepository<Bucket, UUID>

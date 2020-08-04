@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, Component, HostListener, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {breadcrumbsSelector} from "./breadcrumbs-state";
 import {Breadcrumb} from "./breadcrumb.model";
@@ -21,7 +21,8 @@ import {take, tap} from "rxjs/operators";
      </span>
     </div>
   `,
-  styleUrls: ['./breadcrumbs.component.scss']
+  styleUrls: ['./breadcrumbs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbsComponent implements OnInit {
 

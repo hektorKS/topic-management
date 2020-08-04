@@ -1,14 +1,15 @@
 package com.hektorks.topic.kafka.topic
 
 import com.hektorks.kafka.KafkaBaseService
-import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.SystemTopics
+import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.messagetype.TopicMessageType
 import com.hektorks.topic.model.Topic
 import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
 import java.util.UUID
 
-
+@Service
 class KafkaTopicServiceImpl(private val kafkaBaseService: KafkaBaseService): KafkaTopicService {
   private val log = LoggerFactory.getLogger(javaClass)
 

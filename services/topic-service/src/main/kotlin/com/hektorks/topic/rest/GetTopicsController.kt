@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
-data class GetTopicsResponse(val topicViews: List<Topic>)
+data class GetTopicsResponse(val topics: List<Topic>)
 
-data class GetTopicsViewsResponse(val topicViews: List<TopicView>)
+data class GetTopicsViewsResponse(val topicsView: List<TopicView>)
 
 @RestController
 @RequestMapping("/api/v1")

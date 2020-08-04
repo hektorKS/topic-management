@@ -1,15 +1,17 @@
 package com.hektorks.topic.model
 
+import org.springframework.data.mongodb.core.mapping.Document
 import java.util.UUID
 
+@Document(collection = "users")
 data class User(
-  val id: UUID,
-  val identifier: String
-)
-
-data class DetailedUser(
   val id: UUID,
   val firstName: String,
   val lastName: String,
-  val identifier: String
+  val username: String
+)
+
+data class UsernameUser(
+  val id: UUID,
+  val username: String
 )

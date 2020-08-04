@@ -2,8 +2,8 @@ package com.hektorks.topic.repository.topic
 
 import com.hektorks.exceptionhandling.RepositoryException
 import com.hektorks.topic.model.TopicView
-import com.hektorks.topic.repository.MongoCollections.BUCKETS_COLLECTION_NAME
 import com.hektorks.topic.repository.MongoCollections.TOPICS_COLLECTION_NAME
+import com.hektorks.topic.repository.MongoCollections.USERS_COLLECTION_NAME
 import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.aggregation.Aggregation
@@ -15,17 +15,20 @@ import org.springframework.data.mongodb.core.aggregation.LookupOperation.newLook
 import org.springframework.data.mongodb.core.query.Criteria.where
 import org.springframework.data.mongodb.core.query.isEqualTo
 import java.util.UUID
+import java.util.stream.Collectors
 
 class TopicViewMongoRepository(private val mongoTemplate: MongoTemplate) : TopicViewRepository {
   private val log = LoggerFactory.getLogger(javaClass)
 
   private companion object {
     private const val MONGO_ID = "_id"
-    private const val ID = "id"
-    private const val BUCKET = "bucket"
     private const val BUCKET_ID = "bucketId"
-    private const val NAME = "name"
-    private const val BUCKET_LOOKUP = "bucketLookup"
+    private const val SUPERVISOR = "supervisor"
+    private const val FIRST_NAME = "firstName"
+    private const val LAST_NAME = "lastName"
+    private const val USERNAME = "username"
+    private const val SUPERVISOR_ID = "supervisorId"
+    private const val SUPERVISOR_LOOKUP = "supervisorLookup"
   }
 
   override fun getViewByBucketId(bucketId: UUID): List<TopicView> {
@@ -33,18 +36,22 @@ class TopicViewMongoRepository(private val mongoTemplate: MongoTemplate) : Topic
       val aggregation = Aggregation.newAggregation(
         match(where(BUCKET_ID).isEqualTo(bucketId)),
         newLookup()
-          .from(BUCKETS_COLLECTION_NAME)
-          .localField(BUCKET_ID)
+          .from(USERS_COLLECTION_NAME)
+          .localField(SUPERVISOR_ID)
           .foreignField(MONGO_ID)
-          .`as`(BUCKET_LOOKUP),
-        unwind(BUCKET_LOOKUP),
+          .`as`(SUPERVISOR_LOOKUP),
+        unwind(SUPERVISOR_LOOKUP),
         project(TopicView::class.java)
-          .andExpression("$BUCKET.$ID").`as`("$BUCKET_LOOKUP.$MONGO_ID")
-          .andExpression(BUCKET).nested(fields("$BUCKET_LOOKUP.$MONGO_ID", "$BUCKET_LOOKUP.$NAME"))
+          .andExpression(SUPERVISOR).nested(fields(
+            "$SUPERVISOR_LOOKUP.$MONGO_ID",
+            "$SUPERVISOR_LOOKUP.$FIRST_NAME",
+            "$SUPERVISOR_LOOKUP.$LAST_NAME",
+            "$SUPERVISOR_LOOKUP.$USERNAME"
+          ))
       )
       return mongoTemplate.aggregate(aggregation, TOPICS_COLLECTION_NAME, TopicView::class.java).mappedResults
     } catch (exception: Exception) {
-      log.error("Getting topic views by bucketId=$bucketId from mongo failed with exception: $exception!")
+      log.error("Getting topics view by bucketId=$bucketId from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }

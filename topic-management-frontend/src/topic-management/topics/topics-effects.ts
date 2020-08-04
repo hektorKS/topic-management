@@ -20,15 +20,10 @@ export class TopicsEffects {
   reloadTopics$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(ofType(topicsViewOpened))
       .pipe(
-        exhaustMap(_ => this.topicsService.getTopics()),
-        map(topics => topicsLoaded({topics: topics}))
-      );
-  });
-
-  topicsViewOpened$: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(ofType(topicsViewOpened))
-      .pipe(
-        map(_ => changeBreadcrumb({name: 'topics', url: this.router.url}))
+        exhaustMap(payload => this.topicsService.getTopicsView(payload.bucketId)),
+        map(topics => {
+          return topicsLoaded({topics: topics})
+        })
       );
   });
 

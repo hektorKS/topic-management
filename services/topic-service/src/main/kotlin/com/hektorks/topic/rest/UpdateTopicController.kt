@@ -1,6 +1,7 @@
 package com.hektorks.topic.rest
 
 import com.hektorks.topic.businesslogic.command.UpdateTopicCommand
+import com.hektorks.topic.model.UsernameUser
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PatchMapping
@@ -15,7 +16,7 @@ data class UpdateTopicRequest(
   val title: String?,
   val description: String?,
   val supervisorId: UUID?,
-  val studentsIds: List<UUID>?
+  val students: List<UsernameUser>?
 )
 
 @RestController

@@ -9,6 +9,7 @@ docker exec mongo-node1 mongo topic --eval 'rs.status()'
 sleep 1
 docker exec mongo-node1 mongo topic --eval 'db.createCollection("topics")'
 docker exec mongo-node1 mongo topic --eval 'db.createCollection("buckets")'
+docker exec mongo-node1 mongo topic --eval 'db.createCollection("users")'
 docker exec mongo-node1 mongo topic --eval 'db.topics.createIndex( { "bucketId": 1 } )'
 
 # Collections - BUCKET SERVICE

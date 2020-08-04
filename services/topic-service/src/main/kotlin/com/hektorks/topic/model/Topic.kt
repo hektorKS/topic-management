@@ -10,5 +10,5 @@ data class Topic(
     val title: String,
     val description: String,
     val supervisorId: UUID,
-    val studentsIds: List<UUID>
+    val students: List<UsernameUser> = emptyList()
 )

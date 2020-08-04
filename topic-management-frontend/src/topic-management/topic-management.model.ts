@@ -1,4 +1,6 @@
+// In the future there should be load balancer
 export enum TopicManagementServices {
+  MESSAGE_SERVICE= "http://localhost:9704",
   USER_SERVICE= "http://localhost:9703",
   SCHOOL_SERVICE= "http://localhost:9702",
   BUCKET_SERVICE= "http://localhost:9701",

@@ -6,6 +6,6 @@ export enum TopicsActions {
   TOPICS_LOADED = '[Topic] Topics loaded',
 }
 
-export const topicsViewOpened = createAction(TopicsActions.TOPICS_VIEW_OPENED);
+export const topicsViewOpened = createAction(TopicsActions.TOPICS_VIEW_OPENED, props<{ bucketId: string }>());
 export const topicsLoaded = createAction(TopicsActions.TOPICS_LOADED, props<{ topics: Topic[] }>());
 

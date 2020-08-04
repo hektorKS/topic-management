@@ -13,10 +13,11 @@ export class TopicsService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getTopics(): Observable<Topic[]> {
-    return this.httpClient.get<{ topics: Topic[] }>(`${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics`)
-      .pipe(
-        map(response => response.topics)
-      )
+  getTopicsView(bucketId: string): Observable<Topic[]> {
+    return this.httpClient.get<{ topicsView: Topic[] }>(
+      `${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics/bucket/${bucketId}/view`
+    ).pipe(
+      map(response => response.topicsView)
+    )
   }
 }
