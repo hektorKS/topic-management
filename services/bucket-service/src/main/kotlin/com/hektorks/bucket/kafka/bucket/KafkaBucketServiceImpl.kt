@@ -6,8 +6,10 @@ import com.hektorks.kafka.SystemTopics
 import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.messagetype.BucketMessageType
 import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
 import java.util.UUID
 
+@Service
 class KafkaBucketServiceImpl(private val kafkaBaseService: KafkaBaseService): KafkaBucketService {
   private val log = LoggerFactory.getLogger(javaClass)
 

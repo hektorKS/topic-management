@@ -1,0 +1,11 @@
+server:
+  port : 9704
+mongodb:
+  databaseName: "message"
+kafka:
+  consumer:
+    groupId: "message-cluster"
+  topics:
+    - name: "messages"
+      partitionsNumber: 5
+      replicationFactor: 1

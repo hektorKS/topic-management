@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Replication sets configuration
-docker exec mongo-node1 mongo --eval 'rs.initiate({"_id": "replicaSet1", "members": [{"_id": 0, "host": "mongo-node1:27017", "priority": 2},{"_id": 1,"host": "mongo-node2:27017", "priority": 1}]});'
-sleep 10
+docker exec mongo-node1 mongo --eval 'rs.initiate({"_id": "replicaSet1", "members": [{"_id": 0,"host":"mongo-node1:27017","priority": 1000},{"_id": 1,"host":"mongo-node2:27017","priority": 50},{"_id":2,"host":"mongo-node3:27017","priority":50}]});'
+sleep 20
 docker exec mongo-node1 mongo topic --eval 'rs.status()'
 
 # Collections - TOPIC SERVICE
@@ -27,3 +27,8 @@ docker exec mongo-node1 mongo school --eval 'db.schools.createIndex( { "name": 1
 sleep 1
 docker exec mongo-node1 mongo user --eval 'db.createCollection("users")'
 docker exec mongo-node1 mongo user --eval 'db.users.createIndex( { "identifier": 1 } )'
+
+# Collections - MESSAGE SERVICE
+sleep 1
+docker exec mongo-node1 mongo message --eval 'db.createCollection("messages")'
+docker exec mongo-node1 mongo message --eval 'db.users.createIndex( { "senderId": 1, "recipientId": 1 } )'

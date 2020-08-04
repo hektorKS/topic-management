@@ -24,6 +24,18 @@ services:
       - mongo-cluster
     ports:
       - 27018:27017
+  mongo-node3:
+    image: mongo:4.2.2
+    container_name: mongo-node3
+    command: mongod --replSet replicaSet1
+    restart: always
+    volumes:
+      - mongo-data-node3:/data/db
+      - mongo-config-node3:/data/configdb
+    networks:
+      - mongo-cluster
+    ports:
+      - 27019:27017
   zookeeper:
     image: zookeeper:3.5.6
     container_name: zookeeper
@@ -53,6 +65,8 @@ volumes:
   mongo-config-node1:
   mongo-data-node2:
   mongo-config-node2:
+  mongo-data-node3:
+  mongo-config-node3:
   zookeeper-data:
   zookeeper-data-log:
   zookeeper-log:

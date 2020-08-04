@@ -5,7 +5,6 @@ import com.hektorks.kafka.message.KafkaMessage
 import com.hektorks.kafka.messagetype.VersionedMessageType
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Service
 
 
 abstract class KafkaBaseListener<E> where E : Enum<E>, E : VersionedMessageType {
