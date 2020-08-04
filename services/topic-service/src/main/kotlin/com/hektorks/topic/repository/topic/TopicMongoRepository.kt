@@ -18,6 +18,8 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
 
   private companion object {
     private const val ID = "_id"
+    private const val BUCKET_ID = "bucketId"
+    private const val TITLE = "title"
   }
 
   override fun create(topic: Topic) {
@@ -67,6 +69,18 @@ class TopicMongoRepository(private val mongoTemplate: MongoTemplate): TopicRepos
       return mongoTemplate.remove(query, TOPICS_COLLECTION_NAME)
     } catch(exception: Exception) {
       log.error("Deleting topic with id $topicId from mongo failed with exception: $exception!")
+      throw RepositoryException(exception)
+    }
+  }
+
+  override fun existsByBucketIdAndTitle(bucketId: UUID, title: String): Boolean {
+    try {
+      val query = Query()
+      query.addCriteria(Criteria.where(BUCKET_ID).isEqualTo(bucketId))
+      query.addCriteria(Criteria.where(TITLE).isEqualTo(title))
+      return mongoTemplate.exists(query, TOPICS_COLLECTION_NAME)
+    } catch(exception: Exception) {
+      log.error("Checking title in bucket existence from mongo failed with exception: $exception!")
       throw RepositoryException(exception)
     }
   }

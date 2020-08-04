@@ -17,4 +17,6 @@ interface TopicRepository {
 
   fun delete(topicId: UUID): DeleteResult
 
+  fun existsByBucketIdAndTitle(bucketId: UUID, title: String): Boolean
+
 }

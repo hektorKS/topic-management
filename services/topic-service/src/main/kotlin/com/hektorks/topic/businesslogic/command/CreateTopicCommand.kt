@@ -22,6 +22,7 @@ open class CreateTopicCommand(private val topicValidator: TopicValidator,
   @Transactional
   open fun execute(createTopicRequest: CreateTopicRequest): UUID {
     val students = if (createTopicRequest.studentIds != null) {
+      // #NiceToHave - mongo projection to UsernameUser would be better
       userRepository.findAllById(createTopicRequest.studentIds).asSequence().map {
         UsernameUser(it.id, it.username)
       }.toList()
