@@ -5,9 +5,8 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {flatMap, map} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {BucketsService} from "./buckets.service";
-import {bucketSelected, bucketsLoaded, bucketsViewOpened, singleBucketViewOpened} from "./buckets-actions";
+import {bucketLoaded, bucketSelected, bucketsInSchoolLoaded, loadBucket, loadBucketsInSchool} from "./buckets-actions";
 import {changeBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
-import {topicsViewOpened} from "../topics/topics-actions";
 
 @Injectable()
 export class BucketsEffects {
@@ -18,21 +17,23 @@ export class BucketsEffects {
               private bucketsService: BucketsService) {
   }
 
-  reloadBuckets$: Observable<Action> = createEffect(() => {
+  loadBucketsInSchool$: Observable<Action> = createEffect(() => {
       return this.actions$.pipe(
-        ofType(bucketsViewOpened),
+        ofType(loadBucketsInSchool),
         flatMap(payload => this.bucketsService.getBucketsInSchool(payload.schoolId)
           .pipe(map(buckets => {
             return {buckets: buckets, schoolId: payload.schoolId};
           }))),
-        map(payloadWithBuckets => bucketsLoaded(payloadWithBuckets)));
+        map(payloadWithBuckets => bucketsInSchoolLoaded(payloadWithBuckets)));
     }
   );
 
-  reloadTopicsOnSingleBucketViewOpened$: Observable<Action> = createEffect(() => {
+  loadBucket$: Observable<Action> = createEffect(() => {
       return this.actions$.pipe(
-        ofType(singleBucketViewOpened),
-        map(payload => topicsViewOpened(payload)));
+        ofType(loadBucket),
+        flatMap(payload => this.bucketsService.getBucketById(payload.bucketId)),
+        map(bucket => bucketLoaded(bucket))
+      )
     }
   );
 

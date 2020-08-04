@@ -2,14 +2,17 @@ import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {selectBucketId} from "../../topic-management-router-state";
 import {Observable} from "rxjs";
-import {singleBucketViewOpened} from "../buckets-actions";
+import {Bucket} from "./bucket.model";
+import {activeBucketSelector} from "../../topic-management-state";
+import {loadTopicsInBucket} from "../../topics/topics-actions";
+import {loadBucket} from "../buckets-actions";
 import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'bucket',
   template: `
-    <div class="bucket-view-wrapper">
-
+    <div>
+      <div *ngIf="bucket$ | async; let bucket" class="bucket-name"> {{ bucket.name }} </div>
       <topics></topics>
     </div>
   `,
@@ -18,15 +21,17 @@ import {filter} from "rxjs/operators";
 })
 export class BucketComponent implements OnInit {
 
-  routeBucketId$: Observable<string>;
+  bucketId$: Observable<string>;
+  bucket$: Observable<Bucket>;
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-    this.routeBucketId$ = this.store.select(selectBucketId);
-    this.routeBucketId$.pipe(filter(bucketId => bucketId !== undefined))
-      .subscribe(bucketId => this.store.dispatch(singleBucketViewOpened({bucketId: bucketId})));
+    this.bucketId$ = this.store.select(selectBucketId).pipe(filter(bucketId => bucketId !== undefined));
+    this.bucketId$.subscribe(bucketId => this.store.dispatch(loadBucket({bucketId: bucketId})));
+    this.bucketId$.subscribe(bucketId => this.store.dispatch(loadTopicsInBucket({bucketId: bucketId})));
+    this.bucket$ = this.store.select(activeBucketSelector);
   }
 
 }

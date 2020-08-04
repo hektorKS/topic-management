@@ -21,4 +21,11 @@ export class BucketsService {
       )
   }
 
+  getBucketById(bucketId: string): Observable<Bucket> {
+    return this.httpClient.get<{ bucket: Bucket }>(`${TopicManagementServices.BUCKET_SERVICE}/api/v1/buckets/${bucketId}`)
+      .pipe(
+        map(response => response.bucket)
+      )
+  }
+
 }

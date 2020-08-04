@@ -2,10 +2,10 @@ import {createAction, props} from "@ngrx/store";
 import {Topic} from "./topic/topic.model";
 
 export enum TopicsActions {
-  TOPICS_VIEW_OPENED = '[Topic] Topic view opened',
-  TOPICS_LOADED = '[Topic] Topics loaded',
+  LOAD_TOPICS_IN_BUCKET = '[Topic] Load topics in bucket',
+  TOPICS_IN_BUCKET_LOADED = '[Topic] Topics in bucket loaded',
 }
 
-export const topicsViewOpened = createAction(TopicsActions.TOPICS_VIEW_OPENED, props<{ bucketId: string }>());
-export const topicsLoaded = createAction(TopicsActions.TOPICS_LOADED, props<{ topics: Topic[] }>());
+export const loadTopicsInBucket = createAction(TopicsActions.LOAD_TOPICS_IN_BUCKET, props<{ bucketId: string }>());
+export const topicsInBucketLoaded = createAction(TopicsActions.TOPICS_IN_BUCKET_LOADED, props<{ topics: Topic[] }>());
 

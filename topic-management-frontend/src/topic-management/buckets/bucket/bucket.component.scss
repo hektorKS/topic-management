@@ -2,8 +2,8 @@
 @import "src/topic-management/topic-management-styles";
 
 :host {
-  .school-view-wrapper {
+  .bucket-name {
     @include centered-with-margins;
-    display: flex;
+    @include view-title;
   }
 }

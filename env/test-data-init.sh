@@ -1,6 +1,7 @@
 #!/bin/bash
 
-Initialize test users
+# ADMIN INITIALIZATION
+# Initialize test users
 USER_KONRAD_RESPONSE=$(curl -X POST http://localhost:9703/api/v1/users -H 'Content-Type: application/json' \
   -d '{
 	"firstName": "Konrad",
@@ -83,6 +84,7 @@ SCHOOL_UAM_UUID=$(echo "$SCHOOL_UAM_RESPONSE" | sed -nE 's/.*"id":"(.*)".*/\1/p'
 echo "SCHOOL_UAM_UUID=$SCHOOL_UAM_UUID"
 sleep 1
 
+# CERTAIN USERS INITIALIZATION
 # Initialize test buckets
 BUCKET_MAIN_RESPONSE=$(curl -X POST http://localhost:9701/api/v1/buckets -H 'Content-Type: application/json' \
   -d "{

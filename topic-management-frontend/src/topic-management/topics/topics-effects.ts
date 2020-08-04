@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {TopicsService} from "./topics.service";
-import {topicsLoaded, topicsViewOpened} from "./topics-actions";
+import {topicsInBucketLoaded, loadTopicsInBucket} from "./topics-actions";
 import {exhaustMap, map} from "rxjs/operators";
 import {changeBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
 import {Router} from "@angular/router";
@@ -18,11 +18,11 @@ export class TopicsEffects {
   }
 
   reloadTopics$: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(ofType(topicsViewOpened))
+    return this.actions$.pipe(ofType(loadTopicsInBucket))
       .pipe(
         exhaustMap(payload => this.topicsService.getTopicsView(payload.bucketId)),
         map(topics => {
-          return topicsLoaded({topics: topics})
+          return topicsInBucketLoaded({topics: topics})
         })
       );
   });

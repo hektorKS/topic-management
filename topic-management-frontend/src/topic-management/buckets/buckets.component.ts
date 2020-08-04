@@ -3,7 +3,7 @@ import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {bucketsInSchoolSelector,} from "../topic-management-state";
 import {Bucket} from "./bucket/bucket.model";
-import {bucketSelected, bucketsViewOpened} from "./buckets-actions";
+import {bucketSelected, loadBucketsInSchool} from "./buckets-actions";
 
 @Component({
   selector: 'buckets',
@@ -29,7 +29,7 @@ export class BucketsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(bucketsViewOpened({schoolId: this.schoolId}))
+    this.store.dispatch(loadBucketsInSchool({schoolId: this.schoolId}))
     this.buckets$ = this.store.pipe(select(bucketsInSchoolSelector, {schoolId: this.schoolId}))
   }
 

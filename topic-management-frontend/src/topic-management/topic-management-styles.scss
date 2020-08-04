@@ -21,6 +21,12 @@
   margin: 10px 10vw 0;
 }
 
+@mixin view-title {
+  color: $color-primary-dark;
+  text-transform: uppercase;
+  font-size: 200%;
+  font-weight: bold;
+}
 
 .icon {
   &-big {
