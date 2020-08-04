@@ -5,6 +5,8 @@ import java.util.UUID
 
 interface TopicViewRepository {
 
+  fun getViewByTopicId(topicId: UUID): TopicView?
+
   fun getViewByBucketId(bucketId: UUID): List<TopicView>
 
 }

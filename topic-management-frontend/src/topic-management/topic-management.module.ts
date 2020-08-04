@@ -28,6 +28,7 @@ import {StoreRouterConnectingModule} from "@ngrx/router-store";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {BucketComponent} from "./buckets/bucket/bucket.component";
+import {TopicComponent} from "./topics/topic/topic.component";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {BucketComponent} from "./buckets/bucket/bucket.component";
     BucketsComponent,
     BucketComponent,
     TopicsComponent,
+    TopicComponent,
     BreadcrumbsComponent
   ],
   imports: [

@@ -16,8 +16,12 @@ export class TopicsService {
   getTopicsView(bucketId: string): Observable<Topic[]> {
     return this.httpClient.get<{ topicsView: Topic[] }>(
       `${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics/bucket/${bucketId}/view`
-    ).pipe(
-      map(response => response.topicsView)
-    )
+    ).pipe(map(response => response.topicsView))
+  }
+
+  getTopicView(topicId: string): Observable<Topic> {
+    return this.httpClient.get<{ topicView: Topic }>(
+      `${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics/${topicId}/view`
+    ).pipe(map(response => response.topicView))
   }
 }

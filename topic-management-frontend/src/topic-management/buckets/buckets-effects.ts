@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {flatMap, map} from "rxjs/operators";
+import {exhaustMap, flatMap, map} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {BucketsService} from "./buckets.service";
 import {bucketLoaded, bucketSelected, bucketsInSchoolLoaded, loadBucket, loadBucketsInSchool} from "./buckets-actions";
@@ -20,7 +20,7 @@ export class BucketsEffects {
   loadBucketsInSchool$: Observable<Action> = createEffect(() => {
       return this.actions$.pipe(
         ofType(loadBucketsInSchool),
-        flatMap(payload => this.bucketsService.getBucketsInSchool(payload.schoolId)
+        exhaustMap(payload => this.bucketsService.getBucketsInSchool(payload.schoolId)
           .pipe(map(buckets => {
             return {buckets: buckets, schoolId: payload.schoolId};
           }))),
@@ -31,7 +31,7 @@ export class BucketsEffects {
   loadBucket$: Observable<Action> = createEffect(() => {
       return this.actions$.pipe(
         ofType(loadBucket),
-        flatMap(payload => this.bucketsService.getBucketById(payload.bucketId)),
+        exhaustMap(payload => this.bucketsService.getBucketById(payload.bucketId)),
         map(bucket => bucketLoaded(bucket))
       )
     }

@@ -47,11 +47,9 @@
     }
 
     .topic-description {
-      width: 300px;
+      width: 600px;
       padding: 3px 0;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+      @include dotted-text-overflow;
     }
 
     .title-wrapper {

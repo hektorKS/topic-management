@@ -16,17 +16,20 @@ export const bucketsInSchoolSelector = createSelector(
   (state, properties) => state.schoolBuckets.get(properties.schoolId) ?? []
 );
 export const activeBucketSelector = createSelector(topicManagementFeatureSelector, state => state.activeBucket);
+export const activeTopicSelector = createSelector(topicManagementFeatureSelector, state => state.activeTopic);
 
 export interface TopicManagementState {
   schools: School[];
   schoolBuckets: Map<string, Bucket[]>;
   activeBucket: Bucket;
   topics: Topic[];
+  activeTopic: Topic;
 }
 
 export const initialState: TopicManagementState = {
   schools: [],
   schoolBuckets: new Map(),
   activeBucket: undefined,
-  topics: []
+  topics: [],
+  activeTopic: undefined
 };

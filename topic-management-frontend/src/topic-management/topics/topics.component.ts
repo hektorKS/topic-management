@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Topic} from "./topic/topic.model";
 import {topicsSelector} from "../topic-management-state";
 import {UsernameUser} from "../user/user.model";
+import {topicSelected} from "./topics-actions";
 
 @Component({
   selector: 'topics',
@@ -48,7 +49,7 @@ export class TopicsComponent implements OnInit {
   }
 
   topicOptionClicked(topic: Topic): void {
-
+    this.store.dispatch(topicSelected(topic));
   }
 
 }

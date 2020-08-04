@@ -1,4 +1,5 @@
 @import 'src/styles';
+@import "src/topic-management/topic-management-styles";
 
 :host {
   .breadcrumbs {
@@ -14,6 +15,8 @@
 
   .breadcrumb-button {
     text-transform: capitalize;
+    max-width: 400px;
+    @include dotted-text-overflow;
 
     &-active {
       background-color: $color-primary-light;

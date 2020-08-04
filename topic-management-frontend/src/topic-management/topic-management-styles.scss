@@ -28,6 +28,12 @@
   font-weight: bold;
 }
 
+@mixin dotted-text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .icon {
   &-big {
     width: 48px;

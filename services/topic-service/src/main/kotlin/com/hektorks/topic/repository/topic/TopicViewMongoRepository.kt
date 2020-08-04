@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation.project
 import org.springframework.data.mongodb.core.aggregation.Aggregation.unwind
 import org.springframework.data.mongodb.core.aggregation.Fields.fields
 import org.springframework.data.mongodb.core.aggregation.LookupOperation.newLookup
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation
 import org.springframework.data.mongodb.core.query.Criteria.where
 import org.springframework.data.mongodb.core.query.isEqualTo
 import java.util.UUID
@@ -29,6 +30,33 @@ class TopicViewMongoRepository(private val mongoTemplate: MongoTemplate) : Topic
     private const val USERNAME = "username"
     private const val SUPERVISOR_ID = "supervisorId"
     private const val SUPERVISOR_LOOKUP = "supervisorLookup"
+
+    private val TOPIC_VIEW_PROJECTION = project(TopicView::class.java)
+      .andExpression(SUPERVISOR).nested(fields(
+        "$SUPERVISOR_LOOKUP.$MONGO_ID",
+        "$SUPERVISOR_LOOKUP.$FIRST_NAME",
+        "$SUPERVISOR_LOOKUP.$LAST_NAME",
+        "$SUPERVISOR_LOOKUP.$USERNAME"
+      ))
+  }
+
+  override fun getViewByTopicId(topicId: UUID): TopicView? {
+    try {
+      val aggregation = Aggregation.newAggregation(
+        match(where(MONGO_ID).isEqualTo(topicId)),
+        newLookup()
+          .from(USERS_COLLECTION_NAME)
+          .localField(SUPERVISOR_ID)
+          .foreignField(MONGO_ID)
+          .`as`(SUPERVISOR_LOOKUP),
+        unwind(SUPERVISOR_LOOKUP),
+        TOPIC_VIEW_PROJECTION
+      )
+      return mongoTemplate.aggregate(aggregation, TOPICS_COLLECTION_NAME, TopicView::class.java).uniqueMappedResult
+    } catch (exception: Exception) {
+      log.error("Getting topic view by topicId=$topicId from mongo failed with exception: $exception!")
+      throw RepositoryException(exception)
+    }
   }
 
   override fun getViewByBucketId(bucketId: UUID): List<TopicView> {
@@ -41,13 +69,7 @@ class TopicViewMongoRepository(private val mongoTemplate: MongoTemplate) : Topic
           .foreignField(MONGO_ID)
           .`as`(SUPERVISOR_LOOKUP),
         unwind(SUPERVISOR_LOOKUP),
-        project(TopicView::class.java)
-          .andExpression(SUPERVISOR).nested(fields(
-            "$SUPERVISOR_LOOKUP.$MONGO_ID",
-            "$SUPERVISOR_LOOKUP.$FIRST_NAME",
-            "$SUPERVISOR_LOOKUP.$LAST_NAME",
-            "$SUPERVISOR_LOOKUP.$USERNAME"
-          ))
+        TOPIC_VIEW_PROJECTION
       )
       return mongoTemplate.aggregate(aggregation, TOPICS_COLLECTION_NAME, TopicView::class.java).mappedResults
     } catch (exception: Exception) {
