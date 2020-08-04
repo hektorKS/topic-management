@@ -8,4 +8,6 @@ interface BucketRepository {
   fun save(bucket: Bucket)
 
   fun deleteById(bucketId: UUID)
+
+  fun existsById(bucketId: UUID): Boolean
 }

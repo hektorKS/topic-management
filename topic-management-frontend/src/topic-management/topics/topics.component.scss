@@ -2,4 +2,77 @@
 
 :host {
   @include default-mat-list-option;
+
+  mat-list-option {
+    height: fit-content;
+
+    &:hover {
+      .topic-icon-lock-open {
+        background-image: url('../../assets/lock-open-dark-36px.svg');
+      }
+
+      .topic-icon-lock-closed {
+        background-image: url('../../assets/lock-closed-dark-36px.svg');
+      }
+    }
+  }
+
+  .topic-option-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 10px;
+  }
+
+  .topic-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+
+    .topic-icon-lock-open {
+      background-image: url('../../assets/lock-open-light-36px.svg');
+    }
+
+    .topic-icon-lock-closed {
+      background-image: url('../../assets/lock-closed-light-36px.svg');
+    }
+  }
+
+  .topic-element {
+    .topic-assigned-students {
+      align-self: flex-start;
+      margin-right: 10px;
+      margin-bottom: 5px;
+      font-style: italic;
+    }
+
+    .topic-description {
+      width: 300px;
+      padding: 3px 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .title-wrapper {
+      .topic-title {
+        padding: 5px 0;
+        font-size: 120%;
+        font-weight: bold;
+      }
+
+      .topic-supervisor {
+        font-size: 110%;
+      }
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
 }

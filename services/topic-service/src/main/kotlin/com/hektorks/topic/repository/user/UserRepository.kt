@@ -7,6 +7,8 @@ interface UserRepository {
 
   fun save(user: User)
 
-  fun findAllById(ids: List<UUID>)
+  fun findAllById(ids: Iterable<UUID>): Iterable<User>
+
+  fun existsById(userId: UUID): Boolean
 
 }

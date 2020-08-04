@@ -11,7 +11,7 @@ import {schoolViewOpened} from "../schools-actions";
   selector: 'school',
   template: `
     <div class="school-view-wrapper">
-      <img class="school-icon" src="/assets/school-primary-dark-48dp.svg" alt=""/>
+      <span class="school-icon icon-big"></span>
       <div *ngIf="school$ | async; let school" class="school-view">
         <div class="title">
           {{ school.name }}
