@@ -7,14 +7,17 @@ import {
   breadcrumbsChanged,
   breadcrumbsDestroyed,
   breadcrumbsInitialized,
-  changeBreadcrumb
+  changeBreadcrumb,
+  popBreadcrumb
 } from "./breadcrumbs-actions";
 import {breadcrumbsSelector} from "./breadcrumbs-state";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class BreadcrumbsEffects {
 
   constructor(private store: Store,
+              private router: Router,
               private actions$: Actions) {
   }
 
@@ -73,4 +76,20 @@ export class BreadcrumbsEffects {
       );
   });
 
+  $popBreadcrumb: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(popBreadcrumb),
+      withLatestFrom(this.store.select(breadcrumbsSelector)),
+      map(([_, breadcrumbs]) => {
+        if (breadcrumbs.length < 2) {
+          return;
+        }
+        const oneBeforeLast = breadcrumbs[breadcrumbs.length - 2];
+        this.router.navigateByUrl(oneBeforeLast.url).then(() =>
+          this.store.dispatch(changeBreadcrumb(oneBeforeLast))
+        );
+        return _;
+      })
+    );
+  }, {dispatch: false});
 }

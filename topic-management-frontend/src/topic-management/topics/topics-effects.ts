@@ -4,16 +4,18 @@ import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {TopicsService} from "./topics.service";
 import {
+  deleteTopic,
   loadTopic,
   loadTopicsInBucket,
   saveTopic,
+  topicDeleted,
   topicLoaded,
   topicSaved,
   topicSelected,
   topicsInBucketLoaded,
 } from "./topics-actions";
-import {debounceTime, exhaustMap, flatMap, map, withLatestFrom} from "rxjs/operators";
-import {changeBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
+import {debounceTime, exhaustMap, flatMap, map, tap, withLatestFrom} from "rxjs/operators";
+import {changeBreadcrumb, popBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
 import {Router} from "@angular/router";
 import {selectSchoolId} from "../topic-management-router-state";
 
@@ -55,6 +57,25 @@ export class TopicsEffects {
       map(topicId => topicSaved({topicId: topicId}))
     );
   });
+
+  deleteTopic$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteTopic),
+      debounceTime(100),
+      exhaustMap(payload => {
+        this.topicsService.deleteTopic(payload.topicId);
+        return payload.topicId;
+      }),
+      map(topicId => topicDeleted({topicId: topicId}))
+    );
+  });
+
+  topicDeleted$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(topicDeleted),
+      tap(_ => this.store.dispatch(popBreadcrumb()))
+    );
+  }, {dispatch: false});
 
   topicSelected$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(

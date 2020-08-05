@@ -17,6 +17,7 @@ class DeleteTopicController(private val deleteTopicCommand: DeleteTopicCommand) 
 
   @DeleteMapping("/topics/{id}")
   fun deleteTopicById(@PathVariable("id") topicId: UUID): ResponseEntity<Unit> {
+    // TODO only supervisor can delete topic
     deleteTopicCommand.execute(topicId)
     log.info("Topic deleted, topicId=$topicId")
     return ResponseEntity.noContent().build()

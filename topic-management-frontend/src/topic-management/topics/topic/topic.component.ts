@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {selectTopicId} from "../../topic-management-router-state";
-import {loadTopic, saveTopic, updateFormTopic} from "../topics-actions";
+import {deleteTopic, loadTopic, saveTopic, updateFormTopic} from "../topics-actions";
 import {Topic} from "./topic.model";
 import {
   currentUserIdSelector,
@@ -50,12 +50,19 @@ import {searchAutocompletionUsernames} from "../../user/users-actions";
           </mat-autocomplete>
         </div>
       </mat-form-field>
-      <button *ngIf="!(isReadonly$ | async)"
-              mat-raised-button class="submit-topic-button"
-              [disabled]="topicFormGroup.pristine"
-              (click)="updateTopic()">
-        Save
-      </button>
+      <div class="topic-buttons">
+        <button *ngIf="!(isReadonly$ | async)"
+                mat-raised-button class="topic-button"
+                (click)="deleteTopic()">
+          Delete
+        </button>
+        <button *ngIf="!(isReadonly$ | async)"
+                mat-raised-button class="topic-button"
+                [disabled]="topicFormGroup.pristine"
+                (click)="updateTopic()">
+          Save
+        </button>
+      </div>
     </form>
   `,
   styleUrls: ['topic.component.scss'],
@@ -153,6 +160,13 @@ export class TopicComponent implements OnInit {
   updateTopic(): void {
     this.formTopic$.pipe(take(1)).subscribe(topic => {
         this.store.dispatch(saveTopic(topic));
+      }
+    );
+  }
+
+  deleteTopic() {
+    this.formTopic$.pipe(take(1)).subscribe(topic => {
+        this.store.dispatch(deleteTopic({topicId: topic.id}));
       }
     );
   }

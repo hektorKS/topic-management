@@ -25,7 +25,7 @@ class TopicValidator(private val bucketRepository: BucketRepository,
     private const val TITLE_MAX_LENGTH = 100
 
     private const val DESCRIPTION: String = "description"
-    private const val DESCRIPTION_MAX_LENGTH = 2000
+    private const val DESCRIPTION_MAX_LENGTH = 5000
 
     private const val BUCKET_ID = "bucketId"
     private const val SUPERVISOR_ID = "supervisorId"

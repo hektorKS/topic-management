@@ -32,17 +32,24 @@
       }
     }
 
-    .submit-topic-button {
-      align-self: flex-end;
-      width: 200px;
-      height: 50px;
+    .topic-buttons {
+      display: flex;
+      justify-content: space-between;
       margin-top: 10px;
-      background-color: $color-primary-dark;
-      color: $color-primary-light;
 
-      &:disabled {
-        opacity: 0.5;
+      .topic-button {
+        width: 200px;
+        height: 50px;
+        margin-left: 10px;
+        background-color: $color-primary-dark;
+        color: $color-primary-light;
+
+        &:disabled {
+          opacity: 0.5;
+        }
       }
     }
+
+
   }
 }

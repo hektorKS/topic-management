@@ -37,4 +37,8 @@ export class TopicsService {
       }
     ).subscribe()
   }
+
+  deleteTopic(topicId: string): void {
+    this.httpClient.delete<void>(`${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics/${topicId}`).subscribe()
+  }
 }
