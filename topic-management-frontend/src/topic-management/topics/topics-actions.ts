@@ -22,8 +22,7 @@ export const topicSaved = createAction(TopicsActions.TOPIC_SAVED, props<{ topicI
 export const deleteTopic = createAction(TopicsActions.DELETE_TOPIC, props<{ topicId: string }>());
 export const topicDeleted = createAction(TopicsActions.TOPIC_DELETED, props<{ topicId: string }>());
 export const loadTopicsInBucket = createAction(TopicsActions.LOAD_TOPICS_IN_BUCKET, props<{ bucketId: string }>());
-export const clearTopicsState = createAction(TopicsActions.CLEAR_TOPICS_IN_BUCKET);
-export const topicsInBucketLoaded = createAction(TopicsActions.TOPICS_IN_BUCKET_LOADED, props<{ topics: Topic[] }>());
+export const topicsInBucketLoaded = createAction(TopicsActions.TOPICS_IN_BUCKET_LOADED, props<{ bucketId: string, topics: Topic[] }>());
 export const updateFormTopic = createAction(TopicsActions.UPDATE_FORM_TOPIC, props<Partial<Topic>>());
 export const topicSelected = createAction(TopicsActions.TOPIC_SELECTED, props<Topic>());
 

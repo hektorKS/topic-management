@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from "@angular/core";
-import {Store} from "@ngrx/store";
+import {ChangeDetectionStrategy, Component, Input, OnInit} from "@angular/core";
+import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Topic} from "./topic/topic.model";
-import {topicsSelector} from "../topic-management-state";
+import {topicsInBucketSelector} from "../topic-management-state";
 import {UsernameUser} from "../user/user.model";
-import {clearTopicsState, topicSelected} from "./topics-actions";
+import {topicSelected} from "./topics-actions";
 
 @Component({
   selector: 'topics',
@@ -33,7 +33,9 @@ import {clearTopicsState, topicSelected} from "./topics-actions";
   styleUrls: ['topics.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopicsComponent implements OnInit, OnDestroy {
+export class TopicsComponent implements OnInit {
+
+  @Input() bucketId: string;
 
   topics$: Observable<Topic[]>;
 
@@ -41,11 +43,7 @@ export class TopicsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.topics$ = this.store.select(topicsSelector);
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(clearTopicsState());
+    this.topics$ = this.store.pipe(select(topicsInBucketSelector, {bucketId: this.bucketId}));
   }
 
   getStudentsUsernames(students: UsernameUser[]): string {

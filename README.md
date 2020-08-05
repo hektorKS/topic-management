@@ -41,3 +41,5 @@ Written in Angular using Angular Material, RxJS, NgRx and SCSS
 - STUDENT
     - Have full read-only access to resources in client side
     - Can communicate with LECTURER
+    
+2.I do not write tests atm on purpose (lack of time). Maybe in future I will add them.

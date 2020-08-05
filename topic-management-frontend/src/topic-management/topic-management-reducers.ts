@@ -1,6 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {schoolsLoaded} from "./schools/schools-actions";
-import {clearTopicsState, topicLoaded, topicsInBucketLoaded, updateFormTopic} from "./topics/topics-actions";
+import {topicLoaded, topicsInBucketLoaded, updateFormTopic} from "./topics/topics-actions";
 import {initialState, TopicManagementState} from "./topic-management-state";
 import {bucketLoaded, bucketsInSchoolLoaded} from "./buckets/buckets-actions";
 import {Topic} from "./topics/topic/topic.model";
@@ -15,8 +15,10 @@ export const topicManagementReducer = createReducer<TopicManagementState>(
     return {...state};
   }),
   on(bucketLoaded, (state, action: Bucket) => ({...state, activeBucket: action})),
-  on(topicsInBucketLoaded, (state, action) => ({...state, topics: action.topics})),
-  on(clearTopicsState, state => ({...state, topics: []})),
+  on(topicsInBucketLoaded, (state, action) => {
+    state.bucketTopics.set(action.bucketId, action.topics);
+    return {...state};
+  }),
   on(topicLoaded, (state, action: Topic) => ({
     ...state, topicFormState: {
       ...state.topicFormState,

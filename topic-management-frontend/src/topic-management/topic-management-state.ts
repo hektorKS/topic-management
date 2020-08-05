@@ -18,10 +18,14 @@ export const bucketsInSchoolSelector = createSelector(
 );
 export const activeBucketSelector = createSelector(topicManagementFeatureSelector, state => state.activeBucket);
 
+export const topicsInBucketSelector = createSelector(
+  topicManagementFeatureSelector,
+  (state, properties) => state.bucketTopics.get(properties.bucketId) ?? []
+);
 
-export const topicsSelector = createSelector(topicManagementFeatureSelector, state => state.topics ?? []);
 export const formTopicSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.topic);
 export const formTopicAutocompletionUsersSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.autocompletionUsers);
+
 export const currentUserIdSelector = createSelector(topicManagementFeatureSelector, state => state.loggedInUser.id);
 
 export interface TopicFormState {

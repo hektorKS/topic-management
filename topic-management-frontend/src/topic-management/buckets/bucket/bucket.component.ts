@@ -13,7 +13,7 @@ import {filter} from "rxjs/operators";
   template: `
     <div>
       <div *ngIf="bucket$ | async; let bucket" class="bucket-name"> {{ bucket.name }} </div>
-      <topics></topics>
+      <topics [bucketId]="bucketId$ | async"></topics>
     </div>
   `,
   styleUrls: ['bucket.component.scss'],

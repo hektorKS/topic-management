@@ -32,8 +32,15 @@ export class TopicsEffects {
     return this.actions$.pipe(
       ofType(loadTopicsInBucket),
       debounceTime(100),
-      exhaustMap(payload => this.topicsService.getTopicsView(payload.bucketId)),
-      map(topics => topicsInBucketLoaded({topics: topics}))
+      exhaustMap(payload => {
+        return this.topicsService.getTopicsView(payload.bucketId).pipe(
+          map(topics => ({
+            bucketId: payload.bucketId,
+            topics: topics
+          }))
+        );
+      }),
+      map(payload => topicsInBucketLoaded(payload))
     );
   });
 
