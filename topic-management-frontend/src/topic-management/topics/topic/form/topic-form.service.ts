@@ -11,7 +11,7 @@ import {updateFormTopic} from "../../topics-actions";
 export class TopicFormService {
 
   private readonly formTopic$: Observable<Topic>;
-  private readonly isReadonly$: Observable<boolean>;
+  private readonly topicOwner$: Observable<boolean>;
   private topicFormGroup: FormGroup = new FormGroup({
     title: new FormControl(''),
     description: new FormControl(''),
@@ -24,9 +24,9 @@ export class TopicFormService {
     this.formTopic$ = this.store.select(formTopicSelector).pipe(
       filter(topic => topic !== undefined)
     );
-    this.isReadonly$ = this.store.select(currentUserIdSelector).pipe(
+    this.topicOwner$ = this.store.select(currentUserIdSelector).pipe(
       withLatestFrom(this.formTopic$),
-      map(([userId, topic]) => !(userId == topic.supervisor.id))
+      map(([userId, topic]) => userId == topic.supervisor.id)
     );
     this.initForm();
   }
@@ -51,8 +51,8 @@ export class TopicFormService {
     return this.formTopic$;
   }
 
-  getFormReadonlyObservable(): Observable<boolean> {
-    return this.isReadonly$;
+  getTopicOwnerObservable(): Observable<boolean> {
+    return this.topicOwner$;
   }
 
   getTopicFormGroup(): FormGroup {

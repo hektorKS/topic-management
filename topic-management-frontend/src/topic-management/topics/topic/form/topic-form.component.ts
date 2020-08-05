@@ -18,11 +18,11 @@ import {TopicFormService} from "./topic-form.service";
     <form *ngIf="formTopic$ | async; let topic" [formGroup]="topicFormGroup" class="topic-form-wrapper">
       <mat-form-field appearance="outline" class="topic-title mat-form-field-should-float">
         <mat-label>Title</mat-label>
-        <input matInput formControlName="title" [readonly]="isReadonly$ | async">
+        <input matInput formControlName="title" [readonly]="!(topicOwner$ | async)">
       </mat-form-field>
       <mat-form-field appearance="outline" class="custom-form-field mat-form-field-should-float">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" [readonly]="isReadonly$ | async"></textarea>
+        <textarea matInput formControlName="description" [readonly]="!(topicOwner$ | async)"></textarea>
       </mat-form-field>
       <mat-form-field appearance="outline" class="custom-form-field mat-form-field-should-float">
         <mat-label>Supervisor</mat-label>
@@ -32,11 +32,11 @@ import {TopicFormService} from "./topic-form.service";
         <mat-label>Students</mat-label>
         <div class="topic-students">
           <student-form-panel *ngFor="let student of topic.students"
-                              [isReadonly]="isReadonly$ | async"
+                              [isReadonly]="!(topicOwner$ | async)"
                               [student]="student"
                               (studentRemoved)="onStudentRemoved($event)">
           </student-form-panel>
-          <input matInput [matAutocomplete]="auto" [readonly]="isReadonly$ | async" formControlName="newStudent">
+          <input matInput [matAutocomplete]="auto" [readonly]="!(topicOwner$ | async)" formControlName="newStudent">
           <mat-autocomplete #auto="matAutocomplete"
                             [displayWith]="autocompleteDisplayValue"
                             (optionSelected)="onStudentAdded($event)">
@@ -53,7 +53,7 @@ import {TopicFormService} from "./topic-form.service";
 export class TopicFormComponent implements OnInit {
 
   formTopic$: Observable<Topic>;
-  isReadonly$: Observable<boolean>;
+  topicOwner$: Observable<boolean>;
   topicFormGroup: FormGroup;
   autocompletionUsers$: Observable<UsernameUser[]>;
 
@@ -62,7 +62,7 @@ export class TopicFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formTopic$ = this.topicFormService.getFormTopicObservable();
-    this.isReadonly$ = this.topicFormService.getFormReadonlyObservable();
+    this.topicOwner$ = this.topicFormService.getTopicOwnerObservable();
     this.topicFormGroup = this.topicFormService.getTopicFormGroup();
     this.initAutocompletion();
   }

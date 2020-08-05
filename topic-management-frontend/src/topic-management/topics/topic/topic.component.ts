@@ -13,12 +13,12 @@ import {TopicFormService} from "./form/topic-form.service";
     <div *ngIf="formTopic$ | async" class="topic-view-wrapper">
       <topic-form></topic-form>
       <div class="topic-buttons">
-        <button *ngIf="!(isReadonly$ | async)"
+        <button *ngIf="topicOwner$ | async"
                 mat-raised-button class="topic-button"
                 (click)="deleteTopic()">
           Delete
         </button>
-        <button *ngIf="!(isReadonly$ | async)"
+        <button *ngIf="topicOwner$ | async"
                 mat-raised-button class="topic-button"
                 [disabled]="isFormPristine()"
                 (click)="updateTopic()">
@@ -32,7 +32,7 @@ import {TopicFormService} from "./form/topic-form.service";
 })
 export class TopicComponent implements OnInit, OnDestroy {
   formTopic$: Observable<Topic>;
-  isReadonly$: Observable<boolean>;
+  topicOwner$: Observable<boolean>;
 
   constructor(private store: Store, private topicFormService: TopicFormService) {
   }
@@ -42,7 +42,7 @@ export class TopicComponent implements OnInit, OnDestroy {
       .pipe(filter(topic => topic !== undefined))
       .subscribe(topicId => this.store.dispatch(loadTopic({topicId: topicId})));
     this.formTopic$ = this.topicFormService.getFormTopicObservable();
-    this.isReadonly$ = this.topicFormService.getFormReadonlyObservable();
+    this.topicOwner$ = this.topicFormService.getTopicOwnerObservable();
   }
 
   ngOnDestroy(): void {
