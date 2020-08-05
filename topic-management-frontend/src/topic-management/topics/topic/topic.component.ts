@@ -40,7 +40,7 @@ import {searchAutocompletionUsernames} from "../../user/users-actions";
                               [student]="student"
                               (studentRemoved)="onStudentRemoved($event)">
           </student-form-panel>
-          <input matInput [matAutocomplete]="auto" formControlName="newStudent">
+          <input matInput [matAutocomplete]="auto" [readonly]="isReadonly$ | async" formControlName="newStudent">
           <mat-autocomplete #auto="matAutocomplete"
                             [displayWith]="autocompleteDisplayValue"
                             (optionSelected)="onStudentAdded($event)">
@@ -50,7 +50,8 @@ import {searchAutocompletionUsernames} from "../../user/users-actions";
           </mat-autocomplete>
         </div>
       </mat-form-field>
-      <button mat-raised-button class="submit-topic-button"
+      <button *ngIf="!(isReadonly$ | async)"
+              mat-raised-button class="submit-topic-button"
               [disabled]="topicFormGroup.pristine"
               (click)="updateTopic()">
         Save
