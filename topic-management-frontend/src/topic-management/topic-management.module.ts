@@ -37,6 +37,7 @@ import {BucketsEffects} from "./buckets/buckets-effects";
 import {TopicsEffects} from "./topics/topics-effects";
 import {UsersEffects} from "./user/users-effects";
 import {CommonModule} from "@angular/common";
+import {TopicFormComponent} from "./topics/topic/form/topic-form.component";
 
 const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, TopicsEffects, UsersEffects];
 
@@ -50,6 +51,7 @@ const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, TopicsEffec
     BucketComponent,
     TopicsComponent,
     TopicComponent,
+    TopicFormComponent,
     BreadcrumbsComponent,
     StudentFormPanelComponent
   ],

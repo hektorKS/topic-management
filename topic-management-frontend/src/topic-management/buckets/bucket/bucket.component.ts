@@ -11,9 +11,12 @@ import {filter} from "rxjs/operators";
 @Component({
   selector: 'bucket',
   template: `
-    <div>
+    <div class="bucket-wrapper">
       <div *ngIf="bucket$ | async; let bucket" class="bucket-name"> {{ bucket.name }} </div>
       <topics [bucketId]="bucketId$ | async"></topics>
+      <button mat-raised-button class="new-topic-button" (click)="createTopic()">
+        New topic
+      </button>
     </div>
   `,
   styleUrls: ['bucket.component.scss'],
@@ -34,4 +37,7 @@ export class BucketComponent implements OnInit {
     this.bucket$ = this.store.select(activeBucketSelector);
   }
 
+  createTopic(): void {
+
+  }
 }

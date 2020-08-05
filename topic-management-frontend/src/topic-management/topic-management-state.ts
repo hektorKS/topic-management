@@ -44,6 +44,12 @@ export interface TopicManagementState {
   topicFormState: TopicFormState;
 }
 
+export const initialTopicFormState: TopicFormState = {
+  originalTopic: undefined,
+  topic: undefined,
+  autocompletionUsers: []
+}
+
 export const initialState: TopicManagementState = {
   loggedInUser: { // MOCKED
     id: "eead90cb-c539-4e27-b937-87e9f067b596",
@@ -56,9 +62,5 @@ export const initialState: TopicManagementState = {
   activeBucket: undefined,
   bucketTopics: new Map(),
   topics: [],
-  topicFormState: {
-    originalTopic: undefined,
-    topic: undefined,
-    autocompletionUsers: []
-  }
+  topicFormState: initialTopicFormState
 };

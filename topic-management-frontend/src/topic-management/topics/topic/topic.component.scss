@@ -4,33 +4,9 @@
 :host {
   @include centered-with-margins;
 
-  .custom-form-field {
-    color: $color-primary-dark;
-    text-transform: uppercase;
-    font-weight: bold;
-
-    // Cheat to remove padding in mat-form-field
-    ::ng-deep .mat-form-field-wrapper {
-      margin-bottom: -0.8em;
-    }
-  }
-
-  .topic-form-wrapper {
+  .topic-view-wrapper {
     display: flex;
     flex-direction: column;
-
-    .topic-title {
-      @include view-title;
-    }
-
-    .topic-students {
-      display: flex;
-      flex-direction: row;
-
-      student-form-panel {
-        margin-right: 10px;
-      }
-    }
 
     .topic-buttons {
       display: flex;
@@ -49,7 +25,6 @@
         }
       }
     }
-
 
   }
 }

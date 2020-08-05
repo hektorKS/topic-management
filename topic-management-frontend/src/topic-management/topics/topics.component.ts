@@ -47,7 +47,7 @@ export class TopicsComponent implements OnInit {
   }
 
   getStudentsUsernames(students: UsernameUser[]): string {
-    return students.map(student => student.username).join(",");
+    return students.map(student => student.username).join(", ");
   }
 
   topicOptionClicked(topic: Topic): void {

@@ -2,7 +2,7 @@
 @import "src/topic-management/topic-management-styles";
 
 :host {
-  @include default-mat-list-option;
+  @include centered-mat-list-option;
 
   .school-element {
     display: flex;

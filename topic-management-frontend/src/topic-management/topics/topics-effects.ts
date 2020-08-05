@@ -7,10 +7,10 @@ import {
   deleteTopic,
   loadTopic,
   loadTopicsInBucket,
-  saveTopic,
+  updateTopic,
   topicDeleted,
   topicLoaded,
-  topicSaved,
+  topicUpdated,
   topicSelected,
   topicsInBucketLoaded,
 } from "./topics-actions";
@@ -55,13 +55,13 @@ export class TopicsEffects {
 
   saveTopic$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
-      ofType(saveTopic),
+      ofType(updateTopic),
       debounceTime(100),
       exhaustMap(topic => {
         this.topicsService.updateTopic(topic);
         return topic.id;
       }),
-      map(topicId => topicSaved({topicId: topicId}))
+      map(topicId => topicUpdated({topicId: topicId}))
     );
   });
 
@@ -79,7 +79,7 @@ export class TopicsEffects {
 
   topicDeleted$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
-      ofType(topicDeleted),
+      ofType(topicDeleted, topicUpdated),
       tap(_ => this.store.dispatch(popBreadcrumb()))
     );
   }, {dispatch: false});

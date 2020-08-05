@@ -2,7 +2,6 @@
 
 @mixin default-mat-list-option {
   mat-list-option {
-    @include centered-with-margins;
     display: inline-block;
     background-color: $color-primary-dark;
     border: 2px solid $color-primary-light;
@@ -13,6 +12,13 @@
       border: 2px solid $color-primary-dark;
       color: $color-primary-dark;
     }
+  }
+}
+
+@mixin centered-mat-list-option {
+  @include default-mat-list-option;
+  mat-list-option {
+    @include centered-with-margins;
   }
 }
 
