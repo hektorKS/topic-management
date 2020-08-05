@@ -1,0 +1,25 @@
+@import 'src/styles';
+
+:host {
+  .mat-raised-button {
+    display: flex;
+    flex-direction: row;
+    text-transform: none;
+    align-items: center;
+    width: fit-content;
+    height: 50px;
+    background-color: $color-primary-dark;
+    color: $color-primary-light;
+    pointer-events: none;
+  }
+
+  .remove-button {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    background-color: transparent;
+    background-image: url("../../../assets/delete-red-20px.svg");
+    pointer-events: auto;
+  }
+}

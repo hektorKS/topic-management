@@ -15,20 +15,22 @@ import java.util.UUID
 @Service
 open class UpdateTopicCommand(private val topicValidator: TopicValidator,
                               private val topicRepository: TopicRepository,
+                              private val usersFetcher: UsernameUsersFetcher,
                               private val kafkaTopicService: KafkaTopicService) {
 
   @Transactional
   open fun execute(topicId: UUID, updateTopicRequest: UpdateTopicRequest) {
     val topic = topicRepository.getById(topicId) ?: throw ResourceNotFoundException()
+    val students = usersFetcher.fetchOptional(updateTopicRequest.studentIds)
     val newTopic = Topic(
       topicId,
       updateTopicRequest.bucketId ?: topic.bucketId,
       updateTopicRequest.title ?: topic.title,
       updateTopicRequest.description ?: topic.description,
       updateTopicRequest.supervisorId ?: topic.supervisorId,
-      updateTopicRequest.students ?: topic.students
+      students ?: topic.students
     )
-    topicValidator.validate(newTopic)
+    topicValidator.validateOnUpdate(topic, newTopic)
     topicRepository.create(newTopic)
     kafkaTopicService.topicUpdated(newTopic)
   }

@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'topic-management',
@@ -14,7 +13,7 @@ import {Store} from "@ngrx/store";
           <mat-icon>school</mat-icon>
           <span>Schools</span>
         </button>
-        <button mat-menu-item disabled>
+        <button mat-menu-item>
           <mat-icon>message</mat-icon>
           <span>Messages</span>
         </button>

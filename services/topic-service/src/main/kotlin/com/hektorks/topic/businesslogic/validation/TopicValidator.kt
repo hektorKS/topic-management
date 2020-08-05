@@ -34,11 +34,31 @@ class TopicValidator(private val bucketRepository: BucketRepository,
 
   fun validate(topic: Topic) {
     val errors: MutableList<FieldValidationError> = mutableListOf()
-    minLength(TITLE, topic.title, TITLE_MIN_LENGTH)?.let { errors.add(it) }
-    maxLength(TITLE, topic.title, TITLE_MAX_LENGTH)?.let { errors.add(it) }
     if (topicRepository.existsByBucketIdAndTitle(topic.bucketId, topic.title)) {
       errors.add(FieldValidationError(TITLE, "Title ${topic.title} already exists in bucket ${topic.bucketId}"))
     }
+    errors.addAll(doValidate(topic))
+    if (errors.isNotEmpty()) {
+      throw BusinessValidationException(errors)
+    }
+  }
+
+  fun validateOnUpdate(oldTopic: Topic, newTopic: Topic) {
+    val errors: MutableList<FieldValidationError> = mutableListOf()
+    if (oldTopic.title != newTopic.title && topicRepository.existsByBucketIdAndTitle(newTopic.bucketId, newTopic.title)) {
+      errors.add(FieldValidationError(TITLE, "Title ${newTopic.title} already exists in bucket ${newTopic.bucketId}"))
+    }
+    errors.addAll(doValidate(newTopic))
+    if (errors.isNotEmpty()) {
+      throw BusinessValidationException(errors)
+    }
+  }
+
+
+  private fun doValidate(topic: Topic): MutableList<FieldValidationError> {
+    val errors: MutableList<FieldValidationError> = mutableListOf()
+    minLength(TITLE, topic.title, TITLE_MIN_LENGTH)?.let { errors.add(it) }
+    maxLength(TITLE, topic.title, TITLE_MAX_LENGTH)?.let { errors.add(it) }
     maxLength(DESCRIPTION, topic.description, DESCRIPTION_MAX_LENGTH)?.let { errors.add(it) }
     shouldExist(BUCKET_ID, topic.bucketId, bucketRepository::existsById)?.let { errors.add(it) }
     shouldExist(SUPERVISOR_ID, topic.supervisorId, userRepository::existsById)?.let { errors.add(it) }
@@ -46,9 +66,7 @@ class TopicValidator(private val bucketRepository: BucketRepository,
       shouldExist(STUDENTS, student.id, userRepository::existsById)?.let { errors.add(it) }
     }
     shouldNotContain(STUDENTS, topic.supervisorId, topic.students)?.let { errors.add(it) }
-    if (errors.isNotEmpty()) {
-      throw BusinessValidationException(errors)
-    }
+    return errors
   }
 
 }

@@ -1,5 +1,6 @@
 package com.hektorks.user.model
 
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.util.UUID
 
@@ -8,7 +9,7 @@ import java.util.UUID
  */
 @Document(collection = "users")
 data class User(
-    val id: UUID,
+    @Id val id: UUID,
     val firstName: String,
     val lastName: String,
     val username: String,
@@ -31,9 +32,14 @@ data class ValidatableUser(
  * User representation used for external services
  */
 data class UserView(
-    val id: UUID,
+    @Id val id: UUID,
     val firstName: String,
     val lastName: String,
     val username: String,
     val email: String
+)
+
+data class UsernameUserView(
+    @Id val id: UUID,
+    val username: String
 )

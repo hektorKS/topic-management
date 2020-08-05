@@ -14,14 +14,19 @@
   }
 
   .breadcrumb-button {
-    text-transform: capitalize;
     max-width: 400px;
+    padding: 0 8px;
+    text-transform: capitalize;
     @include dotted-text-overflow;
 
     &-active {
       background-color: $color-primary-light;
       color: $color-primary-dark;
     }
+  }
+
+  .arrow-right {
+    background-image: url("../../assets/arrow-right-light-24px.svg");
   }
 }
 

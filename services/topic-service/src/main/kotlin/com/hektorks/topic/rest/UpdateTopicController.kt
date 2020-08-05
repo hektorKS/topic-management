@@ -16,7 +16,7 @@ data class UpdateTopicRequest(
   val title: String?,
   val description: String?,
   val supervisorId: UUID?,
-  val students: List<UsernameUser>?
+  val studentIds: List<UUID>?
 )
 
 @RestController

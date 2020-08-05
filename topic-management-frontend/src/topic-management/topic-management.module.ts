@@ -5,7 +5,6 @@ import {TopicManagementComponent} from './topic-management.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from "@ngrx/store";
 import {TopicManagementRootState} from "./topic-management-root-state";
-import {TopicsModule} from "./topics/topics.module";
 import {TopicsComponent} from "./topics/topics.component";
 import {EffectsModule} from "@ngrx/effects";
 import {HttpClientModule} from "@angular/common/http";
@@ -29,6 +28,17 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {BucketComponent} from "./buckets/bucket/bucket.component";
 import {TopicComponent} from "./topics/topic/topic.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {StudentFormPanelComponent} from "./topics/topic/student-form-panel.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {BreadcrumbsEffects} from "./breadcrumbs/breadcrumbs-effects";
+import {SchoolsEffects} from "./schools/schools-effects";
+import {BucketsEffects} from "./buckets/buckets-effects";
+import {TopicsEffects} from "./topics/topics-effects";
+import {UsersEffects} from "./user/users-effects";
+import {CommonModule} from "@angular/common";
+
+const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, TopicsEffects, UsersEffects];
 
 @NgModule({
   declarations: [
@@ -40,7 +50,8 @@ import {TopicComponent} from "./topics/topic/topic.component";
     BucketComponent,
     TopicsComponent,
     TopicComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    StudentFormPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -56,15 +67,19 @@ import {TopicComponent} from "./topics/topic/topic.component";
     StoreModule.forFeature<TopicManagementState>(topicManagementFeatureKey, topicManagementReducer),
     StoreModule.forFeature<BreadcrumbsState>(breadcrumbsFeatureKey, breadcrumbsReducer),
     EffectsModule.forRoot([]),
+    EffectsModule.forFeature(effects),
     TopicManagementRoutingModule,
-    TopicsModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
     MatListModule,
     MatMenuModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [TopicManagementComponent]

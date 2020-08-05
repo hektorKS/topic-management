@@ -17,7 +17,7 @@ import {take, tap} from "rxjs/operators";
          (click)="breadcrumbClicked(breadcrumb)">
         {{breadcrumb.name}}
       </a>
-      <mat-icon *ngIf="!isLast">{{ 'keyboard_arrow_right' }}</mat-icon>
+      <span *ngIf="!isLast" class="arrow-right icon-small"></span>
      </span>
     </div>
   `,

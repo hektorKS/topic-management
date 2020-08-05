@@ -24,4 +24,17 @@ export class TopicsService {
       `${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics/${topicId}/view`
     ).pipe(map(response => response.topicView))
   }
+
+  updateTopic(topic: Topic): void {
+    this.httpClient.patch<void>(
+      `${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics/${topic.id}`,
+      {
+        bucketId: topic.bucketId,
+        title: topic.title,
+        description: topic.description,
+        supervisorId: topic.supervisor.id,
+        studentIds: topic.students.map(student => student.id)
+      }
+    ).subscribe()
+  }
 }
