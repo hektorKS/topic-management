@@ -14,19 +14,19 @@ import {TopicFormService} from "./form/topic-form.service";
       <topic-form></topic-form>
       <div class="spread-buttons">
         <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="custom-button"
+                mat-raised-button class="custom-button-dark"
                 (click)="backClicked()">
           Back
         </button>
         <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="custom-button"
+                mat-raised-button class="custom-button-dark"
                 [disabled]="isFormChanged()"
                 (click)="updateTopic()">
           Save
         </button>
       </div>
       <button *ngIf="topicOwner$ | async"
-              mat-raised-button class="custom-button delete-topic-button"
+              mat-raised-button class="custom-button-dark delete-topic-button"
               [disabled]="!isFormChanged()"
               (click)="deleteTopic()">
         Delete

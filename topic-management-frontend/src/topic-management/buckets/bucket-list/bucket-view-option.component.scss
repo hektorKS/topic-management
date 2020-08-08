@@ -1,0 +1,5 @@
+@import "src/topic-management/topic-management-styles";
+
+:host {
+  @include centered-mat-list-option;
+}

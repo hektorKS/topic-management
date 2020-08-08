@@ -1,5 +1,11 @@
 @import 'src/styles';
 
+@mixin light-mat-list-option {
+  background-color: $color-primary-light;
+  border: 2px solid $color-primary-dark;
+  color: $color-primary-dark;
+}
+
 @mixin default-mat-list-option {
   mat-list-option {
     display: inline-block;
@@ -8,9 +14,7 @@
     color: $color-primary-light;
 
     &:hover {
-      background-color: $color-primary-light;
-      border: 2px solid $color-primary-dark;
-      color: $color-primary-dark;
+      @include light-mat-list-option;
     }
   }
 }
@@ -19,6 +23,21 @@
   @include default-mat-list-option;
   mat-list-option {
     @include centered-with-margins;
+  }
+}
+
+@mixin mat-form-field-remove-field-padding {
+  // Cheat to remove padding in mat-form-field
+  ::ng-deep .mat-form-field-wrapper {
+    margin-bottom: -0.8em;
+  }
+}
+
+@mixin mat-form-field-decrease-input-padding {
+  // Cheat to decrease padding in mat-form-field
+  ::ng-deep .mat-form-field-infix,
+  ::ng-deep .mat-form-field-label-wrapper {
+    padding: 0.2em 0;
   }
 }
 
@@ -40,17 +59,35 @@
   overflow: hidden;
 }
 
-.custom-button {
+@mixin custom-button {
   width: 200px;
   height: 50px;
   margin-left: 10px;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.custom-button-dark {
+  @include custom-button;
   background-color: $color-primary-dark;
   color: $color-primary-light;
 
   &:disabled {
     background-color: $color-primary-dark;
-    opacity: 0.5;
     color: $color-primary-light;
+  }
+}
+
+.custom-button-light {
+  @include custom-button;
+  background-color: $color-primary-light;
+  color: $color-primary-dark;
+
+  &:disabled {
+    background-color: $color-primary-light;
+    color: $color-primary-dark;
   }
 }
 

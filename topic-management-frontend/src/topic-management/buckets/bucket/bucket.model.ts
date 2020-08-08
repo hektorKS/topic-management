@@ -4,3 +4,13 @@ export interface Bucket {
   ownerId: string;
   schoolId: string;
 }
+
+export interface BucketStateView extends Bucket {
+  bucketState: BucketState;
+}
+
+export enum BucketState {
+  UNCHANGED,
+  CHANGED,
+  NEW,
+}

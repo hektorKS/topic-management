@@ -22,11 +22,10 @@ import {SchoolComponent} from "./schools/school/school.component";
 import {topicManagementFeatureKey, TopicManagementState} from "./topic-management-state";
 import {topicManagementReducer} from "./topic-management-reducers";
 import {MatMenuModule} from "@angular/material/menu";
-import {BucketsComponent} from "./buckets/buckets.component";
 import {StoreRouterConnectingModule} from "@ngrx/router-store";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {BucketComponent} from "./buckets/bucket/bucket.component";
+import {BucketDetailsComponent} from "./buckets/bucket/bucket-details.component";
 import {TopicComponent} from "./topics/topic/topic.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {StudentFormPanelComponent} from "./topics/topic/student-form-panel.component";
@@ -39,8 +38,15 @@ import {UsersEffects} from "./user/users-effects";
 import {CommonModule} from "@angular/common";
 import {TopicFormComponent} from "./topics/topic/form/topic-form.component";
 import {NewTopicComponent} from "./topics/topic/new-topic.component";
+import {newBucketKey, NewBucketState} from "./buckets/bucket-form/new-bucket-state";
+import {newBucketReducer} from "./buckets/bucket-form/new-bucket-reducers";
+import {NewBucketEffects} from "./buckets/bucket-form/new-bucket-effects";
+import {BucketFormComponent} from "./buckets/bucket-form/bucket-form.component";
+import {BucketViewOptionComponent} from "./buckets/bucket-list/bucket-view-option.component";
+import {BucketsComponent} from "./buckets/bucket-list/buckets.component";
+import {BucketFormOptionComponent} from "./buckets/bucket-list/bucket-form-option.component";
 
-const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, TopicsEffects, UsersEffects];
+const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, NewBucketEffects, TopicsEffects, UsersEffects];
 
 @NgModule({
   declarations: [
@@ -49,7 +55,10 @@ const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, TopicsEffec
     SchoolsComponent,
     SchoolComponent,
     BucketsComponent,
-    BucketComponent,
+    BucketViewOptionComponent,
+    BucketFormOptionComponent,
+    BucketFormComponent,
+    BucketDetailsComponent,
     TopicsComponent,
     TopicComponent,
     NewTopicComponent,
@@ -70,6 +79,7 @@ const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, TopicsEffec
     }),
     StoreModule.forFeature<TopicManagementState>(topicManagementFeatureKey, topicManagementReducer),
     StoreModule.forFeature<BreadcrumbsState>(breadcrumbsFeatureKey, breadcrumbsReducer),
+    StoreModule.forFeature<NewBucketState>(newBucketKey, newBucketReducer),
     EffectsModule.forRoot([]),
     EffectsModule.forFeature(effects),
     TopicManagementRoutingModule,

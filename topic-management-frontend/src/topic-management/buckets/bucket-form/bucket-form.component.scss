@@ -1,0 +1,50 @@
+@import 'src/styles';
+@import "src/topic-management/topic-management-styles";
+
+:host {
+  .icon-button {
+    display: inline-block;
+    margin-right: 2px;
+    pointer-events: auto;
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  .bucket-form-with-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+
+    .bucket-form {
+      flex-grow: 3;
+      color: $color-primary-dark;
+
+      .bucket-name {
+        pointer-events: auto;
+        @include mat-form-field-remove-field-padding;
+        @include mat-form-field-decrease-input-padding;
+        display: inline-block;
+        width: 100%;
+      }
+    }
+
+    .button-form-buttons {
+      flex-grow: 2;
+      width: fit-content;
+      margin-left: 1%;
+    }
+  }
+
+  .approve-button {
+    background-image: url("../../../assets/approve-dark-24px.svg");
+  }
+
+  .cancel-button {
+    background-image: url("../../../assets/cancel-dark-24px.svg");
+  }
+
+
+}

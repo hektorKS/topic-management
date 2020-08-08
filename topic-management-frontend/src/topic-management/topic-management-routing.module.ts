@@ -5,7 +5,7 @@ import {SchoolComponent} from "./schools/school/school.component";
 import {StoreModule} from "@ngrx/store";
 import {routerFeatureName} from "./topic-management-router-state";
 import {routerReducer} from "@ngrx/router-store";
-import {BucketComponent} from "./buckets/bucket/bucket.component";
+import {BucketDetailsComponent} from "./buckets/bucket/bucket-details.component";
 import {TopicComponent} from "./topics/topic/topic.component";
 import {NewTopicComponent} from "./topics/topic/new-topic.component";
 
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'buckets/:bucketId',
-    component: BucketComponent,
+    component: BucketDetailsComponent,
     pathMatch: 'full'
   },
   {

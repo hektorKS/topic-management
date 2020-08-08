@@ -1,10 +1,10 @@
-@import 'src/styles';
 @import "src/topic-management/topic-management-styles";
 
 :host {
   @include centered-mat-list-option;
 
-  .bucket-element {
-
+  mat-list-option {
+    @include light-mat-list-option;
+    pointer-events: none;
   }
 }

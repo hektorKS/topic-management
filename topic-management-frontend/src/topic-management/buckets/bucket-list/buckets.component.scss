@@ -1,0 +1,14 @@
+@import 'src/styles';
+@import "src/topic-management/topic-management-styles";
+
+:host {
+  .buckets-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .new-bucket-button {
+      align-self: center;
+      margin-top: 10px;
+    }
+  }
+}

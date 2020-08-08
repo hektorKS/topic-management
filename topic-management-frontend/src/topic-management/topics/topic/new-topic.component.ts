@@ -13,12 +13,12 @@ import {TopicFormService} from "./form/topic-form.service";
       <topic-form></topic-form>
       <div class="spread-buttons">
         <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="custom-button"
+                mat-raised-button class="custom-button-dark"
                 (click)="onCancelNewTopic()">
           Cancel
         </button>
         <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="custom-button"
+                mat-raised-button class="custom-button-dark"
                 [disabled]="isFormSubmitDisabled()"
                 (click)="onSaveNewTopic()">
           Save

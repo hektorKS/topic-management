@@ -1,7 +1,7 @@
 import {Topic} from "./topics/topic/topic.model";
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {School} from "./schools/school/school.model";
-import {Bucket} from "./buckets/bucket/bucket.model";
+import {Bucket, BucketState, BucketStateView} from "./buckets/bucket/bucket.model";
 import {User, UsernameUser} from "./user/user.model";
 
 export const topicManagementFeatureKey = 'topicManagementKey';
@@ -38,7 +38,7 @@ export interface TopicFormState {
 export interface TopicManagementState {
   loggedInUser: User;
   schools: School[];
-  schoolBuckets: Map<string, Bucket[]>;
+  schoolBuckets: Map<string, BucketStateView[]>;
   activeBucket: Bucket;
   bucketTopics: Map<string, Topic[]>,
   topics: Topic[];

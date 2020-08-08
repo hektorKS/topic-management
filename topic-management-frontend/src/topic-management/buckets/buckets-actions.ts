@@ -1,5 +1,5 @@
 import {createAction, props} from "@ngrx/store";
-import {Bucket} from "./bucket/bucket.model";
+import {Bucket, BucketStateView} from "./bucket/bucket.model";
 
 export enum BucketsActions {
   LOAD_BUCKET = '[Bucket] Load bucket',
@@ -10,7 +10,7 @@ export enum BucketsActions {
 }
 
 export const loadBucketsInSchool = createAction(BucketsActions.LOAD_BUCKETS_IN_SCHOOL, props<{ schoolId: string }>());
-export const bucketsInSchoolLoaded = createAction(BucketsActions.BUCKETS_LOADED, props<{ schoolId: string, buckets: Bucket[] }>());
+export const bucketsInSchoolLoaded = createAction(BucketsActions.BUCKETS_LOADED, props<{ schoolId: string, bucketViews: BucketStateView[] }>());
 export const loadBucket = createAction(BucketsActions.LOAD_BUCKET, props<{ bucketId: string }>())
 export const bucketLoaded = createAction(BucketsActions.BUCKET_LOADED, props<Bucket>());
 export const bucketSelected = createAction(BucketsActions.BUCKET_SELECTED, props<Bucket>());

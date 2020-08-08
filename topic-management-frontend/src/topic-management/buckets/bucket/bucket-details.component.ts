@@ -9,20 +9,20 @@ import {loadBucket} from "../buckets-actions";
 import {filter} from "rxjs/operators";
 
 @Component({
-  selector: 'bucket',
+  selector: 'bucket-details',
   template: `
     <div class="bucket-wrapper">
       <div *ngIf="bucket$ | async; let bucket" class="bucket-name"> {{ bucket.name }} </div>
       <topics [bucketId]="bucketId$ | async"></topics>
-      <button mat-raised-button class="new-topic-button" (click)="createTopic()">
+      <button mat-raised-button class="custom-button-light new-topic-button" (click)="createTopic()">
         New topic
       </button>
     </div>
   `,
-  styleUrls: ['bucket.component.scss'],
+  styleUrls: ['bucket-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BucketComponent implements OnInit {
+export class BucketDetailsComponent implements OnInit {
 
   bucketId$: Observable<string>;
   bucket$: Observable<Bucket>;

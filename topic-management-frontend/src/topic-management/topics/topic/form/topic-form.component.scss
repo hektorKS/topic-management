@@ -3,14 +3,10 @@
 
 :host {
   .custom-form-field {
+    @include mat-form-field-remove-field-padding;
     color: $color-primary-dark;
     text-transform: uppercase;
     font-weight: bold;
-
-    // Cheat to remove padding in mat-form-field
-    ::ng-deep .mat-form-field-wrapper {
-      margin-bottom: -0.8em;
-    }
   }
 
   .topic-form-wrapper {

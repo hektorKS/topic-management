@@ -21,8 +21,8 @@ export class BucketsEffects {
       return this.actions$.pipe(
         ofType(loadBucketsInSchool),
         exhaustMap(payload => this.bucketsService.getBucketsInSchool(payload.schoolId)
-          .pipe(map(buckets => {
-            return {buckets: buckets, schoolId: payload.schoolId};
+          .pipe(map(bucketViews => {
+            return {bucketViews: bucketViews, schoolId: payload.schoolId};
           }))),
         map(payloadWithBuckets => bucketsInSchoolLoaded(payloadWithBuckets)));
     }
