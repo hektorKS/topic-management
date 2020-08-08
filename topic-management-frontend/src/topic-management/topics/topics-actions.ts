@@ -16,6 +16,7 @@ export enum TopicsActions {
   DELETE_TOPIC = '[Topic] Delete topic',
   TOPIC_DELETED = '[Topic] Topic deleted',
   CLEAR_TOPIC = '[Topic] Clear form topic',
+  TOPIC_BACK_BUTTON_CLICKED = '[Topic] Topic back button clicked',
   UPDATE_FORM_TOPIC = '[Topic] Update form topic',
   TOPIC_SELECTED = '[Topic] Topic selected',
 }
@@ -32,6 +33,7 @@ export const topicUpdated = createAction(TopicsActions.TOPIC_UPDATED, props<{ to
 export const deleteTopic = createAction(TopicsActions.DELETE_TOPIC, props<{ topicId: string }>());
 export const topicDeleted = createAction(TopicsActions.TOPIC_DELETED, props<{ topicId: string }>());
 export const clearTopic = createAction(TopicsActions.CLEAR_TOPIC);
+export const topicBackButtonClicked = createAction(TopicsActions.TOPIC_BACK_BUTTON_CLICKED);
 export const loadTopicsInBucket = createAction(TopicsActions.LOAD_TOPICS_IN_BUCKET, props<{ bucketId: string }>());
 export const topicsInBucketLoaded = createAction(TopicsActions.TOPICS_IN_BUCKET_LOADED, props<{ bucketId: string, topics: Topic[] }>());
 export const updateFormTopic = createAction(TopicsActions.UPDATE_FORM_TOPIC, props<Partial<Topic>>());

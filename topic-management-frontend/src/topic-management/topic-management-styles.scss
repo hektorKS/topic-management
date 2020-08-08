@@ -40,6 +40,20 @@
   overflow: hidden;
 }
 
+.custom-button {
+  width: 200px;
+  height: 50px;
+  margin-left: 10px;
+  background-color: $color-primary-dark;
+  color: $color-primary-light;
+
+  &:disabled {
+    background-color: $color-primary-dark;
+    opacity: 0.5;
+    color: $color-primary-light;
+  }
+}
+
 .icon {
   &-big {
     width: 48px;

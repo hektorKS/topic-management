@@ -11,14 +11,14 @@ import {TopicFormService} from "./form/topic-form.service";
   template: `
     <div *ngIf="formTopic$ | async" class="topic-view-wrapper">
       <topic-form></topic-form>
-      <div class="topic-buttons">
+      <div class="spread-buttons">
         <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="topic-button"
+                mat-raised-button class="custom-button"
                 (click)="onCancelNewTopic()">
           Cancel
         </button>
         <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="topic-button"
+                mat-raised-button class="custom-button"
                 [disabled]="isFormSubmitDisabled()"
                 (click)="onSaveNewTopic()">
           Save

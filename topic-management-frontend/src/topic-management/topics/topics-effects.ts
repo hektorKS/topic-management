@@ -11,7 +11,7 @@ import {
   loadTopicsInBucket,
   newTopicButtonSelected,
   newTopicSaved,
-  saveNewTopic,
+  saveNewTopic, topicBackButtonClicked,
   topicDeleted,
   topicLoaded,
   topicSelected,
@@ -135,7 +135,7 @@ export class TopicsEffects {
 
   popBreadcrumbActions$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
-      ofType(topicDeleted, topicUpdated, cancelNewTopic, newTopicSaved),
+      ofType(topicDeleted, topicUpdated, cancelNewTopic, newTopicSaved, topicBackButtonClicked),
       map(popBreadcrumb)
     );
   });

@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {selectTopicId} from "../../topic-management-router-state";
-import {clearTopic, deleteTopic, loadTopic, updateTopic} from "../topics-actions";
+import {clearTopic, deleteTopic, loadTopic, topicBackButtonClicked, updateTopic} from "../topics-actions";
 import {Topic} from "./topic.model";
 import {filter, take} from "rxjs/operators";
 import {TopicFormService} from "./form/topic-form.service";
@@ -12,19 +12,25 @@ import {TopicFormService} from "./form/topic-form.service";
   template: `
     <div *ngIf="formTopic$ | async" class="topic-view-wrapper">
       <topic-form></topic-form>
-      <div class="topic-buttons">
+      <div class="spread-buttons">
         <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="topic-button"
-                (click)="deleteTopic()">
-          Delete
+                mat-raised-button class="custom-button"
+                (click)="backClicked()">
+          Back
         </button>
         <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="topic-button"
-                [disabled]="isFormSubmitDisabled()"
+                mat-raised-button class="custom-button"
+                [disabled]="isFormChanged()"
                 (click)="updateTopic()">
           Save
         </button>
       </div>
+      <button *ngIf="topicOwner$ | async"
+              mat-raised-button class="custom-button delete-topic-button"
+              [disabled]="!isFormChanged()"
+              (click)="deleteTopic()">
+        Delete
+      </button>
     </div>
   `,
   styleUrls: ['topic.component.scss'],
@@ -49,7 +55,8 @@ export class TopicComponent implements OnInit, OnDestroy {
     this.store.dispatch(clearTopic());
   }
 
-  isFormSubmitDisabled(): boolean {
+  isFormChanged(): boolean {
+    // #NTH Diff between two objects should be checked to verify is changed
     return this.topicFormService.isFormSubmitDisabled();
   }
 
@@ -65,5 +72,9 @@ export class TopicComponent implements OnInit, OnDestroy {
         this.store.dispatch(deleteTopic({topicId: topic.id}));
       }
     );
+  }
+
+  backClicked() {
+    this.store.dispatch(topicBackButtonClicked());
   }
 }
