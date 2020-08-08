@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Observable} from "rxjs";
-import {map, tap, withLatestFrom} from "rxjs/operators";
+import {flatMap, map, tap, withLatestFrom} from "rxjs/operators";
 import {
   breadcrumbsChanged,
   breadcrumbsDestroyed,
@@ -46,8 +46,8 @@ export class BreadcrumbsEffects {
   }, {dispatch: false});
 
   changeBreadcrumb$: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(ofType(changeBreadcrumb))
-      .pipe(
+    return this.actions$.pipe(
+        ofType(changeBreadcrumb),
         withLatestFrom(this.store.select(breadcrumbsSelector)),
         map(([newBreadcrumb, oldBreadcrumbs]) => {
           const newBreadcrumbs = []

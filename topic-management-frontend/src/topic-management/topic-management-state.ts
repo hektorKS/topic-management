@@ -26,7 +26,8 @@ export const topicsInBucketSelector = createSelector(
 export const formTopicSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.topic);
 export const formTopicAutocompletionUsersSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.autocompletionUsers);
 
-export const currentUserIdSelector = createSelector(topicManagementFeatureSelector, state => state.loggedInUser.id);
+export const currentUserSelector = createSelector(topicManagementFeatureSelector, state => state.loggedInUser);
+export const currentUserIdSelector = createSelector(currentUserSelector, state => state.id);
 
 export interface TopicFormState {
   originalTopic: Topic;

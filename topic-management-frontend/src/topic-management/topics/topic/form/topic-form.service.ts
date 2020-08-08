@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {Topic} from "../topic.model";
 import {currentUserIdSelector, formTopicSelector} from "../../../topic-management-state";
@@ -13,8 +13,8 @@ export class TopicFormService {
   private readonly formTopic$: Observable<Topic>;
   private readonly topicOwner$: Observable<boolean>;
   private topicFormGroup: FormGroup = new FormGroup({
-    title: new FormControl(''),
-    description: new FormControl(''),
+    title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
+    description: new FormControl('', [Validators.required, Validators.maxLength(5000)]),
     supervisor: new FormControl({id: undefined, firstName: '', lastName: '', username: ''}),
     students: new FormArray([]),
     newStudent: new FormControl({id: undefined, username: ''})
@@ -59,8 +59,8 @@ export class TopicFormService {
     return this.topicFormGroup;
   }
 
-  isFormPristine(): boolean {
-    return this.topicFormGroup.pristine;
+  isFormSubmitDisabled(): boolean {
+    return this.topicFormGroup.pristine || !this.topicFormGroup.valid;
   }
 
 }

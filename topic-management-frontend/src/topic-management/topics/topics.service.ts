@@ -38,6 +38,19 @@ export class TopicsService {
     ).subscribe()
   }
 
+  saveTopic(topic: Topic): Observable<void> {
+    return this.httpClient.post<void>(
+      `${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics`,
+      {
+        bucketId: topic.bucketId,
+        title: topic.title,
+        description: topic.description,
+        supervisorId: topic.supervisor.id,
+        studentIds: topic.students.map(student => student.id)
+      }
+    );
+  }
+
   deleteTopic(topicId: string): void {
     this.httpClient.delete<void>(`${TopicManagementServices.TOPIC_SERVICE}/api/v1/topics/${topicId}`).subscribe()
   }

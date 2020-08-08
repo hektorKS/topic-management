@@ -4,7 +4,7 @@ import {selectBucketId} from "../../topic-management-router-state";
 import {Observable} from "rxjs";
 import {Bucket} from "./bucket.model";
 import {activeBucketSelector} from "../../topic-management-state";
-import {loadTopicsInBucket} from "../../topics/topics-actions";
+import {loadTopicsInBucket, newTopicButtonSelected} from "../../topics/topics-actions";
 import {loadBucket} from "../buckets-actions";
 import {filter} from "rxjs/operators";
 
@@ -38,6 +38,6 @@ export class BucketComponent implements OnInit {
   }
 
   createTopic(): void {
-
+    this.store.dispatch(newTopicButtonSelected());
   }
 }

@@ -9,7 +9,7 @@ import com.hektorks.topic.repository.user.UserRepository
 import com.hektorks.validation.CollectionsValidator.shouldNotContain
 import com.hektorks.validation.ExistenceValidator.shouldExist
 import com.hektorks.validation.StringValidator.maxLength
-import com.hektorks.validation.StringValidator.minLength
+import com.hektorks.validation.StringValidator.minMaxLength
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 
@@ -57,8 +57,7 @@ class TopicValidator(private val bucketRepository: BucketRepository,
 
   private fun doValidate(topic: Topic): MutableList<FieldValidationError> {
     val errors: MutableList<FieldValidationError> = mutableListOf()
-    minLength(TITLE, topic.title, TITLE_MIN_LENGTH)?.let { errors.add(it) }
-    maxLength(TITLE, topic.title, TITLE_MAX_LENGTH)?.let { errors.add(it) }
+    minMaxLength(TITLE, topic.title, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH)?.let { errors.add(it) }
     maxLength(DESCRIPTION, topic.description, DESCRIPTION_MAX_LENGTH)?.let { errors.add(it) }
     shouldExist(BUCKET_ID, topic.bucketId, bucketRepository::existsById)?.let { errors.add(it) }
     shouldExist(SUPERVISOR_ID, topic.supervisorId, userRepository::existsById)?.let { errors.add(it) }
