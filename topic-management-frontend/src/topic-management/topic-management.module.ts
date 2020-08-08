@@ -1,9 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import {TopicManagementComponent} from './topic-management.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {StoreModule} from "@ngrx/store";
+import {Store, StoreModule} from "@ngrx/store";
 import {TopicManagementRootState} from "./topic-management-root-state";
 import {TopicsComponent} from "./topics/topics.component";
 import {EffectsModule} from "@ngrx/effects";
@@ -45,8 +45,20 @@ import {BucketFormComponent} from "./buckets/bucket-form/bucket-form.component";
 import {BucketViewOptionComponent} from "./buckets/bucket-list/bucket-view-option.component";
 import {BucketsComponent} from "./buckets/bucket-list/buckets.component";
 import {BucketFormOptionComponent} from "./buckets/bucket-list/bucket-form-option.component";
+import {topicManagementApplicationInitialized} from "./topic-management-actions";
 
 const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, NewBucketEffects, TopicsEffects, UsersEffects];
+
+function dispatchAppInitialized(store: Store): () => Promise<void> {
+  return () => {
+    if (store) {
+      store.dispatch(topicManagementApplicationInitialized());
+      return Promise.resolve();
+    } else {
+      return Promise.reject('Application did not initialize properly');
+    }
+  };
+}
 
 @NgModule({
   declarations: [
@@ -95,7 +107,9 @@ const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, NewBucketEf
     ReactiveFormsModule,
     CommonModule
   ],
-  providers: [],
+  providers: [
+    {provide: APP_INITIALIZER, useFactory: dispatchAppInitialized, deps: [Store], multi: true}
+  ],
   bootstrap: [TopicManagementComponent]
 })
 export class TopicManagementModule {

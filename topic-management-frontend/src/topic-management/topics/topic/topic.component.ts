@@ -13,8 +13,7 @@ import {TopicFormService} from "./form/topic-form.service";
     <div *ngIf="formTopic$ | async" class="topic-view-wrapper">
       <topic-form></topic-form>
       <div class="spread-buttons">
-        <button *ngIf="topicOwner$ | async"
-                mat-raised-button class="custom-button-dark"
+        <button mat-raised-button class="custom-button-dark"
                 (click)="backClicked()">
           Back
         </button>

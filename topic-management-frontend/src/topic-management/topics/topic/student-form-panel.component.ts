@@ -6,8 +6,8 @@ import {UsernameUser} from "../../user/user.model";
   template: `
     <div class="mat-raised-button" disabled=true>
       <span>{{ student.username }}</span>
-      <span class="mat-icon-button remove-button"
-            [ngClass]="{'remove-button-readonly': isReadonly}"
+      <span *ngIf="!isReadonly"
+            class="mat-icon-button remove-button"
             (click)="removeStudentFromTopic($event)">
       </span>
     </div>
