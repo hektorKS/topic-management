@@ -41,7 +41,7 @@ export class BucketsEffects {
       return this.actions$.pipe(
         ofType(bucketSelected),
         flatMap(bucket => {
-          return this.router.navigate(['schools', bucket.schoolId, 'buckets', bucket.id])
+          return this.router.navigate(['buckets', bucket.id])
             .then(_ => changeBreadcrumb({
                 name: bucket.name,
                 url: this.router.url

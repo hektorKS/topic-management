@@ -12,18 +12,18 @@ import {NewTopicComponent} from "./topics/topic/new-topic.component";
 
 const routes: Routes = [
   {
-    path: 'schools/:schoolId/buckets/:bucketId/topics/:topicId',
+    path: 'buckets/:bucketId/topics/new-topic',
+    component: NewTopicComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'buckets/:bucketId/topics/:topicId',
     component: TopicComponent,
     pathMatch: 'full'
   },
   {
-    path: 'schools/:schoolId/buckets/:bucketId',
+    path: 'buckets/:bucketId',
     component: BucketComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'buckets/:bucketId/new-topic',
-    component: NewTopicComponent,
     pathMatch: 'full'
   },
   {
