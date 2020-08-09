@@ -1,7 +1,7 @@
 import {Topic} from "./topics/topic/topic.model";
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {School} from "./schools/school/school.model";
-import {Bucket, BucketState, BucketStateView} from "./buckets/bucket/bucket.model";
+import {Bucket, BucketStateView} from "./buckets/bucket/bucket.model";
 import {User, UsernameUser} from "./user/user.model";
 
 export const topicManagementFeatureKey = 'topicManagementKey';
@@ -27,7 +27,12 @@ export const formTopicSelector = createSelector(topicManagementFeatureSelector, 
 export const formTopicAutocompletionUsersSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.autocompletionUsers);
 
 export const currentUserSelector = createSelector(topicManagementFeatureSelector, state => state.loggedInUser);
-export const currentUserIdSelector = createSelector(currentUserSelector, state => state.id);
+export const currentUserIdSelector = createSelector(currentUserSelector, loggedInUser => loggedInUser.id);
+
+export const ownerSelector = createSelector(
+  currentUserIdSelector,
+  (currentUserId, properties) => currentUserId == properties.ownerId
+);
 
 export interface TopicFormState {
   originalTopic: Topic;

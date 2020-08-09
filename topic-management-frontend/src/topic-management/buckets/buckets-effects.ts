@@ -1,12 +1,15 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Action, Store} from "@ngrx/store";
+import {Action, select, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {exhaustMap, flatMap, map} from "rxjs/operators";
+import {exhaustMap, first, flatMap, map} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {BucketsService} from "./buckets.service";
-import {bucketLoaded, bucketSelected, bucketsInSchoolLoaded, loadBucket, loadBucketsInSchool} from "./buckets-actions";
+import {bucketLoaded, bucketSelected, updateBucketsInSchool, loadBucket, loadBucketsInSchool} from "./buckets-actions";
 import {changeBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
+import {bucketEditButtonClicked} from "./bucket/bucket-actions";
+import {bucketsInSchoolSelector} from "../topic-management-state";
+import {BucketState} from "./bucket/bucket.model";
 
 @Injectable()
 export class BucketsEffects {
@@ -24,7 +27,7 @@ export class BucketsEffects {
           .pipe(map(bucketViews => {
             return {bucketViews: bucketViews, schoolId: payload.schoolId};
           }))),
-        map(payloadWithBuckets => bucketsInSchoolLoaded(payloadWithBuckets)));
+        map(payloadWithBuckets => updateBucketsInSchool(payloadWithBuckets)));
     }
   );
 
@@ -37,15 +40,41 @@ export class BucketsEffects {
     }
   );
 
+  bucketEditButtonClicked$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(bucketEditButtonClicked),
+      flatMap(payload =>
+        this.store.pipe(
+          select(bucketsInSchoolSelector, {schoolId: payload.bucket.schoolId}),
+          first(),
+          map(bucketsInSchool => {
+            const newBuckets = [];
+            for (const bucket of bucketsInSchool) {
+              if (bucket.id == payload.bucket.id) {
+                newBuckets.push({
+                  ...payload.bucket,
+                  bucketState: BucketState.EDIT
+                });
+              } else {
+                newBuckets.push(bucket);
+              }
+            }
+            return {schoolId: payload.bucket.schoolId, bucketViews: newBuckets};
+          }),
+          map(payload => updateBucketsInSchool(payload))
+        ))
+    );
+  });
+
   changeBreadcrumbsOnBucketSelected$: Observable<Action> = createEffect(() => {
-      return this.actions$.pipe(
-        ofType(bucketSelected),
-        flatMap(bucket => {
-          return this.router.navigate(['buckets', bucket.id])
-            .then(_ => changeBreadcrumb({
-                name: bucket.name,
-                url: this.router.url
-              })
+    return this.actions$.pipe(
+      ofType(bucketSelected),
+      flatMap(bucket => {
+        return this.router.navigate(['buckets', bucket.id])
+          .then(_ => changeBreadcrumb({
+              name: bucket.name,
+              url: this.router.url
+            })
             );
         })
       );

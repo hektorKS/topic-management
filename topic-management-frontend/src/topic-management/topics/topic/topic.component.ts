@@ -55,7 +55,7 @@ export class TopicComponent implements OnInit, OnDestroy {
   }
 
   isFormChanged(): boolean {
-    // #NTH Diff between two objects should be checked to verify is changed
+    // #NiceToHave Diff between two objects should be checked to verify is changed
     return this.topicFormService.isFormSubmitDisabled();
   }
 

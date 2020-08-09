@@ -2,11 +2,11 @@ import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {selectBucketId} from "../../topic-management-router-state";
 import {Observable} from "rxjs";
-import {Bucket} from "./bucket.model";
 import {activeBucketSelector} from "../../topic-management-state";
 import {loadTopicsInBucket, newTopicButtonSelected} from "../../topics/topics-actions";
-import {loadBucket} from "../buckets-actions";
 import {filter} from "rxjs/operators";
+import {Bucket} from "../bucket/bucket.model";
+import {loadBucket} from "../buckets-actions";
 
 @Component({
   selector: 'bucket-details',

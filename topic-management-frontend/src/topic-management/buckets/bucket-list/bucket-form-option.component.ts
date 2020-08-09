@@ -1,6 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {Store} from "@ngrx/store";
-import {Bucket} from "../bucket/bucket.model";
+import {ChangeDetectionStrategy, Component} from "@angular/core";
 
 @Component({
   selector: 'bucket-form-option',
@@ -13,10 +11,5 @@ import {Bucket} from "../bucket/bucket.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BucketFormOptionComponent {
-
-  @Input() bucket: Bucket;
-
-  constructor(private store: Store) {
-  }
 
 }

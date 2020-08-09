@@ -110,3 +110,18 @@
     font-size: 24px;
   }
 }
+
+.icon-button {
+  display: inline-block;
+  margin-right: 2px;
+  pointer-events: auto;
+
+  &:hover {
+    transform: scale(1.25);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

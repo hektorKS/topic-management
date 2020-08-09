@@ -1,27 +1,33 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {bucketOperationTypeSelector, bucketSelector} from "../bucket/bucket-state";
+import {
+  bucketFormCancelButtonClicked,
+  bucketFormUpdated,
+  newBucketSubmitted,
+  updateBucketSubmitted
+} from "../bucket/bucket-actions";
+import {first} from "rxjs/operators";
+import {OperationType} from "../../operation/operation-type";
 import {Observable} from "rxjs";
-import {Bucket} from "../bucket/bucket.model";
-import {newBucketSelector} from "./new-bucket-state";
-import {newBucketApproved, newBucketCanceled, newBucketFormUpdated} from "./new-bucket-actions";
 
 @Component({
   selector: 'bucket-form',
   template: `
     <div class="bucket-form-with-buttons">
-      <form *ngIf="formBucket$ | async; let bucket" [formGroup]="bucketFormGroup" class="bucket-form">
+      <form [formGroup]="bucketFormGroup" class="bucket-form">
         <mat-form-field appearance="outline" class="bucket-name mat-form-field-should-float">
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" (keydown)="$event.stopPropagation()">
         </mat-form-field>
       </form>
-      <div class="button-form-buttons">
+      <div class="bucket-form-buttons">
         <span class="icon-small icon-button approve-button"
               [ngClass]="{'disabled': !isFormValid()}"
-              (click)="approve()"></span>
+              (click)="submit($event)"></span>
         <span class="icon-small icon-button cancel-button"
-              (click)="cancel()"></span>
+              (click)="cancel($event)"></span>
       </div>
     </div>
   `,
@@ -34,29 +40,42 @@ export class BucketFormComponent implements OnInit {
     }
   );
 
-  formBucket$: Observable<Bucket>
+  operationType$: Observable<OperationType>;
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-    this.formBucket$ = this.store.select(newBucketSelector);
+    this.store.select(bucketSelector).pipe(first()).subscribe(bucket => {
+      this.bucketFormGroup.get('name').setValue(bucket.name);
+    });
     this.bucketFormGroup.valueChanges.subscribe(newValue => {
-        this.store.dispatch(newBucketFormUpdated({
-          bucketView: {
+        this.store.dispatch(bucketFormUpdated({
+          bucket: {
             name: newValue.name
           }
         }));
       }
+    );
+    this.operationType$ = this.store.select(bucketOperationTypeSelector).pipe(first());
+  }
+
+  submit(event: MouseEvent): void {
+    event.stopPropagation();
+    this.operationType$.subscribe(operationType => {
+        if (operationType == OperationType.CREATE) {
+          this.store.dispatch(newBucketSubmitted());
+        } else if (operationType == OperationType.UPDATE) {
+          this.store.dispatch(updateBucketSubmitted());
+        }
+      }
     )
+
   }
 
-  approve(): void {
-    this.store.dispatch(newBucketApproved());
-  }
-
-  cancel(): void {
-    this.store.dispatch(newBucketCanceled());
+  cancel(event: MouseEvent): void {
+    event.stopPropagation();
+    this.store.dispatch(bucketFormCancelButtonClicked());
   }
 
   isFormValid(): boolean {

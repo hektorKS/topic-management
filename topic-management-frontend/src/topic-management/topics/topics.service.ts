@@ -8,6 +8,7 @@ import {TopicManagementServices} from "../topic-management.model";
 @Injectable({
   providedIn: 'root'
 })
+// #NiceToHave - Server exceptions handling mechanism
 export class TopicsService {
 
   constructor(private httpClient: HttpClient) {

@@ -3,22 +3,22 @@ import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {combineLatest, Observable} from "rxjs";
 import {exhaustMap, flatMap, map, withLatestFrom} from "rxjs/operators";
-import {newBucketApproved, newBucketButtonClicked, newBucketCreated, newBucketInitialized} from "./new-bucket-actions";
+import {newBucketSubmitted, newBucketButtonClicked, newBucketCreated, newBucketInitialized} from "./bucket-actions";
 import {selectSchoolId} from "../../topic-management-router-state";
 import {currentUserSelector} from "../../topic-management-state";
-import {BucketState} from "../bucket/bucket.model";
 import {BucketsService} from "../buckets.service";
-import {newBucketSelector} from "./new-bucket-state";
+import {bucketSelector} from "./bucket-state";
+import {BucketState} from "./bucket.model";
 
 @Injectable()
-export class NewBucketEffects {
+export class BucketEffects {
 
   constructor(private store: Store,
               private actions$: Actions,
               private bucketsService: BucketsService) {
   }
 
-  $newBucketButtonClicked: Observable<Action> = createEffect(() => {
+  newBucketButtonClicked$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(newBucketButtonClicked),
       flatMap(_ => combineLatest([
@@ -38,10 +38,10 @@ export class NewBucketEffects {
     );
   });
 
-  $newBucketApproved: Observable<Action> = createEffect(() => {
+  newBucketApproved$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
-      ofType(newBucketApproved),
-      withLatestFrom(this.store.select(newBucketSelector)),
+      ofType(newBucketSubmitted),
+      withLatestFrom(this.store.select(bucketSelector)),
       exhaustMap(([_, bucket]) => this.bucketsService.createNewBucket(bucket)
         .pipe(map(bucketId => ({
             ...bucket,
@@ -51,5 +51,5 @@ export class NewBucketEffects {
         )),
       map(bucketView => newBucketCreated({bucketView: bucketView}))
     );
-  })
+  });
 }

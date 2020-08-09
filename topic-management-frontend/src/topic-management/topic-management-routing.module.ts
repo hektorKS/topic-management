@@ -5,9 +5,9 @@ import {SchoolComponent} from "./schools/school/school.component";
 import {StoreModule} from "@ngrx/store";
 import {routerFeatureName} from "./topic-management-router-state";
 import {routerReducer} from "@ngrx/router-store";
-import {BucketDetailsComponent} from "./buckets/bucket/bucket-details.component";
 import {TopicComponent} from "./topics/topic/topic.component";
 import {NewTopicComponent} from "./topics/topic/new-topic.component";
+import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.component";
 
 
 const routes: Routes = [

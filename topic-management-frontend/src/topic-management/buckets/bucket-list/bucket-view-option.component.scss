@@ -2,4 +2,26 @@
 
 :host {
   @include centered-mat-list-option;
+
+  mat-list-option {
+    .bucket-edit-button {
+      background-image: url("../../../assets/edit-light-24px.svg");
+    }
+
+    &:hover {
+      .bucket-edit-button {
+        background-image: url("../../../assets/edit-dark-24px.svg");
+      }
+    }
+
+    .bucket-delete-button {
+      background-image: url("../../../assets/delete-red-24px.svg");
+    }
+  }
+
+  .bucket-view-with-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

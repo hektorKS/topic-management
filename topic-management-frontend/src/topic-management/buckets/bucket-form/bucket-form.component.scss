@@ -2,24 +2,12 @@
 @import "src/topic-management/topic-management-styles";
 
 :host {
-  .icon-button {
-    display: inline-block;
-    margin-right: 2px;
-    pointer-events: auto;
-
-    &.disabled {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-  }
-
   .bucket-form-with-buttons {
     display: flex;
-    flex-direction: row;
     align-items: baseline;
 
     .bucket-form {
-      flex-grow: 3;
+      flex-grow: 1;
       color: $color-primary-dark;
 
       .bucket-name {
@@ -31,10 +19,11 @@
       }
     }
 
-    .button-form-buttons {
-      flex-grow: 2;
+    .bucket-form-buttons {
+      display: inline-block;
       width: fit-content;
       margin-left: 1%;
+      justify-self: flex-end;
     }
   }
 
@@ -45,6 +34,4 @@
   .cancel-button {
     background-image: url("../../../assets/cancel-dark-24px.svg");
   }
-
-
 }

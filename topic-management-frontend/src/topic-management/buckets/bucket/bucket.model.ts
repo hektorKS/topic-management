@@ -10,7 +10,7 @@ export interface BucketStateView extends Bucket {
 }
 
 export enum BucketState {
-  UNCHANGED,
-  CHANGED,
-  NEW,
+  UNCHANGED = 'UNCHANGED',
+  EDIT = 'EDIT',
+  NEW = 'NEW',
 }
