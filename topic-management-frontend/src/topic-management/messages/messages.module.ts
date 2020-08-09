@@ -15,6 +15,9 @@ import {MatButtonModule} from "@angular/material/button";
   declarations: [
     MessageFormComponent
   ],
+  exports: [
+    MessageFormComponent
+  ],
   imports: [
     CommonModule,
     StoreModule.forFeature(messageFormKey, messageFormReducer),
