@@ -12,11 +12,9 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation.project
 import org.springframework.data.mongodb.core.aggregation.Aggregation.unwind
 import org.springframework.data.mongodb.core.aggregation.Fields.fields
 import org.springframework.data.mongodb.core.aggregation.LookupOperation.newLookup
-import org.springframework.data.mongodb.core.aggregation.ProjectionOperation
 import org.springframework.data.mongodb.core.query.Criteria.where
 import org.springframework.data.mongodb.core.query.isEqualTo
 import java.util.UUID
-import java.util.stream.Collectors
 
 class TopicViewMongoRepository(private val mongoTemplate: MongoTemplate) : TopicViewRepository {
   private val log = LoggerFactory.getLogger(javaClass)

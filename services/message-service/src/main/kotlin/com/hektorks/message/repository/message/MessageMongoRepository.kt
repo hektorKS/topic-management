@@ -4,4 +4,4 @@ import com.hektorks.message.model.Message
 import org.springframework.data.mongodb.repository.MongoRepository
 import java.util.UUID
 
-interface MessageMongoRepository : MessageRepository, MongoRepository<Message, UUID>
+interface MessageMongoRepository : MongoRepository<Message, UUID>, MessageRepository

@@ -13,3 +13,16 @@ data class Message(
   val instant: Instant,
   val message: String
 )
+
+
+data class Conversation(
+  val firstUserId: UUID,
+  val secondUserId: UUID
+)
+
+data class ConversationWithLastMessageView(
+  val firstUserId: UUID,
+  val secondUserId: UUID,
+  val lastMessage: String,
+  val lastMessageInstant: Instant
+)
