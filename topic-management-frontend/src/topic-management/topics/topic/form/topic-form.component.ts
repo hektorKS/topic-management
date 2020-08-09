@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 
-import {filter, map, take, tap, withLatestFrom} from "rxjs/operators";
+import {filter, first, map, tap, withLatestFrom} from "rxjs/operators";
 import {FormGroup} from "@angular/forms";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {UsernameUser} from "../../../user/user.model";
@@ -91,7 +91,7 @@ export class TopicFormComponent implements OnInit {
   }
 
   onStudentRemoved(userId: string): void {
-    this.formTopic$.pipe(take(1)).subscribe(topic => {
+    this.formTopic$.pipe(first()).subscribe(topic => {
         const newStudents = [];
         for (const student of topic.students) {
           if (userId != student.id) {
@@ -105,7 +105,7 @@ export class TopicFormComponent implements OnInit {
   }
 
   onStudentAdded(event: MatAutocompleteSelectedEvent): void {
-    this.formTopic$.pipe(take(1)).subscribe(topic => {
+    this.formTopic$.pipe(first()).subscribe(topic => {
         this.topicFormGroup.get('newStudent').setValue({id: undefined, username: ''});
         this.store.dispatch(updateFormTopic({students: [...topic.students, event.option.value]}));
       }

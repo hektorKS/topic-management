@@ -1,6 +1,6 @@
 package com.hektorks.bucket.rest
 
-import com.hektorks.bucket.businesslogic.command.CrateBucketCommand
+import com.hektorks.bucket.businesslogic.command.CreateBucketCommand
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -19,12 +19,12 @@ data class CreateBucketResponse(val id: UUID)
 
 @RestController
 @RequestMapping("/api/v1")
-class CreateBucketController(private val crateBucketCommand: CrateBucketCommand) {
+class CreateBucketController(private val createBucketCommand: CreateBucketCommand) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @PostMapping("/buckets")
-  fun createTopic(@RequestBody createBucketRequest: CreateBucketRequest): ResponseEntity<CreateBucketResponse> {
-    val bucketId = crateBucketCommand.execute(createBucketRequest)
+  fun createBucket(@RequestBody createBucketRequest: CreateBucketRequest): ResponseEntity<CreateBucketResponse> {
+    val bucketId = createBucketCommand.execute(createBucketRequest)
     log.info("Created bucket with id=$bucketId")
     return ResponseEntity.ok().body(CreateBucketResponse(bucketId))
   }

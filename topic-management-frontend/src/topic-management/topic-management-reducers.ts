@@ -6,7 +6,12 @@ import {bucketLoaded, updateBucketsInSchool} from "./buckets/buckets-actions";
 import {Topic} from "./topics/topic/topic.model";
 import {Bucket, BucketState} from "./buckets/bucket/bucket.model";
 import {autocompletionUsernamesLoaded} from "./user/users-actions";
-import {bucketFormCancelButtonClicked, newBucketCreated, newBucketInitialized} from "./buckets/bucket/bucket-actions";
+import {
+  bucketDeleted,
+  bucketFormCancelButtonClicked,
+  newBucketCreated,
+  newBucketInitialized
+} from "./buckets/bucket/bucket-actions";
 
 export const topicManagementReducer = createReducer<TopicManagementState>(
   initialState,
@@ -61,6 +66,15 @@ export const topicManagementReducer = createReducer<TopicManagementState>(
         )
       }
     )
+    return {...state}
+  }),
+  on(bucketDeleted, (state, action) => {
+    state.schoolBuckets.forEach((bucketViews, schoolId, map) => {
+      map.set(
+        schoolId,
+        bucketViews.filter(view => view.id !== action.bucketId)
+      )
+    });
     return {...state}
   })
 )

@@ -4,6 +4,7 @@ import {
   bucketEditButtonClicked,
   bucketFormCancelButtonClicked,
   bucketFormUpdated,
+  bucketUpdated,
   newBucketCreated,
   newBucketInitialized
 } from "./bucket-actions";
@@ -18,9 +19,8 @@ export const bucketReducer = createReducer<BucketState>(
     operationType: OperationType.CREATE,
     bucket: action.bucketView
   })),
-  on(bucketFormCancelButtonClicked, newBucketCreated, state => ({
-    ...state,
-    inProgress: false
+  on(bucketFormCancelButtonClicked, newBucketCreated, bucketUpdated, () => ({
+    ...initialBucketsState
   })),
   on(bucketFormUpdated, (state, action: { bucket: Partial<Bucket> }) => ({
     ...state,

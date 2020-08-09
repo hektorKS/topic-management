@@ -6,9 +6,11 @@ import {loadBucketsInSchool} from "../buckets-actions";
 import {bucketsInSchoolSelector} from "../../topic-management-state";
 import {bucketOperationInProgressSelector} from "../bucket/bucket-state";
 import {newBucketButtonClicked} from "../bucket/bucket-actions";
+import {selectSchoolId} from "../../topic-management-router-state";
+import {filter, flatMap, tap} from "rxjs/operators";
 
 @Component({
-  selector: 'buckets',
+  selector: 'bucket-list',
   template: `
     <div class="buckets-wrapper">
       <mat-selection-list #buckets [multiple]="false">
@@ -23,15 +25,15 @@ import {newBucketButtonClicked} from "../bucket/bucket-actions";
       <button mat-raised-button
               class="custom-button-light new-bucket-button"
               [disabled]="newBucketInProgress$ | async"
-              (click)="createBucket()">
+              (click)="createBucket($event)">
         New bucket
       </button>
     </div>
   `,
-  styleUrls: ['buckets.component.scss'],
+  styleUrls: ['bucket-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BucketsComponent implements OnInit {
+export class BucketListComponent implements OnInit {
   readonly BucketState: typeof BucketState = BucketState;
 
   buckets$: Observable<BucketStateView[]>;
@@ -43,12 +45,16 @@ export class BucketsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadBucketsInSchool({schoolId: this.schoolId}))
-    this.buckets$ = this.store.pipe(select(bucketsInSchoolSelector, {schoolId: this.schoolId}))
+    this.buckets$ = this.store.select(selectSchoolId).pipe(
+      filter(_ => _ !== undefined),
+      tap(schoolId => this.store.dispatch(loadBucketsInSchool({schoolId: schoolId}))),
+      flatMap(schoolId => this.store.pipe(select(bucketsInSchoolSelector, {schoolId: schoolId})))
+    );
     this.newBucketInProgress$ = this.store.select(bucketOperationInProgressSelector);
   }
 
-  createBucket() {
+  createBucket(event: MouseEvent) {
+    event.stopPropagation();
     this.store.dispatch(newBucketButtonClicked());
   }
 }

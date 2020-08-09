@@ -5,7 +5,7 @@ import {Breadcrumb} from "./breadcrumb.model";
 import {breadcrumbsDestroyed, breadcrumbsInitialized, changeBreadcrumb} from "./breadcrumbs-actions";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {take, tap} from "rxjs/operators";
+import {first, tap} from "rxjs/operators";
 
 @Component({
   selector: 'breadcrumbs',
@@ -29,7 +29,7 @@ export class BreadcrumbsComponent implements OnInit {
   @HostListener('window:beforeunload')
   beforeUnloadHandler() {
     this.breadcrumbs$.pipe(
-      take(1),
+      first(),
       tap(breadcrumbs => this.store.dispatch(breadcrumbsDestroyed({breadcrumbs: breadcrumbs})))
     ).subscribe()
   }

@@ -32,6 +32,20 @@ class KafkaBucketServiceImpl(private val kafkaBaseService: KafkaBaseService): Ka
     )
   }
 
+  override fun bucketUpdated(bucket: Bucket) {
+    log.info("Bucket with id [${bucket.id}] updated. Sending ${BucketMessageType.BUCKET_UPDATED} message.")
+    sendMessage(
+      key = bucket.id,
+      message = KafkaMessage(
+        messageType = BucketMessageType.BUCKET_UPDATED.name,
+        version = BucketMessageType.BUCKET_UPDATED.version.getAsString(),
+        payload = mapOf(
+          BUCKET to bucket
+        )
+      )
+    )
+  }
+
   override fun bucketDeleted(bucketId: UUID) {
     log.info("Bucket with id [$bucketId] deleted. Sending ${BucketMessageType.BUCKET_DELETED} message.")
     sendMessage(

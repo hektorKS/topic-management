@@ -3,7 +3,7 @@ import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {Topic} from "../topic.model";
 import {currentUserIdSelector, formTopicSelector} from "../../../topic-management-state";
-import {filter, map, take, withLatestFrom} from "rxjs/operators";
+import {filter, first, map, withLatestFrom} from "rxjs/operators";
 import {Store} from "@ngrx/store";
 import {updateFormTopic} from "../../topics-actions";
 
@@ -32,7 +32,7 @@ export class TopicFormService {
   }
 
   private initForm(): void {
-    this.formTopic$.pipe(take(1)).subscribe(topic => {
+    this.formTopic$.pipe(first()).subscribe(topic => {
       this.topicFormGroup.get('title').setValue(topic.title);
       this.topicFormGroup.get('description').setValue(topic.description);
       this.topicFormGroup.get('supervisor').setValue(topic.supervisor);

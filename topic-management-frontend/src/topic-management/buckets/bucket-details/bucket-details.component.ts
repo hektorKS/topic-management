@@ -13,7 +13,7 @@ import {loadBucket} from "../buckets-actions";
   template: `
     <div class="bucket-wrapper">
       <div *ngIf="bucket$ | async; let bucket" class="bucket-name"> {{ bucket.name }} </div>
-      <topics [bucketId]="bucketId$ | async"></topics>
+      <topic-list [bucketId]="bucketId$ | async"></topic-list>
       <button mat-raised-button class="custom-button-light new-topic-button" (click)="createTopic()">
         New topic
       </button>

@@ -10,5 +10,5 @@ data class Topic(
     val title: String,
     val description: String,
     val supervisorId: UUID,
-    val students: List<UsernameUser> = emptyList()
+    val students: List<UsernameUser> = emptyList() // #NiceToHave - Mongo lookup instead of little duplication?
 )

@@ -11,7 +11,7 @@ import {bucketDeleteButtonClicked, bucketEditButtonClicked} from "../bucket/buck
   template: `
     <mat-list-option *ngIf="bucket"
                      [value]="bucket"
-                     (click)="bucketOptionClicked(bucket)">
+                     (click)="bucketOptionClicked()">
       <div class="bucket-view-with-buttons">
         <span> {{ bucket.name }} </span>
         <div>
@@ -41,8 +41,8 @@ export class BucketViewOptionComponent implements OnInit {
     this.bucketOwner$ = this.store.pipe(select(ownerSelector, {ownerId: this.bucket.ownerId}));
   }
 
-  bucketOptionClicked(bucket: Bucket) {
-    this.store.dispatch(bucketSelected(bucket));
+  bucketOptionClicked() {
+    this.store.dispatch(bucketSelected(this.bucket));
   }
 
   edit(event: MouseEvent): void {

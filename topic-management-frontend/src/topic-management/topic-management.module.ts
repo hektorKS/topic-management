@@ -5,7 +5,7 @@ import {TopicManagementComponent} from './topic-management.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Store, StoreModule} from "@ngrx/store";
 import {TopicManagementRootState} from "./topic-management-root-state";
-import {TopicsComponent} from "./topics/topics.component";
+import {TopicListComponent} from "./topics/topic-list.component";
 import {EffectsModule} from "@ngrx/effects";
 import {HttpClientModule} from "@angular/common/http";
 import {TopicManagementMainComponent} from "./topic-management-main.component";
@@ -39,13 +39,15 @@ import {TopicFormComponent} from "./topics/topic/form/topic-form.component";
 import {NewTopicComponent} from "./topics/topic/new-topic.component";
 import {BucketFormComponent} from "./buckets/bucket-form/bucket-form.component";
 import {BucketViewOptionComponent} from "./buckets/bucket-list/bucket-view-option.component";
-import {BucketsComponent} from "./buckets/bucket-list/buckets.component";
+import {BucketListComponent} from "./buckets/bucket-list/bucket-list.component";
 import {BucketFormOptionComponent} from "./buckets/bucket-list/bucket-form-option.component";
 import {topicManagementApplicationInitialized} from "./topic-management-actions";
 import {BucketState, newBucketKey} from "./buckets/bucket/bucket-state";
 import {bucketReducer} from "./buckets/bucket/bucket-reducers";
 import {BucketEffects} from "./buckets/bucket/bucket-effects";
 import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.component";
+import {environment} from "../environments/environment";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, BucketEffects, TopicsEffects, UsersEffects];
 
@@ -66,12 +68,12 @@ function dispatchAppInitialized(store: Store): () => Promise<void> {
     TopicManagementMainComponent,
     SchoolsComponent,
     SchoolComponent,
-    BucketsComponent,
+    BucketListComponent,
     BucketViewOptionComponent,
     BucketFormOptionComponent,
     BucketFormComponent,
     BucketDetailsComponent,
-    TopicsComponent,
+    TopicListComponent,
     TopicComponent,
     NewTopicComponent,
     TopicFormComponent,
@@ -94,6 +96,7 @@ function dispatchAppInitialized(store: Store): () => Promise<void> {
     StoreModule.forFeature<BucketState>(newBucketKey, bucketReducer),
     EffectsModule.forRoot([]),
     EffectsModule.forFeature(effects),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     TopicManagementRoutingModule,
     MatIconModule,
     MatToolbarModule,

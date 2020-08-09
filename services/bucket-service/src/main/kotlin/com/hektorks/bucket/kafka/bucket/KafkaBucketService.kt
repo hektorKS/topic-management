@@ -7,6 +7,8 @@ interface KafkaBucketService {
 
   fun bucketCreated(bucket: Bucket)
 
+  fun bucketUpdated(bucket: Bucket)
+
   fun bucketDeleted(bucketId: UUID)
 
 }

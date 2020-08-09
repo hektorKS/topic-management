@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from "@angular/core";
-import {select, Store} from "@ngrx/store";
+import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
+import {Store} from "@ngrx/store";
 import {selectSchoolId} from "../../topic-management-router-state";
-import {Observable, Subject} from "rxjs";
+import {Observable} from "rxjs";
 import {School} from "./school.model";
 import {schoolSelector, schoolsSelector} from "../../topic-management-state";
-import {filter, flatMap, tap} from "rxjs/operators";
+import {filter, first, flatMap} from "rxjs/operators";
 import {schoolViewOpened} from "../schools-actions";
 
 @Component({
@@ -26,37 +26,32 @@ import {schoolViewOpened} from "../schools-actions";
         </div>
       </div>
     </div>
-    <buckets [schoolId]="schoolId$ | async"></buckets>
+    <bucket-list [schoolId]="schoolId$ | async"></bucket-list>
   `,
   styleUrls: ['./school.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SchoolComponent implements OnInit, OnDestroy {
+export class SchoolComponent implements OnInit {
 
   schoolId$: Observable<string>;
-  school$: Subject<School> = new Subject<School>();
+  school$: Observable<School>;
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
     this.reloadSchoolsIfNotLoaded();
-    this.schoolId$ = this.store.select(selectSchoolId).pipe(
-      tap(schoolId => this.store.pipe(
-        select(schoolSelector, {schoolId: schoolId}),
-        tap(school => this.school$.next(school))
-      ).subscribe())
+    this.schoolId$ = this.store.select(selectSchoolId).pipe(filter(_ => _ !== undefined));
+    this.school$ = this.schoolId$.pipe(
+      first(),
+      flatMap(schoolId => this.store.select(schoolSelector, {schoolId: schoolId}))
     );
   }
 
   private reloadSchoolsIfNotLoaded(): void {
     this.store.select(schoolsSelector)
-      .pipe(filter(schools => schools.length == 0))
+      .pipe(first(), filter(schools => schools.length == 0))
       .subscribe(_ => this.store.dispatch(schoolViewOpened()))
-  }
-
-  ngOnDestroy(): void {
-    this.school$.complete();
   }
 
 }

@@ -7,7 +7,7 @@ import {UsernameUser} from "../user/user.model";
 import {topicSelected} from "./topics-actions";
 
 @Component({
-  selector: 'topics',
+  selector: 'topic-list',
   template: `
     <mat-selection-list #topics [multiple]="false">
       <mat-list-option *ngFor="let topic of topics$ | async" [value]="topic" (click)="topicOptionClicked(topic)">
@@ -30,10 +30,10 @@ import {topicSelected} from "./topics-actions";
       </mat-list-option>
     </mat-selection-list>
   `,
-  styleUrls: ['topics.component.scss'],
+  styleUrls: ['topic-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopicsComponent implements OnInit {
+export class TopicListComponent implements OnInit {
 
   @Input() bucketId: string;
 

@@ -12,9 +12,9 @@ import java.util.UUID
 
 @Lazy
 @Service
-open class CrateBucketCommand(private val bucketValidator: BucketValidator,
-                              private val bucketRepository: BucketRepository,
-                              private val kafkaBucketService: KafkaBucketService) {
+open class CreateBucketCommand(private val bucketValidator: BucketValidator,
+                               private val bucketRepository: BucketRepository,
+                               private val kafkaBucketService: KafkaBucketService) {
 
   @Transactional
   open fun execute(createBucketRequest: CreateBucketRequest): UUID {

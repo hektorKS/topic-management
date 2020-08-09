@@ -19,9 +19,17 @@ export class BucketsService {
         name: bucket.name,
         ownerId: bucket.ownerId,
         schoolId: bucket.schoolId
-      }).pipe(
-      map(response => response.id)
-    );
+      }).pipe(map(response => response.id));
+  }
+
+  updateBucket(bucket: Bucket): Observable<void> {
+    return this.httpClient.patch<void>(`${TopicManagementServices.BUCKET_SERVICE}/api/v1/buckets/${bucket.id}`, {
+      name: bucket.name
+    });
+  }
+
+  deleteBucket(bucketId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${TopicManagementServices.BUCKET_SERVICE}/api/v1/buckets/${bucketId}`);
   }
 
   getBucketsInSchool(schoolId: string): Observable<BucketStateView[]> {
