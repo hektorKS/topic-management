@@ -17,6 +17,10 @@
       @include view-title;
     }
 
+    .topic-description {
+      height: fit-content;
+    }
+
     .topic-students {
       display: flex;
 

@@ -1,6 +1,12 @@
 import {createReducer, on} from "@ngrx/store";
 import {schoolsLoaded} from "./schools/schools-actions";
-import {clearTopic, topicLoaded, topicsInBucketLoaded, updateFormTopic} from "./topics/topics-actions";
+import {
+  clearTopic,
+  contactSupervisorButtonClicked,
+  topicLoaded,
+  topicsInBucketLoaded,
+  updateFormTopic
+} from "./topics/topics-actions";
 import {initialState, initialTopicFormState, TopicManagementState} from "./topic-management-state";
 import {bucketLoaded, updateBucketsInSchool} from "./buckets/buckets-actions";
 import {Topic} from "./topics/topic/topic.model";
@@ -12,6 +18,7 @@ import {
   newBucketCreated,
   newBucketInitialized
 } from "./buckets/bucket/bucket-actions";
+import {messageSent} from "./messages/message-form/message-form-actions";
 
 export const topicManagementReducer = createReducer<TopicManagementState>(
   initialState,
@@ -30,6 +37,12 @@ export const topicManagementReducer = createReducer<TopicManagementState>(
       ...state.topicFormState,
       originalTopic: action,
       topic: action
+    }
+  })),
+  on(contactSupervisorButtonClicked, state => ({
+    ...state, topicFormState: {
+      ...state.topicFormState,
+      sendMessage: true
     }
   })),
   on(updateFormTopic, (state, action: Partial<Topic>) => ({
@@ -76,5 +89,11 @@ export const topicManagementReducer = createReducer<TopicManagementState>(
       )
     });
     return {...state}
-  })
-)
+  }),
+  on(messageSent, state => ({
+    ...state, topicFormState: {
+      ...state.topicFormState,
+      sendMessage: false
+    }
+  }))
+);

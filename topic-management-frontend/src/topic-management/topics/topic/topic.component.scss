@@ -3,10 +3,12 @@
 
 :host {
   @include centered-with-margins;
+  margin-bottom: 10px;
 
   .topic-view-wrapper {
     display: flex;
     flex-direction: column;
+    margin-bottom: 10px;
 
     .spread-buttons {
       display: flex;

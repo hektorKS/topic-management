@@ -25,6 +25,7 @@ export const topicsInBucketSelector = createSelector(
 
 export const formTopicSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.topic);
 export const formTopicAutocompletionUsersSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.autocompletionUsers);
+export const formSendMessageSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.sendMessage);
 
 export const currentUserSelector = createSelector(topicManagementFeatureSelector, state => state.loggedInUser);
 export const currentUserIdSelector = createSelector(currentUserSelector, loggedInUser => loggedInUser.id);
@@ -37,6 +38,7 @@ export const ownerSelector = createSelector(
 export interface TopicFormState {
   originalTopic: Topic;
   topic: Topic;
+  sendMessage: boolean,
   autocompletionUsers: UsernameUser[];
 }
 
@@ -53,12 +55,13 @@ export interface TopicManagementState {
 export const initialTopicFormState: TopicFormState = {
   originalTopic: undefined,
   topic: undefined,
+  sendMessage: false,
   autocompletionUsers: []
 }
 
 export const initialState: TopicManagementState = {
   loggedInUser: { // MOCKED
-    id: "eead90cb-c539-4e27-b937-87e9f067b596",
+    id: "578230d3-2f2d-4afc-98f6-aacc60e14610",
     firstName: "Konrad",
     lastName: "Szyszka",
     username: "hektorKS"

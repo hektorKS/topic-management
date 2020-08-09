@@ -14,7 +14,7 @@
   }
 
   .breadcrumb-button {
-    max-width: 400px;
+    max-width: 350px;
     padding: 0 8px;
     text-transform: capitalize;
     @include dotted-text-overflow;
@@ -25,7 +25,7 @@
     }
 
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
   }
 

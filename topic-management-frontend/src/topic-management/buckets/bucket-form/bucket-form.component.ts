@@ -23,10 +23,10 @@ import {Observable} from "rxjs";
         </mat-form-field>
       </form>
       <div class="bucket-form-buttons">
-        <span class="icon-small icon-button approve-button"
+        <span class="icon-small icon-button submit-bucket-button"
               [ngClass]="{'disabled': !isFormValid()}"
               (click)="submit($event)"></span>
-        <span class="icon-small icon-button cancel-button"
+        <span class="icon-small icon-button cancel-bucket-button"
               (click)="cancel($event)"></span>
       </div>
     </div>

@@ -19,6 +19,7 @@ export enum TopicsActions {
   TOPIC_BACK_BUTTON_CLICKED = '[Topic] Topic back button clicked',
   UPDATE_FORM_TOPIC = '[Topic] Update form topic',
   TOPIC_SELECTED = '[Topic] Topic selected',
+  CONTACT_SUPERVISOR_BUTTON_CLICKED = '[Topic] Contact supervisor button clicked'
 }
 
 export const newTopicButtonSelected = createAction(TopicsActions.NEW_TOPIC_BUTTON_SELECTED);
@@ -38,4 +39,5 @@ export const loadTopicsInBucket = createAction(TopicsActions.LOAD_TOPICS_IN_BUCK
 export const topicsInBucketLoaded = createAction(TopicsActions.TOPICS_IN_BUCKET_LOADED, props<{ bucketId: string, topics: Topic[] }>());
 export const updateFormTopic = createAction(TopicsActions.UPDATE_FORM_TOPIC, props<Partial<Topic>>());
 export const topicSelected = createAction(TopicsActions.TOPIC_SELECTED, props<Topic>());
+export const contactSupervisorButtonClicked = createAction(TopicsActions.CONTACT_SUPERVISOR_BUTTON_CLICKED);
 

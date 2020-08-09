@@ -22,7 +22,7 @@ import {TopicFormService} from "./topic-form.service";
       </mat-form-field>
       <mat-form-field appearance="outline" class="custom-form-field mat-form-field-should-float">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" [readonly]="!(topicOwner$ | async)"></textarea>
+        <textarea matInput formControlName="description" class="topic-description" [readonly]="!(topicOwner$ | async)"></textarea>
       </mat-form-field>
       <mat-form-field appearance="outline" class="custom-form-field mat-form-field-should-float">
         <mat-label>Supervisor</mat-label>

@@ -48,6 +48,8 @@ import {BucketEffects} from "./buckets/bucket/bucket-effects";
 import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.component";
 import {environment} from "../environments/environment";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {MessageFormComponent} from "./messages/message-form/message-form.component";
+import {MessagesModule} from "./messages/messages.module";
 
 const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, BucketEffects, TopicsEffects, UsersEffects];
 
@@ -97,6 +99,7 @@ function dispatchAppInitialized(store: Store): () => Promise<void> {
     EffectsModule.forRoot([]),
     EffectsModule.forFeature(effects),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    MessagesModule,
     TopicManagementRoutingModule,
     MatIconModule,
     MatToolbarModule,

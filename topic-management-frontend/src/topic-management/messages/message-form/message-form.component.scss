@@ -1,0 +1,24 @@
+@import "src/topic-management/topic-management-styles";
+@import 'src/styles';
+
+:host {
+
+  .message-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .send-message-button {
+      align-self: center;
+    }
+
+    .message-textarea {
+      min-height: 150px;
+    }
+  }
+
+}

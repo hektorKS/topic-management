@@ -2,10 +2,18 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {selectTopicId} from "../../topic-management-router-state";
-import {clearTopic, deleteTopic, loadTopic, topicBackButtonClicked, updateTopic} from "../topics-actions";
+import {
+  clearTopic,
+  contactSupervisorButtonClicked,
+  deleteTopic,
+  loadTopic,
+  topicBackButtonClicked,
+  updateTopic
+} from "../topics-actions";
 import {Topic} from "./topic.model";
-import {filter, take} from "rxjs/operators";
+import {filter, first} from "rxjs/operators";
 import {TopicFormService} from "./form/topic-form.service";
+import {formSendMessageSelector} from "../../topic-management-state";
 
 @Component({
   selector: 'topic',
@@ -23,6 +31,12 @@ import {TopicFormService} from "./form/topic-form.service";
                 (click)="updateTopic()">
           Save
         </button>
+        <button *ngIf="!(topicOwner$ | async)"
+                mat-raised-button class="custom-button-dark"
+                [disabled]="sendMessage$ | async"
+                (click)="contactSupervisor()">
+          Contact supervisor
+        </button>
       </div>
       <button *ngIf="topicOwner$ | async"
               mat-raised-button class="custom-button-dark delete-topic-button"
@@ -31,6 +45,7 @@ import {TopicFormService} from "./form/topic-form.service";
         Delete
       </button>
     </div>
+    <message-form *ngIf="sendMessage$ | async" [recipientId]="(formTopic$ | async).supervisor.id"></message-form>
   `,
   styleUrls: ['topic.component.scss'],
   providers: [TopicFormService]
@@ -38,6 +53,7 @@ import {TopicFormService} from "./form/topic-form.service";
 export class TopicComponent implements OnInit, OnDestroy {
   formTopic$: Observable<Topic>;
   topicOwner$: Observable<boolean>;
+  sendMessage$: Observable<boolean>;
 
   constructor(private store: Store, private topicFormService: TopicFormService) {
   }
@@ -48,6 +64,7 @@ export class TopicComponent implements OnInit, OnDestroy {
       .subscribe(topicId => this.store.dispatch(loadTopic({topicId: topicId})));
     this.formTopic$ = this.topicFormService.getFormTopicObservable();
     this.topicOwner$ = this.topicFormService.getTopicOwnerObservable();
+    this.sendMessage$ = this.store.select(formSendMessageSelector);
   }
 
   ngOnDestroy(): void {
@@ -60,14 +77,14 @@ export class TopicComponent implements OnInit, OnDestroy {
   }
 
   updateTopic(): void {
-    this.formTopic$.pipe(take(1)).subscribe(topic => {
+    this.formTopic$.pipe(first()).subscribe(topic => {
         this.store.dispatch(updateTopic(topic));
       }
     );
   }
 
   deleteTopic() {
-    this.formTopic$.pipe(take(1)).subscribe(topic => {
+    this.formTopic$.pipe(first()).subscribe(topic => {
         this.store.dispatch(deleteTopic({topicId: topic.id}));
       }
     );
@@ -75,5 +92,9 @@ export class TopicComponent implements OnInit, OnDestroy {
 
   backClicked() {
     this.store.dispatch(topicBackButtonClicked());
+  }
+
+  contactSupervisor(): void {
+    this.store.dispatch(contactSupervisorButtonClicked());
   }
 }
