@@ -14,6 +14,7 @@
 
 	<modules>
 		<module>services</module>
+		<module>topic-management-frontend</module>
 	</modules>
 
 	<properties>
