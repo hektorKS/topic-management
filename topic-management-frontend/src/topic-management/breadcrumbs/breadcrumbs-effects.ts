@@ -17,18 +17,19 @@ export class BreadcrumbsEffects {
   }
 
   initializeBreadcrumbsOnAppStart$: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(ofType(topicManagementApplicationInitialized))
-      .pipe(
-        map(_ => {
-          const breadcrumbsString = localStorage.getItem('breadcrumbs');
-          if (breadcrumbsString !== null) {
-            return JSON.parse(breadcrumbsString);
-          } else {
-            return [];
-          }
-        }),
-        map(breadcrumbs => breadcrumbsChanged({breadcrumbs: breadcrumbs}))
-      )
+    return this.actions$.pipe(
+      ofType(topicManagementApplicationInitialized),
+      withLatestFrom(this.store.select(breadcrumbsSelector)),
+      map(([_, currentBreadcrumbs]) => {
+        const breadcrumbsString = localStorage.getItem('breadcrumbs');
+        if (breadcrumbsString !== null) {
+          return JSON.parse(breadcrumbsString);
+        } else {
+          return currentBreadcrumbs;
+        }
+      }),
+      map(breadcrumbs => breadcrumbsChanged({breadcrumbs: breadcrumbs}))
+    )
   });
 
   breadcrumbsDestroyed$: Observable<Action> = createEffect(() => {

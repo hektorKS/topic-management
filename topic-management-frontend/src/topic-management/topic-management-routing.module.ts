@@ -9,6 +9,7 @@ import {TopicComponent} from "./topics/topic/topic.component";
 import {NewTopicComponent} from "./topics/topic/new-topic.component";
 import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.component";
 import {SignInComponent} from "./user/authentication/sign-in/sign-in.component";
+import {AuthenticationGuard} from "./user/authentication/authentication-guard";
 
 
 const routes: Routes = [
@@ -20,29 +21,38 @@ const routes: Routes = [
   {
     path: 'buckets/:bucketId/topics/new-topic',
     component: NewTopicComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'buckets/:bucketId/topics/:topicId',
     component: TopicComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'buckets/:bucketId',
     component: BucketDetailsComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'schools/:schoolId',
     component: SchoolComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'schools',
     component: SchoolsComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthenticationGuard]
   },
-  {path: '', redirectTo: 'schools', pathMatch: 'full'}
+  {
+    path: '',
+    redirectTo: 'schools',
+    pathMatch: 'full'
+  }
 ];
 
 

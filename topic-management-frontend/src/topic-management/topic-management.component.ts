@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {userSignedInSelector} from "./topic-management-state";
-import {signedOut} from "./user/authentication/authentication-actions";
+import {signOut} from "./user/authentication/authentication-actions";
 
 @Component({
   selector: 'topic-management',
@@ -48,6 +48,6 @@ export class TopicManagementComponent implements OnInit {
   }
 
   signOut(): void {
-    this.store.dispatch(signedOut());
+    this.store.dispatch(signOut());
   }
 }

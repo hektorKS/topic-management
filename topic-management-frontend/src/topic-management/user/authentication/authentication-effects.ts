@@ -3,7 +3,7 @@ import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Observable} from "rxjs";
 import {signedIn, signInButtonClicked, signInFailed} from "./authentication-actions";
-import {catchError, exhaustMap, map, switchMap, tap} from "rxjs/operators";
+import {catchError, exhaustMap, map, tap, withLatestFrom} from "rxjs/operators";
 import {AuthenticationService} from "./authentication.service";
 import {signInDataSelector} from "./authentication-state";
 import {Router} from "@angular/router";
@@ -23,8 +23,8 @@ export class AuthenticationEffects {
   signInButtonClicked$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofType(signInButtonClicked),
-      switchMap(_ => this.store.select(signInDataSelector)),
-      exhaustMap(signInData => this.authenticationService.signIn(signInData)
+      withLatestFrom(this.store.select(signInDataSelector)),
+      exhaustMap(([_, signInData]) => this.authenticationService.signIn(signInData)
         .pipe(
           catchError(error => {
             this.store.dispatch(signInFailed());

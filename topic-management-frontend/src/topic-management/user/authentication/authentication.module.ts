@@ -11,6 +11,7 @@ import {EffectsModule} from "@ngrx/effects";
 import {AuthenticationEffects} from "./authentication-effects";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthenticationInterceptor} from "./authentication-interceptor";
+import {AuthenticationGuard} from "./authentication-guard";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {AuthenticationInterceptor} from "./authentication-interceptor";
     SignInComponent
   ],
   providers: [
+    AuthenticationGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
