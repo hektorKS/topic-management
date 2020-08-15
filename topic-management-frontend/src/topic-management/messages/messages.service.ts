@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Message} from "./message.model";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {TopicManagementServices} from "../topic-management.model";
+import {TopicManagementServices} from "../topic-management-services";
 
 @Injectable({
   providedIn: 'root'

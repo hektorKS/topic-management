@@ -8,9 +8,15 @@ import {routerReducer} from "@ngrx/router-store";
 import {TopicComponent} from "./topics/topic/topic.component";
 import {NewTopicComponent} from "./topics/topic/new-topic.component";
 import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.component";
+import {SignInComponent} from "./user/authentication/sign-in/sign-in.component";
 
 
 const routes: Routes = [
+  {
+    path: 'sign-in',
+    component: SignInComponent,
+    pathMatch: 'full'
+  },
   {
     path: 'buckets/:bucketId/topics/new-topic',
     component: NewTopicComponent,

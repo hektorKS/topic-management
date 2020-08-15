@@ -6,7 +6,7 @@ import com.hektorks.user.model.User
 import com.hektorks.user.model.UserView
 import com.hektorks.user.model.ValidatableUser
 import com.hektorks.user.repository.user.UserRepository
-import com.hektorks.user.rest.CreateUserRequest
+import com.hektorks.user.rest.SignUpRequest
 import org.springframework.context.annotation.Lazy
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -15,28 +15,28 @@ import java.util.UUID
 
 @Lazy
 @Service
-open class CrateUserCommand(private val userValidator: UserValidator,
-                            private val userRepository: UserRepository,
-                            private val passwordEncoder: PasswordEncoder,
-                            private val kafkaUserService: KafkaUserService) {
+open class SignUpCommand(private val userValidator: UserValidator,
+                         private val userRepository: UserRepository,
+                         private val passwordEncoder: PasswordEncoder,
+                         private val kafkaUserService: KafkaUserService) {
 
   @Transactional
-  open fun execute(createUserRequest: CreateUserRequest): UUID {
+  open fun execute(signUpRequest: SignUpRequest): UUID {
     val validatableUser = ValidatableUser(
-      createUserRequest.firstName,
-      createUserRequest.lastName,
-      createUserRequest.username,
-      createUserRequest.email,
-      createUserRequest.password
+      signUpRequest.firstName,
+      signUpRequest.lastName,
+      signUpRequest.username,
+      signUpRequest.email,
+      signUpRequest.password
     )
     userValidator.validate(validatableUser)
     val user = User(
       UUID.randomUUID(),
-      createUserRequest.firstName,
-      createUserRequest.lastName,
-      createUserRequest.username,
-      createUserRequest.email,
-      passwordEncoder.encode(createUserRequest.password) // Encrypt password only if request is valid
+      signUpRequest.firstName,
+      signUpRequest.lastName,
+      signUpRequest.username,
+      signUpRequest.email,
+      passwordEncoder.encode(signUpRequest.password) // Encrypt password only if request is valid
     )
     userRepository.save(user)
     kafkaUserService.userCreated(UserView(

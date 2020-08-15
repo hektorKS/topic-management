@@ -23,7 +23,7 @@ class GetMessagesController(private val messageRepository: CustomMessageReposito
   private val log = LoggerFactory.getLogger(javaClass)
 
   @GetMapping("/messages")
-  fun createTopic(@RequestBody getMessagesRequest: GetMessagesRequest): ResponseEntity<MessagesResponse> {
+  fun getMessages(@RequestBody getMessagesRequest: GetMessagesRequest): ResponseEntity<MessagesResponse> {
     val messages = messageRepository.getConversationMessages(getMessagesRequest.conversation)
     log.info("Found ${messages.size} messages")
     return ResponseEntity.ok().body(MessagesResponse(messages))

@@ -2,7 +2,7 @@
 
 # ADMIN INITIALIZATION
 # Initialize test users
-USER_KONRAD_RESPONSE=$(curl -X POST http://localhost:9703/api/v1/users -H 'Content-Type: application/json' \
+USER_KONRAD_RESPONSE=$(curl -X POST http://localhost:9703/api/v1/users/sign-up -H 'Content-Type: application/json' \
   -d '{
 	"firstName": "Konrad",
 	"lastName": "Szyszka",
@@ -14,7 +14,7 @@ USER_KONRAD_UUID=$(echo "$USER_KONRAD_RESPONSE" | sed -nE 's/.*"id":"(.*)".*/\1/
 echo "USER_KONRAD_UUID=$USER_KONRAD_UUID"
 sleep 1
 
-USER_MARCIN_RESPONSE=$(curl -X POST http://localhost:9703/api/v1/users -H 'Content-Type: application/json' \
+USER_MARCIN_RESPONSE=$(curl -X POST http://localhost:9703/api/v1/users/sign-up -H 'Content-Type: application/json' \
   -d '{
 	"firstName": "Marcin",
 	"lastName": "Szukalski",
@@ -26,7 +26,7 @@ USER_MARCIN_UUID=$(echo "$USER_MARCIN_RESPONSE" | sed -nE 's/.*"id":"(.*)".*/\1/
 echo "USER_MARCIN_UUID=$USER_MARCIN_UUID"
 sleep 1
 
-USER_MICHAL_RESPONSE=$(curl -X POST http://localhost:9703/api/v1/users -H 'Content-Type: application/json' \
+USER_MICHAL_RESPONSE=$(curl -X POST http://localhost:9703/api/v1/users/sign-up -H 'Content-Type: application/json' \
   -d '{
 	"firstName": "Michał",
 	"lastName": "Grzdąkalski",

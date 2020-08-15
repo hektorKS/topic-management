@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {TopicManagementServices} from "../topic-management.model";
+import {TopicManagementServices} from "../topic-management-services";
 import {map} from "rxjs/operators";
 import {Bucket, BucketState, BucketStateView} from "./bucket/bucket.model";
 

@@ -1,3 +1,8 @@
+export interface SignedInUser {
+  user: User;
+  jwtToken: string
+}
+
 export interface User {
   id: string;
   firstName: string;

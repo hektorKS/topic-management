@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {School} from "./school/school.model";
-import {TopicManagementServices} from "../topic-management.model";
+import {TopicManagementServices} from "../topic-management-services";
 
 @Injectable({
   providedIn: 'root'

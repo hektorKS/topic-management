@@ -9,3 +9,6 @@ kafka:
     - name: "topics"
       partitionsNumber: 4
       replicationFactor: 1
+jwtConfig:
+  jwtSecret: 5ed3fce1e34b4bc489bf35ee371d2a4d0a6de010187c4ba2b07655b0c6f89c62
+  jwtExpirationSeconds: 3600

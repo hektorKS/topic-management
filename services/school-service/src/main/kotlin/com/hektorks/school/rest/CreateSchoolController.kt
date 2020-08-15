@@ -23,7 +23,7 @@ class CreateTopicController(private val createSchoolCommand: CreateSchoolCommand
   private val log = LoggerFactory.getLogger(javaClass)
 
   @PostMapping("/schools")
-  fun createTopic(@RequestBody createSchoolRequest: CreateSchoolRequest): ResponseEntity<CreateSchoolResponse> {
+  fun createSchool(@RequestBody createSchoolRequest: CreateSchoolRequest): ResponseEntity<CreateSchoolResponse> {
     val schoolId = createSchoolCommand.execute(createSchoolRequest)
     log.info("Created school with id=$schoolId")
     return ResponseEntity.ok().body(CreateSchoolResponse(schoolId))

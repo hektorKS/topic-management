@@ -18,7 +18,7 @@ class GetConversationsController(private val messageRepository: CustomMessageRep
   private val log = LoggerFactory.getLogger(javaClass)
 
   @GetMapping("/conversations/users/{userId}")
-  fun createTopic(@PathVariable userId: UUID): ResponseEntity<GetConversationsResponse> {
+  fun getConversations(@PathVariable userId: UUID): ResponseEntity<GetConversationsResponse> {
     val conversations = messageRepository.getConversations(userId)
     log.info("Found conversations=$conversations")
     return ResponseEntity.ok().body(GetConversationsResponse(conversations))

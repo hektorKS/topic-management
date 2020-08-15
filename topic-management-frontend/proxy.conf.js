@@ -6,7 +6,7 @@ const PROXY_CONFIG = [
     target: "http://localhost:9700",
     secure: false,
     pathRewrite: {
-      "^/topic": ""
+      "^/topic/": ""
     },
   },
   {
@@ -16,7 +16,7 @@ const PROXY_CONFIG = [
     target: "http://localhost:9701",
     secure: false,
     pathRewrite: {
-      "^/bucket": ""
+      "^/bucket/": ""
     },
   },
   {
@@ -26,7 +26,7 @@ const PROXY_CONFIG = [
     target: "http://localhost:9702",
     secure: false,
     pathRewrite: {
-      "^/school": ""
+      "^/school/": ""
     },
   },
   {
@@ -36,7 +36,7 @@ const PROXY_CONFIG = [
     target: "http://localhost:9703",
     secure: false,
     pathRewrite: {
-      "^/user": ""
+      "^/user/": ""
     },
   },
   {
@@ -46,7 +46,7 @@ const PROXY_CONFIG = [
     target: "http://localhost:9704",
     secure: false,
     pathRewrite: {
-      "^/message": ""
+      "^/message/": ""
     },
   }
 ];

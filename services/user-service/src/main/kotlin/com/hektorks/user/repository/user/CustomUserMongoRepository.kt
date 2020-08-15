@@ -1,6 +1,7 @@
 package com.hektorks.user.repository.user
 
 import com.hektorks.exceptionhandling.RepositoryException
+import com.hektorks.user.model.UserView
 import com.hektorks.user.model.UsernameUserView
 import org.slf4j.LoggerFactory
 import org.springframework.data.mongodb.core.MongoTemplate
@@ -8,6 +9,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation
 import org.springframework.data.mongodb.core.aggregation.Aggregation.match
 import org.springframework.data.mongodb.core.aggregation.Aggregation.project
 import org.springframework.data.mongodb.core.query.Criteria
+import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.stereotype.Service
 
 @Service

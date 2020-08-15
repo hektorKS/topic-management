@@ -23,7 +23,7 @@ class CreateMessageController(private val sendMessageCommand: SendMessageCommand
   private val log = LoggerFactory.getLogger(javaClass)
 
   @PostMapping("/messages")
-  fun createTopic(@RequestBody createMessageRequest: CreateMessageRequest): ResponseEntity<CreateMessageResponse> {
+  fun createMessage(@RequestBody createMessageRequest: CreateMessageRequest): ResponseEntity<CreateMessageResponse> {
     val messageId = sendMessageCommand.execute(createMessageRequest)
     log.info("Created message with id=$messageId")
     return ResponseEntity.ok().body(CreateMessageResponse(messageId))

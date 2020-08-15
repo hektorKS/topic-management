@@ -1,5 +1,7 @@
 $color-primary-dark: #3F51B5;
 $color-primary-light: #E6E8EA;
+$color-secondary-dark: #2B374B;
+$color-secondary-light: #BFD8D1;
 $color-primary-red: #FF4C4C;
 
 html, body {
@@ -10,4 +12,8 @@ body {
   margin: 0;
   background-color: $color-primary-light;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-bottom-sheet-container {
+  background-color: $color-secondary-light;
 }

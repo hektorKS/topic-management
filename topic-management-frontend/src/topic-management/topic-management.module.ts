@@ -48,10 +48,21 @@ import {BucketEffects} from "./buckets/bucket/bucket-effects";
 import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.component";
 import {environment} from "../environments/environment";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {MessageFormComponent} from "./messages/message-form/message-form.component";
 import {MessagesModule} from "./messages/messages.module";
+import {AuthenticationModule} from "./user/authentication/authentication.module";
+import {BottomSheetInfoComponent} from "./bottom-sheet/bottom-sheet-info.component";
+import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
+import {TopicManagementEffects} from "./topic-management-effects";
 
-const effects = [BreadcrumbsEffects, SchoolsEffects, BucketsEffects, BucketEffects, TopicsEffects, UsersEffects];
+const effects = [
+  TopicManagementEffects,
+  BreadcrumbsEffects,
+  SchoolsEffects,
+  BucketsEffects,
+  BucketEffects,
+  TopicsEffects,
+  UsersEffects
+];
 
 function dispatchAppInitialized(store: Store): () => Promise<void> {
   return () => {
@@ -80,7 +91,8 @@ function dispatchAppInitialized(store: Store): () => Promise<void> {
     NewTopicComponent,
     TopicFormComponent,
     BreadcrumbsComponent,
-    StudentFormPanelComponent
+    StudentFormPanelComponent,
+    BottomSheetInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -100,12 +112,14 @@ function dispatchAppInitialized(store: Store): () => Promise<void> {
     EffectsModule.forFeature(effects),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MessagesModule,
+    AuthenticationModule,
     TopicManagementRoutingModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
     MatListModule,
     MatMenuModule,
+    MatBottomSheetModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,

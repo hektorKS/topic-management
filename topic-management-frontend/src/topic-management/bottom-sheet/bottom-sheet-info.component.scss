@@ -1,0 +1,19 @@
+@import 'src/styles';
+
+:host {
+  display: inline-block;
+  min-width: 60vw;
+  min-height: 15vh;
+  background-color: $color-secondary-light;
+  color: $color-secondary-dark;
+
+  .bottom-sheet-info-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 5% 0;
+    font-size: 180%;
+    font-weight: bold;
+  }
+}

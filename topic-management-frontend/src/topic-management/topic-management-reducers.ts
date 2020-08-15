@@ -19,6 +19,7 @@ import {
   newBucketInitialized
 } from "./buckets/bucket/bucket-actions";
 import {messageSent} from "./messages/message-form/message-form-actions";
+import {loadSignedInUser, signedIn, signedOut} from "./user/authentication/authentication-actions";
 
 export const topicManagementReducer = createReducer<TopicManagementState>(
   initialState,
@@ -95,5 +96,13 @@ export const topicManagementReducer = createReducer<TopicManagementState>(
       ...state.topicFormState,
       sendMessage: false
     }
+  })),
+  on(signedIn, loadSignedInUser, (state, action) => ({
+    ...state,
+    signedInUser: action
+  })),
+  on(signedOut, state => ({
+    ...state,
+    signedInUser: undefined
   }))
 );

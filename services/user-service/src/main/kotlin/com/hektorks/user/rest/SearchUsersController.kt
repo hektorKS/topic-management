@@ -22,7 +22,7 @@ class SearchUsersController(private val userRepository: CustomUserRepository) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @PostMapping("/users/search")
-  fun createTopic(@RequestBody searchRequest: SearchRequest): ResponseEntity<SearchResponse> {
+  fun searchUsernames(@RequestBody searchRequest: SearchRequest): ResponseEntity<SearchResponse> {
     val usernameUsers = userRepository.search(searchRequest.value)
     log.info("Found usernameUsers=$usernameUsers")
     return ResponseEntity.ok().body(SearchResponse(usernameUsers))

@@ -2,7 +2,7 @@ import {Topic} from "./topics/topic/topic.model";
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {School} from "./schools/school/school.model";
 import {Bucket, BucketStateView} from "./buckets/bucket/bucket.model";
-import {User, UsernameUser} from "./user/user.model";
+import {SignedInUser, User, UsernameUser} from "./user/user.model";
 
 export const topicManagementFeatureKey = 'topicManagementKey';
 
@@ -27,8 +27,9 @@ export const formTopicSelector = createSelector(topicManagementFeatureSelector, 
 export const formTopicAutocompletionUsersSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.autocompletionUsers);
 export const formSendMessageSelector = createSelector(topicManagementFeatureSelector, state => state.topicFormState.sendMessage);
 
-export const currentUserSelector = createSelector(topicManagementFeatureSelector, state => state.loggedInUser);
-export const currentUserIdSelector = createSelector(currentUserSelector, loggedInUser => loggedInUser.id);
+export const currentUserSelector = createSelector(topicManagementFeatureSelector, state => state.signedInUser?.user);
+export const userSignedInSelector = createSelector(topicManagementFeatureSelector, state => state.signedInUser !== undefined);
+export const currentUserIdSelector = createSelector(currentUserSelector, user => user?.id);
 
 export const ownerSelector = createSelector(
   currentUserIdSelector,
@@ -43,7 +44,7 @@ export interface TopicFormState {
 }
 
 export interface TopicManagementState {
-  loggedInUser: User;
+  signedInUser: SignedInUser;
   schools: School[];
   schoolBuckets: Map<string, BucketStateView[]>;
   activeBucket: Bucket;
@@ -60,12 +61,7 @@ export const initialTopicFormState: TopicFormState = {
 }
 
 export const initialState: TopicManagementState = {
-  loggedInUser: { // MOCKED
-    id: "578230d3-2f2d-4afc-98f6-aacc60e14610",
-    firstName: "Konrad",
-    lastName: "Szyszka",
-    username: "hektorKS"
-  },
+  signedInUser: undefined,
   schools: [],
   schoolBuckets: new Map(),
   activeBucket: undefined,

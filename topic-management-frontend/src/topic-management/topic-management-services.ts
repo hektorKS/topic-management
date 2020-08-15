@@ -1,4 +1,3 @@
-// In the future there should be load balancer
 export enum TopicManagementServices {
   MESSAGE_SERVICE= "message/",
   USER_SERVICE= "user/",

@@ -1,0 +1,35 @@
+@import "src/topic-management/topic-management-styles";
+
+:host {
+  .sign-in-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30vw;
+    margin: 30vh 0;
+
+    .app-title {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: $color-primary-dark;
+      text-align: center;
+      font-size: 200%;
+      font-style: italic;
+      font-weight: bold;
+    }
+
+    .sign-in-form {
+      display: flex;
+      flex-direction: column;
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
+
+    .sign-in-submit-button {
+      align-self: center;
+    }
+  }
+
+}

@@ -1,10 +1,14 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {userSignedInSelector} from "./topic-management-state";
+import {signedOut} from "./user/authentication/authentication-actions";
 
 @Component({
   selector: 'topic-management',
   template: `
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" *ngIf="userSignedIn$ | async">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
       </button>
@@ -17,7 +21,7 @@ import {Router} from "@angular/router";
           <mat-icon>message</mat-icon>
           <span>Messages</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="signOut()">
           <mat-icon>login</mat-icon>
           <span>Logout</span>
         </button>
@@ -25,14 +29,25 @@ import {Router} from "@angular/router";
       <breadcrumbs></breadcrumbs>
     </mat-toolbar>
     <topic-management-main></topic-management-main>
-  `
+  `,
+  styleUrls: ['topic-management.component.scss']
 })
-export class TopicManagementComponent {
+export class TopicManagementComponent implements OnInit {
 
-  constructor(private router: Router) {
+  userSignedIn$: Observable<boolean>;
+
+  constructor(private router: Router, private store: Store) {
+  }
+
+  ngOnInit(): void {
+    this.userSignedIn$ = this.store.select(userSignedInSelector);
   }
 
   redirectToSchools() {
-    this.router.navigate(["schools"]).then()
+    this.router.navigate(['schools']).then()
+  }
+
+  signOut(): void {
+    this.store.dispatch(signedOut());
   }
 }

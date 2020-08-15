@@ -17,7 +17,7 @@ class GetSchoolsController(private val schoolRepository: SchoolRepository) {
   private val log = LoggerFactory.getLogger(javaClass)
 
   @GetMapping("/schools")
-  fun createTopic(): ResponseEntity<GetSchoolsResponse> {
+  fun getSchools(): ResponseEntity<GetSchoolsResponse> {
     val schools = schoolRepository.findAll()
     log.info("Found schools=$schools")
     return ResponseEntity.ok().body(GetSchoolsResponse(schools))

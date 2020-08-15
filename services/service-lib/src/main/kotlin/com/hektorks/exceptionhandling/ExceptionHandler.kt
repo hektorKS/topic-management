@@ -34,6 +34,13 @@ class ExceptionHandler {
     return SimpleMessageMapper.toMap("Could not parse message body.", HttpStatus.BAD_REQUEST)
   }
 
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  @ExceptionHandler(value = [SecurityException::class])
+  fun handleException(exception: SecurityException): String {
+    log.warn("[401] Unauthorized.")
+    return "Unauthorized"
+  }
+
   @ResponseStatus(HttpStatus.NOT_FOUND)
   @ExceptionHandler(value = [ResourceNotFoundException::class])
   fun handleException(): Unit? {
