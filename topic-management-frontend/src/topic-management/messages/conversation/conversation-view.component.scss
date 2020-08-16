@@ -1,0 +1,26 @@
+@import "src/topic-management/topic-management-styles";
+
+:host {
+  @include centered-with-margins;
+
+  .conversation-view-wrapper {
+    display: flex;
+    height: calc(100vh - 65px);
+
+    .conversation-list-wrapper {
+      display: inline-block;
+      width: 35%;
+      height: 100%;
+      margin-right: 4%;
+
+      .conversation-list {
+        display: inline;
+      }
+    }
+
+    .message-list-wrapper {
+      display: inline-block;
+      width: 35%;
+    }
+  }
+}

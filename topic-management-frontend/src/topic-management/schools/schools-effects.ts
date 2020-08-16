@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {exhaustMap, flatMap, map} from "rxjs/operators";
-import {changeBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
+import {changeBreadcrumb, startBreadcrumbPath} from "../breadcrumbs/breadcrumbs-actions";
 import {SchoolsService} from "./schools.service";
 import {schoolSelected, schoolsLoaded, schoolsViewOpened, schoolViewOpened} from "./schools-actions";
 import {Router} from "@angular/router";
@@ -39,9 +39,10 @@ export class SchoolsEffects {
   })
 
   schoolsViewOpened$: Observable<Action> = createEffect(() => {
-    return this.actions$.pipe(ofType(schoolsViewOpened))
+    return this.actions$
       .pipe(
-        map(_ => changeBreadcrumb({name: 'schools', url: this.router.url}))
+        ofType(schoolsViewOpened),
+        map(_ => startBreadcrumbPath({name: 'schools', url: this.router.url}))
       );
   });
 

@@ -1,0 +1,31 @@
+@import "src/topic-management/topic-management-styles";
+
+:host {
+  .message-list-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+    padding-top: 8px;
+    margin-bottom: 5px;
+    background-color: $color-primary-light;
+
+    .message {
+      max-width: 60%;
+      padding: 5px;
+      margin-bottom: 2px;
+      border-radius: 10px;
+    }
+
+    .current-user-is-sender {
+      align-self: flex-end;
+      background-color: $color-primary-dark;
+      color: $color-primary-light;
+    }
+
+    .other-user-is-sender {
+      align-self: flex-start;
+      background-color: $color-secondary-light;
+      color: $color-secondary-dark;
+    }
+  }
+}

@@ -14,6 +14,15 @@ data class Message(
   val message: String
 )
 
+// #NiceToHave - message read indicator
+data class MessageView(
+  val id: UUID,
+  val senderId: UUID,
+  val recipientId: UUID,
+  val instant: Long,
+  val message: String
+)
+
 data class Conversation(
   val firstUserId: UUID,
   val secondUserId: UUID

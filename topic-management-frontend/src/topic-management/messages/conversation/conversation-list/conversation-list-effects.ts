@@ -6,7 +6,7 @@ import {conversationSelected, conversationsLoaded, loadConversations} from "./co
 import {exhaustMap, map, withLatestFrom} from "rxjs/operators";
 import {currentUserIdSelector} from "../../../topic-management-state";
 import {MessagesService} from "../../messages.service";
-import {loadMessages} from "../conversation-actions";
+import {loadMessages} from "../../message-list/message-list-actions";
 
 @Injectable()
 export class ConversationListEffects {
@@ -29,6 +29,7 @@ export class ConversationListEffects {
     return this.actions$.pipe(
       ofType(conversationSelected),
       map(payload => loadMessages({
+        index: payload.index,
         conversationIdentifier: {
           firstUserId: payload.conversation.firstUser.id,
           secondUserId: payload.conversation.secondUser.id

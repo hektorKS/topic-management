@@ -6,6 +6,8 @@ import {clearUserData, loadSignedInUser, signedIn, signOut} from "./users/authen
 import {map, tap} from "rxjs/operators";
 import {topicManagementApplicationInitialized} from "./topic-management-actions";
 import {Router} from "@angular/router";
+import {conversationListOpened} from "./messages/conversation/conversation-list/conversation-list-actions";
+import {changeBreadcrumb, startBreadcrumbPath} from "./breadcrumbs/breadcrumbs-actions";
 
 @Injectable()
 export class TopicManagementEffects {
@@ -42,6 +44,13 @@ export class TopicManagementEffects {
       tap(_ => localStorage.clear()),
       tap(_ => this.router.navigate(['sign-in'])),
       map(clearUserData)
+    );
+  });
+
+  conversationListOpened$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(conversationListOpened),
+      map(_ => startBreadcrumbPath({name: 'messages', url: this.router.url}))
     );
   });
 

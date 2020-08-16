@@ -8,7 +8,7 @@ export interface State {
 export const routerFeatureName = 'router';
 export const selectRouter = createFeatureSelector<State, RouterReducerState>(routerFeatureName);
 export const {
-  selectRouteParam,
+  selectRouteParam
 } = getSelectors(selectRouter);
 export const selectSchoolId = selectRouteParam('schoolId');
 export const selectBucketId = selectRouteParam('bucketId');

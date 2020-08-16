@@ -29,12 +29,10 @@ export class MessagesService {
 
   getMessages(conversationIdentifier: ConversationIdentifier): Observable<Message[]> {
     return this.httpClient
-      .post<{ messages: Message[] }>(`${TopicManagementServices.MESSAGE_SERVICE}/api/v1/messages`, {
-      //  TODO body
+      .post<{ messages: Message[] }>(`${TopicManagementServices.MESSAGE_SERVICE}/api/v1/conversations/messages`, {
+        conversation: conversationIdentifier
       })
-      .pipe(
-        map(response => response.messages)
-      );
+      .pipe(map(response => response.messages));
   }
 
 }

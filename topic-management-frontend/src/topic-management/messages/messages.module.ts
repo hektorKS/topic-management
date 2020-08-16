@@ -14,15 +14,22 @@ import {messagesKey} from "./messages-state";
 import {messagesReducer} from "./messages-reducers";
 import {ConversationListComponent} from "./conversation/conversation-list/conversation-list.component";
 import {ConversationListEffects} from "./conversation/conversation-list/conversation-list-effects";
+import {ConversationViewComponent} from "./conversation/conversation-view.component";
+import {MessageListEffects} from "./message-list/message-list-effects";
+import {MessageListComponent} from "./message-list/message-list.component";
 
 
 @NgModule({
   declarations: [
     MessageFormComponent,
+    MessageListComponent,
+    ConversationViewComponent,
     ConversationListComponent
   ],
   exports: [
     MessageFormComponent,
+    MessageListComponent,
+    ConversationViewComponent,
     ConversationListComponent
   ],
   imports: [
@@ -31,6 +38,7 @@ import {ConversationListEffects} from "./conversation/conversation-list/conversa
     StoreModule.forFeature(messagesKey, messagesReducer),
     EffectsModule.forFeature([
       MessageFormEffects,
+      MessageListEffects,
       ConversationListEffects
     ]),
     MatInputModule,

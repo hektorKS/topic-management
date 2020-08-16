@@ -52,5 +52,7 @@ export class MessageFormComponent implements OnInit {
 
   submit(): void {
     this.store.dispatch(submitNewMessageButtonClicked({recipientId: this.recipientId}));
+    this.messageFormGroup.get('message').setValue('');
+    this.messageFormGroup.markAsPristine();
   }
 }

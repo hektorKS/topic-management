@@ -48,6 +48,7 @@ export class TopicManagementComponent implements OnInit {
   }
 
   redirectToMessages() {
+    // #NiceToHave show new messages count
     this.router.navigate(['messages']).then()
   }
 

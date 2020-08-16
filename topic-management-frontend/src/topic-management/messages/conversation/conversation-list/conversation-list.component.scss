@@ -3,7 +3,9 @@
 :host {
   @include default-mat-list-option;
 
-  mat-selection-list {
+  mat-list-option {
+    border-radius: 5px;
+
     &:hover {
       .person-icon {
         background-image: url('../../../../assets/person-dark-36px.svg');
@@ -13,6 +15,7 @@
 
   .conversation-option-wrapper {
     display: flex;
+    width: 100%;
 
     .person-icon {
       display: flex;
@@ -23,27 +26,32 @@
     }
 
     .conversation-details-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 36px - 10px);
+
       .conversation-header {
         display: flex;
+        justify-content: space-between;
 
         .conversation-recipient {
-          min-width: 10vw;
+          max-width: 60%;
           font-weight: bold;
         }
 
         .conversation-last-message-date {
-          justify-content: flex-end;
-          align-self: flex-start;
+          @include dotted-text-overflow;
+          padding-right: 2px;
           font-size: 40%;
           font-style: italic;
+          justify-self: flex-end;
         }
-
       }
 
       .conversation-last-message {
         display: inline-block;
         @include dotted-text-overflow;
-        width: 60%
+        width: 50%
       }
     }
   }

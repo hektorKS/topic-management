@@ -3,7 +3,13 @@ import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Observable} from "rxjs";
 import {map, tap, withLatestFrom} from "rxjs/operators";
-import {breadcrumbsChanged, breadcrumbsDestroyed, changeBreadcrumb, popBreadcrumb} from "./breadcrumbs-actions";
+import {
+  breadcrumbsChanged,
+  breadcrumbsDestroyed,
+  changeBreadcrumb,
+  popBreadcrumb,
+  startBreadcrumbPath
+} from "./breadcrumbs-actions";
 import {breadcrumbsSelector} from "./breadcrumbs-state";
 import {Router} from "@angular/router";
 import {topicManagementApplicationInitialized} from "../topic-management-actions";
@@ -68,8 +74,17 @@ export class BreadcrumbsEffects {
           }
           return newBreadcrumbs;
         }),
-        map(breadcrumbs => breadcrumbsChanged({breadcrumbs: breadcrumbs}))
-      );
+      map(breadcrumbs => breadcrumbsChanged({breadcrumbs: breadcrumbs}))
+    );
+  });
+
+  startBreadcrumbPath$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(startBreadcrumbPath),
+      map(breadcrumb => breadcrumbsChanged({
+        breadcrumbs: [{...breadcrumb, active: true}]
+      }))
+    )
   });
 
   $popBreadcrumb: Observable<Action> = createEffect(() => {

@@ -10,7 +10,7 @@ import {NewTopicComponent} from "./topics/topic/new-topic.component";
 import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.component";
 import {SignInComponent} from "./users/authentication/sign-in/sign-in.component";
 import {AuthenticationGuard} from "./users/authentication/authentication-guard";
-import {ConversationListComponent} from "./messages/conversation/conversation-list/conversation-list.component";
+import {ConversationViewComponent} from "./messages/conversation/conversation-view.component";
 
 
 const routes: Routes = [
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'messages',
-    component: ConversationListComponent,
+    component: ConversationViewComponent,
     pathMatch: 'full',
     canActivate: [AuthenticationGuard]
   },
