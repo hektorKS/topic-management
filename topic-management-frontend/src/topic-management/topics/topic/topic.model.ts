@@ -1,4 +1,4 @@
-import {User, UsernameUser} from "../../user/user.model";
+import {User, UsernameUser} from "../../users/user.model";
 
 export interface Topic {
   id: string

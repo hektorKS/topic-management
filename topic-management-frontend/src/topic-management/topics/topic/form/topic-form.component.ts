@@ -5,11 +5,11 @@ import {Observable} from "rxjs";
 import {filter, first, map, tap, withLatestFrom} from "rxjs/operators";
 import {FormGroup} from "@angular/forms";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
-import {UsernameUser} from "../../../user/user.model";
+import {UsernameUser} from "../../../users/user.model";
 import {updateFormTopic} from "../../topics-actions";
 import {Topic} from "../topic.model";
 import {formTopicAutocompletionUsersSelector} from "../../../topic-management-state";
-import {searchAutocompletionUsernames} from "../../../user/users-actions";
+import {searchAutocompletionUsernames} from "../../../users/users-actions";
 import {TopicFormService} from "./topic-form.service";
 
 @Component({

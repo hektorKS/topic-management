@@ -33,7 +33,7 @@ import {BreadcrumbsEffects} from "./breadcrumbs/breadcrumbs-effects";
 import {SchoolsEffects} from "./schools/schools-effects";
 import {BucketsEffects} from "./buckets/buckets-effects";
 import {TopicsEffects} from "./topics/topics-effects";
-import {UsersEffects} from "./user/users-effects";
+import {UsersEffects} from "./users/users-effects";
 import {CommonModule} from "@angular/common";
 import {TopicFormComponent} from "./topics/topic/form/topic-form.component";
 import {NewTopicComponent} from "./topics/topic/new-topic.component";
@@ -49,7 +49,7 @@ import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.co
 import {environment} from "../environments/environment";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {MessagesModule} from "./messages/messages.module";
-import {AuthenticationModule} from "./user/authentication/authentication.module";
+import {AuthenticationModule} from "./users/authentication/authentication.module";
 import {BottomSheetInfoComponent} from "./bottom-sheet/bottom-sheet-info.component";
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {TopicManagementEffects} from "./topic-management-effects";

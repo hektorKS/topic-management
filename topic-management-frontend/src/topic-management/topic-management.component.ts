@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {userSignedInSelector} from "./topic-management-state";
-import {signOut} from "./user/authentication/authentication-actions";
+import {signOut} from "./users/authentication/authentication-actions";
 
 @Component({
   selector: 'topic-management',
@@ -17,7 +17,7 @@ import {signOut} from "./user/authentication/authentication-actions";
           <mat-icon>school</mat-icon>
           <span>Schools</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="redirectToMessages()">
           <mat-icon>message</mat-icon>
           <span>Messages</span>
         </button>
@@ -45,6 +45,10 @@ export class TopicManagementComponent implements OnInit {
 
   redirectToSchools() {
     this.router.navigate(['schools']).then()
+  }
+
+  redirectToMessages() {
+    this.router.navigate(['messages']).then()
   }
 
   signOut(): void {

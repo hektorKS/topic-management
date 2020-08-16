@@ -1,8 +1,8 @@
-import {Message} from "../message.model";
 import {createFeatureSelector, createSelector} from "@ngrx/store";
+import {NewMessage} from "./new-message.model";
 
 export interface MessageFormState {
-  message: Message;
+  message: NewMessage;
 }
 
 export const messageFormKey = 'messageFormKey';

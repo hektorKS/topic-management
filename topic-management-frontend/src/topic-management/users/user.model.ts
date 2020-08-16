@@ -10,6 +10,12 @@ export interface User {
   username: string;
 }
 
+export interface NameUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
 export interface UsernameUser {
   id: string;
   username: string;

@@ -1,0 +1,50 @@
+@import "src/topic-management/topic-management-styles";
+
+:host {
+  @include default-mat-list-option;
+
+  mat-selection-list {
+    &:hover {
+      .person-icon {
+        background-image: url('../../../../assets/person-dark-36px.svg');
+      }
+    }
+  }
+
+  .conversation-option-wrapper {
+    display: flex;
+
+    .person-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 10px;
+      background-image: url('../../../../assets/person-light-36px.svg');
+    }
+
+    .conversation-details-wrapper {
+      .conversation-header {
+        display: flex;
+
+        .conversation-recipient {
+          min-width: 10vw;
+          font-weight: bold;
+        }
+
+        .conversation-last-message-date {
+          justify-content: flex-end;
+          align-self: flex-start;
+          font-size: 40%;
+          font-style: italic;
+        }
+
+      }
+
+      .conversation-last-message {
+        display: inline-block;
+        @include dotted-text-overflow;
+        width: 60%
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from "@angular/core";
-import {UsernameUser} from "../../user/user.model";
+import {UsernameUser} from "../../users/user.model";
 
 @Component({
   selector: 'student-form-panel',

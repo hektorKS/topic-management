@@ -2,7 +2,7 @@ import {Topic} from "./topics/topic/topic.model";
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {School} from "./schools/school/school.model";
 import {Bucket, BucketStateView} from "./buckets/bucket/bucket.model";
-import {SignedInUser, User, UsernameUser} from "./user/user.model";
+import {SignedInUser, User, UsernameUser} from "./users/user.model";
 
 export const topicManagementFeatureKey = 'topicManagementKey';
 

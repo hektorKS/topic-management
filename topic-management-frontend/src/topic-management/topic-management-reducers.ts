@@ -11,7 +11,7 @@ import {initialState, initialTopicFormState, TopicManagementState} from "./topic
 import {bucketLoaded, updateBucketsInSchool} from "./buckets/buckets-actions";
 import {Topic} from "./topics/topic/topic.model";
 import {Bucket, BucketState} from "./buckets/bucket/bucket.model";
-import {autocompletionUsernamesLoaded} from "./user/users-actions";
+import {autocompletionUsernamesLoaded} from "./users/users-actions";
 import {
   bucketDeleted,
   bucketFormCancelButtonClicked,
@@ -19,7 +19,7 @@ import {
   newBucketInitialized
 } from "./buckets/bucket/bucket-actions";
 import {messageSent} from "./messages/message-form/message-form-actions";
-import {clearUserData, loadSignedInUser, signedIn} from "./user/authentication/authentication-actions";
+import {clearUserData, loadSignedInUser, signedIn} from "./users/authentication/authentication-actions";
 
 export const topicManagementReducer = createReducer<TopicManagementState>(
   initialState,

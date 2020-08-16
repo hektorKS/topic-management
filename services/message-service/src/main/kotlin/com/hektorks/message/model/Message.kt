@@ -14,7 +14,6 @@ data class Message(
   val message: String
 )
 
-
 data class Conversation(
   val firstUserId: UUID,
   val secondUserId: UUID
@@ -25,4 +24,11 @@ data class ConversationWithLastMessageView(
   val secondUserId: UUID,
   val lastMessage: String,
   val lastMessageInstant: Instant
+)
+
+data class ConversationDetailsView(
+  val firstUser: User,
+  val secondUser: User,
+  val lastMessage: String,
+  val lastMessageInstant: Long
 )

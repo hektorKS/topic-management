@@ -3,7 +3,7 @@ import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Topic} from "./topic/topic.model";
 import {topicsInBucketSelector} from "../topic-management-state";
-import {UsernameUser} from "../user/user.model";
+import {UsernameUser} from "../users/user.model";
 import {topicSelected} from "./topics-actions";
 
 @Component({

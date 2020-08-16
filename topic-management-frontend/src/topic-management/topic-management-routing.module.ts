@@ -8,8 +8,9 @@ import {routerReducer} from "@ngrx/router-store";
 import {TopicComponent} from "./topics/topic/topic.component";
 import {NewTopicComponent} from "./topics/topic/new-topic.component";
 import {BucketDetailsComponent} from "./buckets/bucket-details/bucket-details.component";
-import {SignInComponent} from "./user/authentication/sign-in/sign-in.component";
-import {AuthenticationGuard} from "./user/authentication/authentication-guard";
+import {SignInComponent} from "./users/authentication/sign-in/sign-in.component";
+import {AuthenticationGuard} from "./users/authentication/authentication-guard";
+import {ConversationListComponent} from "./messages/conversation/conversation-list/conversation-list.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,12 @@ const routes: Routes = [
     path: 'sign-in',
     component: SignInComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'messages',
+    component: ConversationListComponent,
+    pathMatch: 'full',
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'buckets/:bucketId/topics/new-topic',

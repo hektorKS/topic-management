@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {Action, Store} from "@ngrx/store";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {clearUserData, loadSignedInUser, signedIn, signOut} from "./user/authentication/authentication-actions";
+import {clearUserData, loadSignedInUser, signedIn, signOut} from "./users/authentication/authentication-actions";
 import {map, tap} from "rxjs/operators";
 import {topicManagementApplicationInitialized} from "./topic-management-actions";
 import {Router} from "@angular/router";
