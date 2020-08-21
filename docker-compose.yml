@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongo-node1:
-    image: mongo:4.2.2
+    image: mongo:4.2.8
     container_name: mongo-node1
     command: mongod --replSet replicaSet1
     restart: always
@@ -13,7 +13,7 @@ services:
     ports:
       - 27017:27017
   mongo-node2:
-    image: mongo:4.2.2
+    image: mongo:4.2.8
     container_name: mongo-node2
     command: mongod --replSet replicaSet1
     restart: always
@@ -25,7 +25,7 @@ services:
     ports:
       - 27018:27017
   mongo-node3:
-    image: mongo:4.2.2
+    image: mongo:4.2.8
     container_name: mongo-node3
     command: mongod --replSet replicaSet1
     restart: always

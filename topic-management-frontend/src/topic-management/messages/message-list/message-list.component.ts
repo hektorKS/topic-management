@@ -17,7 +17,7 @@ import {currentUserIdSelector} from "../../topic-management-state";
         {{ message.message }}
       </div>
     </div>
-    <message-form [recipientId]="getRecipientId() | async"></message-form>
+    <message-form *ngIf="(messages$ | async).length !== 0"  [recipientId]="getRecipientId() | async"></message-form>
   `,
   styleUrls: ['message-list.component.scss']
 })

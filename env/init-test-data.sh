@@ -38,8 +38,19 @@ USER_MICHAL_UUID=$(echo "$USER_MICHAL_RESPONSE" | sed -nE 's/.*"id":"(.*)".*/\1/
 echo "USER_MICHAL_UUID=$USER_MICHAL_UUID"
 sleep 1
 
+# Sign in with admin
+USER_KONRAD_RESPONSE=$(curl -X POST http://localhost:9703/api/v1/users/sign-in -H 'Content-Type: application/json' \
+  -d '{
+	"username": "hektorKS",
+	"password": "super#tajne443$"
+}')
+KONRAD_TOKEN=$(echo "$USER_KONRAD_RESPONSE" | sed -nE 's/.*"jwtToken":"(.*)".*/\1/p')
+echo "KONRAD_TOKEN=$KONRAD_TOKEN"
+sleep 1
+
 # Initialize test schools
 SCHOOL_PW_RESPONSE=$(curl -X POST http://localhost:9702/api/v1/schools -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer $KONRAD_TOKEN" \
   -d '{
 	"name": "Politechnika Wrocławska",
 	"address": {
@@ -55,6 +66,7 @@ echo "SCHOOL_PW_UUID=$SCHOOL_PW_UUID"
 sleep 1
 
 SCHOOL_PP_RESPONSE=$(curl -X POST http://localhost:9702/api/v1/schools -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer $KONRAD_TOKEN" \
   -d '{
 	"name": "Politechnika Poznańska",
 	"address": {
@@ -70,6 +82,7 @@ echo "SCHOOL_PP_UUID=$SCHOOL_PP_UUID"
 sleep 1
 
 SCHOOL_UAM_RESPONSE=$(curl -X POST http://localhost:9702/api/v1/schools -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer $KONRAD_TOKEN" \
   -d '{
 	"name": "Uniwersytet im. Adama Mickiewicza",
 	"address": {
@@ -87,6 +100,7 @@ sleep 1
 # CERTAIN USERS INITIALIZATION
 # Initialize test buckets
 BUCKET_MAIN_RESPONSE=$(curl -X POST http://localhost:9701/api/v1/buckets -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer $KONRAD_TOKEN" \
   -d "{
 	\"schoolId\": \"$SCHOOL_PP_UUID\",
 	\"ownerId\": \"$USER_KONRAD_UUID\",
@@ -97,6 +111,7 @@ echo "BUCKET_MAIN_UUID=$BUCKET_MAIN_UUID"
 sleep 1
 
 curl -X POST http://localhost:9701/api/v1/buckets -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer $KONRAD_TOKEN" \
   -d "{
 	\"schoolId\": \"$SCHOOL_PP_UUID\",
 	\"ownerId\": \"$USER_MARCIN_UUID\",
@@ -105,6 +120,7 @@ curl -X POST http://localhost:9701/api/v1/buckets -H 'Content-Type: application/
 sleep 1
 
 curl -X POST http://localhost:9701/api/v1/buckets -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer $KONRAD_TOKEN" \
   -d "{
 	\"schoolId\": \"$SCHOOL_PP_UUID\",
 	\"ownerId\": \"$USER_KONRAD_UUID\",
@@ -113,6 +129,7 @@ curl -X POST http://localhost:9701/api/v1/buckets -H 'Content-Type: application/
 sleep 1
 
 curl -X POST http://localhost:9701/api/v1/buckets -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer $KONRAD_TOKEN" \
   -d "{
 	\"schoolId\": \"$SCHOOL_PP_UUID\",
 	\"ownerId\": \"$USER_KONRAD_UUID\",
@@ -122,6 +139,7 @@ sleep 1
 
 # Initialize test topics
 curl -X POST http://localhost:9700/api/v1/topics -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer $KONRAD_TOKEN" \
   -d "{
 	\"bucketId\": \"$BUCKET_MAIN_UUID\",
 	\"title\": \"Super fajna magisterka pod nadzorem programisty z doświadczeniem\",

@@ -19,6 +19,9 @@
 		<module>service-lib</module>
 		<module>topic-service</module>
 		<module>bucket-service</module>
+		<module>school-service</module>
+		<module>user-service</module>
+		<module>message-service</module>
 	</modules>
 
 	<dependencies>
