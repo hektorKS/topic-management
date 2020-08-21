@@ -35,7 +35,7 @@ export class BucketEffects {
       flatMap(_ => combineLatest([
         this.store.select(selectSchoolId),
         this.store.select(currentUserSelector)
-      ])),
+      ]).pipe(first())),
       map(([schoolId, currentUser]) =>
         newBucketInitialized({
           bucketView: {
