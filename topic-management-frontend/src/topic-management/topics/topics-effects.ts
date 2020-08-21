@@ -19,7 +19,7 @@ import {
   topicUpdated,
   updateTopic,
 } from "./topics-actions";
-import {debounceTime, exhaustMap, first, flatMap, map, withLatestFrom} from "rxjs/operators";
+import {debounceTime, exhaustMap, filter, first, flatMap, map, withLatestFrom} from "rxjs/operators";
 import {changeBreadcrumb, popBreadcrumb} from "../breadcrumbs/breadcrumbs-actions";
 import {Router} from "@angular/router";
 import {selectBucketId} from "../topic-management-router-state";
@@ -121,7 +121,6 @@ export class TopicsEffects {
         this.store.select(selectBucketId),
         this.store.select(currentUserSelector)
       ])),
-      first(),
       map(([bucketId, currentUser]) =>
         topicLoaded({
           id: undefined,

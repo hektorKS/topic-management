@@ -36,7 +36,6 @@ export class BucketEffects {
         this.store.select(selectSchoolId),
         this.store.select(currentUserSelector)
       ])),
-      first(),
       map(([schoolId, currentUser]) =>
         newBucketInitialized({
           bucketView: {

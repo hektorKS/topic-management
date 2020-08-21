@@ -12,15 +12,16 @@ export class TopicFormService {
 
   private readonly formTopic$: Observable<Topic>;
   private readonly topicOwner$: Observable<boolean>;
-  private topicFormGroup: FormGroup = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
-    description: new FormControl('', [Validators.required, Validators.maxLength(5000)]),
-    supervisor: new FormControl({id: undefined, firstName: '', lastName: '', username: ''}),
-    students: new FormArray([]),
-    newStudent: new FormControl({id: undefined, username: ''})
-  });
+  private readonly topicFormGroup: FormGroup
 
   constructor(private store: Store) {
+    this.topicFormGroup = new FormGroup({
+      title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
+      description: new FormControl('', [Validators.required, Validators.maxLength(5000)]),
+      supervisor: new FormControl({id: undefined, firstName: '', lastName: '', username: ''}),
+      students: new FormArray([]),
+      newStudent: new FormControl({id: undefined, username: ''})
+    });
     this.formTopic$ = this.store.select(formTopicSelector).pipe(
       filter(topic => topic !== undefined)
     );
