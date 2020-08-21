@@ -1,4 +1,4 @@
-import {createReducer, on} from "@ngrx/store";
+import {Action, createReducer, on} from "@ngrx/store";
 import {BucketState, initialBucketsState} from "./bucket-state";
 import {
   bucketEditButtonClicked,
@@ -11,7 +11,7 @@ import {
 import {Bucket} from "./bucket.model";
 import {OperationType} from "../../operation/operation-type";
 
-export const bucketReducer = createReducer<BucketState>(
+const reducer = createReducer<BucketState>(
   initialBucketsState,
   on(newBucketInitialized, (state, action) => ({
     ...state,
@@ -37,3 +37,6 @@ export const bucketReducer = createReducer<BucketState>(
   }))
 );
 
+export function bucketReducer(state: BucketState = initialBucketsState, action: Action): BucketState {
+  return reducer(state, action);
+}

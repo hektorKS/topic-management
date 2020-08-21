@@ -1,9 +1,9 @@
-import {createReducer, on} from "@ngrx/store";
+import {Action, createReducer, on} from "@ngrx/store";
 import {initialMessagesState, MessagesState} from "./messages-state";
 import {conversationSelected, conversationsLoaded} from "./conversation/conversation-list/conversation-list-actions";
 import {messagesLoaded} from "./message-list/message-list-actions";
 
-export const messagesReducer = createReducer<MessagesState>(
+const reducer = createReducer<MessagesState>(
   initialMessagesState,
   on(conversationsLoaded, (store, action) => ({
     ...store,
@@ -19,4 +19,8 @@ export const messagesReducer = createReducer<MessagesState>(
     }
   )
 );
+
+export function messagesReducer(state: MessagesState = initialMessagesState, action: Action): MessagesState {
+  return reducer(state, action);
+}
 

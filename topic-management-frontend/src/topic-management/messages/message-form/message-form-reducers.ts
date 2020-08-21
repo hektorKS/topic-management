@@ -1,8 +1,8 @@
-import {createReducer, on} from "@ngrx/store";
+import {Action, createReducer, on} from "@ngrx/store";
 import {initialMessageFormState, MessageFormState} from "./message-form-state";
 import {messageValueChanged} from "./message-form-actions";
 
-export const messageFormReducer = createReducer<MessageFormState>(
+const reducer = createReducer<MessageFormState>(
   initialMessageFormState,
   on(messageValueChanged, (state, action) => ({
     ...state,
@@ -12,4 +12,8 @@ export const messageFormReducer = createReducer<MessageFormState>(
     }
   }))
 );
+
+export function messageFormReducer(state: MessageFormState = initialMessageFormState, action: Action): MessageFormState {
+  return reducer(state, action);
+}
 

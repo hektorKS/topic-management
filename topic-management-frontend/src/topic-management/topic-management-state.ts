@@ -60,7 +60,7 @@ export const initialTopicFormState: TopicFormState = {
   autocompletionUsers: []
 }
 
-export const initialState: TopicManagementState = {
+export const topicManagementInitialState: TopicManagementState = {
   signedInUser: undefined,
   schools: [],
   schoolBuckets: new Map(),

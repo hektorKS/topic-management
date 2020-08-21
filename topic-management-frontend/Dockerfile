@@ -5,4 +5,3 @@ COPY target/topic-management-frontend /usr/share/nginx/dist
 
 WORKDIR /usr/share/nginx/dist
 
-COPY src/ .

@@ -20,7 +20,6 @@ import {SchoolsComponent} from "./schools/schools.component";
 import {MatListModule} from "@angular/material/list";
 import {SchoolComponent} from "./schools/school/school.component";
 import {topicManagementFeatureKey, TopicManagementState} from "./topic-management-state";
-import {topicManagementReducer} from "./topic-management-reducers";
 import {MatMenuModule} from "@angular/material/menu";
 import {StoreRouterConnectingModule} from "@ngrx/router-store";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -53,6 +52,7 @@ import {AuthenticationModule} from "./users/authentication/authentication.module
 import {BottomSheetInfoComponent} from "./bottom-sheet/bottom-sheet-info.component";
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {TopicManagementEffects} from "./topic-management-effects";
+import {topicManagementReducer} from "./topic-management-reducers";
 
 const effects = [
   TopicManagementEffects,
@@ -64,7 +64,7 @@ const effects = [
   UsersEffects
 ];
 
-function dispatchAppInitialized(store: Store): () => Promise<void> {
+export function dispatchAppInitialized(store: Store): () => Promise<void> {
   return () => {
     if (store) {
       store.dispatch(topicManagementApplicationInitialized());

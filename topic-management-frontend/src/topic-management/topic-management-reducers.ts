@@ -1,4 +1,4 @@
-import {createReducer, on} from "@ngrx/store";
+import {Action, createReducer, on} from "@ngrx/store";
 import {schoolsLoaded} from "./schools/schools-actions";
 import {
   clearTopic,
@@ -7,7 +7,7 @@ import {
   topicsInBucketLoaded,
   updateFormTopic
 } from "./topics/topics-actions";
-import {initialState, initialTopicFormState, TopicManagementState} from "./topic-management-state";
+import {topicManagementInitialState, initialTopicFormState, TopicManagementState} from "./topic-management-state";
 import {bucketLoaded, updateBucketsInSchool} from "./buckets/buckets-actions";
 import {Topic} from "./topics/topic/topic.model";
 import {Bucket, BucketState} from "./buckets/bucket/bucket.model";
@@ -21,8 +21,8 @@ import {
 import {messageSent} from "./messages/message-form/message-form-actions";
 import {clearUserData, loadSignedInUser, signedIn} from "./users/authentication/authentication-actions";
 
-export const topicManagementReducer = createReducer<TopicManagementState>(
-  initialState,
+const reducer = createReducer<TopicManagementState>(
+  topicManagementInitialState,
   on(schoolsLoaded, (state, action) => ({...state, schools: action.schools})),
   on(updateBucketsInSchool, (state, action) => {
     state.schoolBuckets.set(action.schoolId, action.bucketViews);
@@ -106,3 +106,7 @@ export const topicManagementReducer = createReducer<TopicManagementState>(
     signedInUser: undefined
   }))
 );
+
+export function topicManagementReducer(state: TopicManagementState = topicManagementInitialState, action: Action): TopicManagementState {
+  return reducer(state, action);
+}

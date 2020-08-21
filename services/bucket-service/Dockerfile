@@ -1,4 +1,4 @@
-FROM jdk-11.0.8_10-alpine
+FROM openjdk:11-jdk
 
 ARG JAR_FILE=target/*.jar
 

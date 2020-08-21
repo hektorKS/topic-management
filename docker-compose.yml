@@ -60,6 +60,60 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: "127.0.0.1:2181"
     network_mode: "host"
+  topic-management-frontend:
+    build:
+      context: ./topic-management-frontend
+      dockerfile: Dockerfile
+    image: topic-management-frontend:1.0.0
+    container_name: topic-management-frontend
+    depends_on:
+      - topic-service
+      - bucket-service
+      - school-service
+      - user-service
+      - message-service
+    restart: always
+    network_mode: "host"
+  topic-service:
+    build:
+      context: ./services/topic-service
+      dockerfile: Dockerfile
+    image: topic-service:1.0.0
+    container_name: topic-service
+    restart: always
+    network_mode: "host"
+  bucket-service:
+    build:
+      context: ./services/bucket-service
+      dockerfile: Dockerfile
+    image: bucket-service:1.0.0
+    container_name: bucket-service
+    restart: always
+    network_mode: "host"
+  school-service:
+    build:
+      context: ./services/school-service
+      dockerfile: Dockerfile
+    image: school-service:1.0.0
+    container_name: school-service
+    restart: always
+    network_mode: "host"
+  user-service:
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    image: user-service:1.0.0
+    container_name: user-service
+    restart: always
+    network_mode: "host"
+  message-service:
+    build:
+      context: ./services/message-service
+      dockerfile: Dockerfile
+    image: message-service:1.0.0
+    container_name: message-service
+    restart: always
+    network_mode: "host"
 volumes:
   mongo-data-node1:
   mongo-config-node1:
