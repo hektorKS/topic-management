@@ -23,7 +23,8 @@ export class MessagesService {
     return this.httpClient
       .get<{ conversations: Conversation[] }>(`${TopicManagementServices.MESSAGE_SERVICE}/api/v1/conversations/users/${userId}`)
       .pipe(
-        map(response => response.conversations)
+        map(response => response.conversations),
+        map(conversations => conversations.sort((left, right) => left.lastMessageInstant - right.lastMessageInstant).reverse())
       );
   }
 
