@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.aggregation.Aggregation.group
 import org.springframework.data.mongodb.core.aggregation.Aggregation.match
 import org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation
+import org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregationOptions
 import org.springframework.data.mongodb.core.aggregation.Aggregation.project
 import org.springframework.data.mongodb.core.aggregation.Aggregation.sort
 import org.springframework.data.mongodb.core.query.Criteria
@@ -57,7 +58,7 @@ class CustomMessageMongoRepository(private val mongoTemplate: MongoTemplate) : C
         project(ConversationWithLastMessageView::class.java)
           .and(SENDER_ID).`as`(FIRST_USER_ID)
           .and(RECIPIENT_ID).`as`(SECOND_USER_ID)
-      )
+      ).withOptions(newAggregationOptions().allowDiskUse(true).build())
       return mongoTemplate.aggregate(aggregation, MESSAGES_COLLECTION_NAME, ConversationWithLastMessageView::class.java).mappedResults
     } catch (exception: Exception) {
       log.error("Searching conversations for userId=$userId in mongo failed with exception: $exception!")

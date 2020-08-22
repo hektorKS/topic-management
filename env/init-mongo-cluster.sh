@@ -32,4 +32,5 @@ docker exec mongo-node1 mongo user --eval 'db.users.createIndex( { "identifier":
 # Collections - MESSAGE SERVICE
 sleep 1
 docker exec mongo-node1 mongo message --eval 'db.createCollection("messages")'
+docker exec mongo-node1 mongo message --eval 'db.users.createIndex( { "instant": 1 } )'
 docker exec mongo-node1 mongo message --eval 'db.users.createIndex( { "senderId": 1, "recipientId": 1 } )'
