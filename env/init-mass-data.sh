@@ -88,7 +88,7 @@ do
 
   # Send 1000 messages
   message_counter=0
-  while [ $message_counter -le 1000 ]
+  while [ $message_counter -le 2000 ]
   do
     curl -X POST \
     http://localhost:9704/api/v1/messages -H 'Content-Type: application/json' \
